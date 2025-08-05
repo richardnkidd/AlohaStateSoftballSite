@@ -66,6 +66,16 @@ export default function Navigation() {
                   {/* Full-Screen Mobile Menu */}
                   <div className={`fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                     <div className="flex flex-col h-full pt-16 px-6">
+                      {/* Close Button */}
+                      <button 
+                        onClick={() => setIsMobileMoreOpen(false)}
+                        className="absolute top-4 right-4 p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                      >
+                        <span className="sr-only">Close menu</span>
+                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
                       {/* Navigation Links */}
                       <div className="space-y-4 mb-8">
                         <Link href="/" className="block text-xl font-medium text-gray-800 hover:text-teal-600 py-2" onClick={() => setIsMobileMoreOpen(false)}>
