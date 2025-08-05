@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Base font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef9ed;
+            transition: all 0.5s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Header font */
+        @font-face {
+          font-family: 'Bobby Jones Rough Soft Regular';
+          src: url('https://yourdomain.com/fonts/BobbyJonesRoughSoft-Regular.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+        .bobby-jones {
+          font-family: 'Bobby Jones Rough Soft Regular', sans-serif;
+        }
+
+        /* Basic styling for dropdown */
+        .dropdown-menu {
+            min-width: 10rem;
+        }
+
+        /* Custom focus ring style for better visibility */
+        *:focus-visible {
+            outline: 2px solid theme('colors.teal.500');
+            outline-offset: 2px;
+        }
+
+        /* Logo Fly-in Animation with Rainbow Trail */
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            animation: logo-fly-in 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
+        }
+        
+        /* Smooth Fly-in Animation with Spins - REDUCED MOTION */
+        @keyframes logo-fly-in {
+            0% {
+                transform: translateX(-80px) translateY(-30px) rotate(-144deg) scale(0.2);
+                opacity: 0;
+                box-shadow: 
+                    6px 3px 0 rgba(255, 0, 150, 0.9),
+                    12px 6px 0 rgba(255, 100, 0, 0.8),
+                    18px 9px 0 rgba(255, 255, 0, 0.7),
+                    24px 12px 0 rgba(0, 255, 100, 0.6),
+                    30px 15px 0 rgba(0, 150, 255, 0.5),
+                    36px 18px 0 rgba(150, 0, 255, 0.4);
+            }
+            20% {
+                transform: translateX(-60px) translateY(-20px) rotate(-108deg) scale(0.4);
+                opacity: 0.3;
+                box-shadow: 
+                    5px 2.4px 0 rgba(255, 0, 150, 0.9),
+                    10px 4.8px 0 rgba(255, 100, 0, 0.8),
+                    15px 7.2px 0 rgba(255, 255, 0, 0.7),
+                    20px 9.6px 0 rgba(0, 255, 100, 0.6),
+                    25px 12px 0 rgba(0, 150, 255, 0.5),
+                    30px 14.4px 0 rgba(150, 0, 255, 0.4);
+            }
+            40% {
+                transform: translateX(-40px) translateY(-12px) rotate(-72deg) scale(0.6);
+                opacity: 0.6;
+                box-shadow: 
+                    4px 2px 0 rgba(255, 0, 150, 0.8),
+                    8px 4px 0 rgba(255, 100, 0, 0.7),
+                    12px 6px 0 rgba(255, 255, 0, 0.6),
+                    16px 8px 0 rgba(0, 255, 100, 0.5),
+                    20px 10px 0 rgba(0, 150, 255, 0.4),
+                    24px 12px 0 rgba(150, 0, 255, 0.3);
+            }
+            60% {
+                transform: translateX(-20px) translateY(-6px) rotate(-36deg) scale(0.8);
+                opacity: 0.8;
+                box-shadow: 
+                    3px 1.4px 0 rgba(255, 0, 150, 0.7),
+                    6px 2.8px 0 rgba(255, 100, 0, 0.6),
+                    9px 4.2px 0 rgba(255, 255, 0, 0.5),
+                    12px 5.6px 0 rgba(0, 255, 100, 0.4),
+                    15px 7px 0 rgba(0, 150, 255, 0.3),
+                    18px 8.4px 0 rgba(150, 0, 255, 0.2);
+            }
+            80% {
+                transform: translateX(-6px) translateY(-1.6px) rotate(-9deg) scale(0.95);
+                opacity: 0.95;
+                box-shadow: 
+                    1.6px 0.8px 0 rgba(255, 0, 150, 0.5),
+                    3.2px 1.6px 0 rgba(255, 100, 0, 0.4),
+                    4.8px 2.4px 0 rgba(255, 255, 0, 0.3),
+                    6.4px 3.2px 0 rgba(0, 255, 100, 0.2);
+            }
+            95% {
+                transform: translateX(1px) translateY(0.4px) rotate(2deg) scale(1.02);
+                opacity: 1;
+                box-shadow: 
+                    0.6px 0.4px 0 rgba(255, 0, 150, 0.3),
+                    1.2px 0.8px 0 rgba(255, 100, 0, 0.2);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+                box-shadow: none;
+            }
+        }
+        
+        /* Subtle ongoing pulse after landing */
+        @keyframes gentle-glow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 3px rgba(255, 0, 150, 0.3));
+            }
+            50% { 
+                filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+            }
+        }
+        
+        /* Apply gentle glow after fly-in completes */
+        .logo-container {
+            animation: 
+                logo-fly-in 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both,
+                gentle-glow 4s ease-in-out 3.5s infinite;
+        }
+        
+        /* Logo Image */
+        .logo-container img {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+        
+        /* Optional: Add some sparkle dust that fades in after landing */
+        @keyframes sparkle-dust {
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg);
+            }
+            20% { 
+                opacity: 1; 
+                transform: scale(1.2) rotate(90deg);
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0.8) rotate(360deg);
+            }
+        }
+        
+        .logo-landed-effect {
+            position: absolute;
+            pointer-events: none;
+            font-size: 8px;
+            animation: sparkle-dust 1s ease-out 2.5s both;
+        }
+        
+        .dust-1 { top: -5px; right: -5px; animation-delay: 2.6s; }
+        .dust-2 { bottom: -3px; left: -5px; animation-delay: 2.8s; }
+        .dust-3 { top: 50%; left: -8px; animation-delay: 3.0s; }
+
+        /* =========================
+         PRIDE MODE STYLES
+         ========================= */
+        
+        /* Pride Toggle Switch */
+        .pride-toggle-switch-container {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        body.pride-mode .pride-toggle-switch-container {
+            color: white;
+            text-shadow: 0 0 8px rgba(0,0,0,0.5);
+        }
+        .pride-toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+            cursor: pointer;
+        }
+        .pride-toggle-switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .pride-switch-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 28px;
+            transition: all 0.4s ease;
+        }
+        .pride-switch-thumb {
+            position: absolute;
+            content: '';
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .pride-toggle-switch input:checked + .pride-switch-track {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad);
+            background-size: 300% 300%;
+            animation: pride-gradient 3s ease infinite;
+        }
+        .pride-toggle-switch input:checked + .pride-switch-track .pride-switch-thumb {
+            transform: translateX(24px);
+        }
+        
+        @keyframes pride-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pride-text-gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .pride-text-animated {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pride-text-gradient 3s ease infinite;
+        }
+        
+        /* Pride Mode Background with Breathing Effect - PERFORMANCE OPTIMIZED */
+        body.pride-mode {
+            background: linear-gradient(-45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad, #e40e78);
+            background-size: 300% 300%;
+            animation: pride-bg-shift 8s linear infinite;
+            background-attachment: scroll; /* Switched from fixed for performance */
+        }
+        
+        @keyframes pride-bg-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Pride Mode Navigation */
+        .pride-mode #main-nav {
+            background: linear-gradient(90deg, 
+                rgba(228, 14, 120, 0.9), 
+                rgba(255, 107, 53, 0.9), 
+                rgba(247, 147, 29, 0.9), 
+                rgba(255, 210, 63, 0.9), 
+                rgba(114, 200, 55, 0.9), 
+                rgba(46, 134, 171, 0.9), 
+                rgba(142, 68, 173, 0.9)
+            ) !important;
+            backdrop-filter: blur(10px);
+            animation: pride-nav-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pride-nav-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+            }
+        }
+        
+        /* NEW: Typography Choreography - Dancing Text */
+        .pride-mode .nav-link {
+            animation: text-dance 3s ease-in-out infinite;
+            transform-origin: center;
+            display: inline-block;
+            position: relative;
+        }
+
+        .pride-mode .nav-link:nth-child(1) { animation-delay: 0s; }
+        .pride-mode .nav-link:nth-child(2) { animation-delay: 0.2s; }
+        .pride-mode .nav-link:nth-child(3) { animation-delay: 0.4s; }
+        .pride-mode .nav-link:nth-child(4) { animation-delay: 0.6s; }
+
+        /* REDUCED MOTION */
+        @keyframes text-dance {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-0.2px) rotate(0.1deg) scale(1.002);
+            }
+            50% { 
+                transform: translateY(-0.1px) rotate(-0.1deg) scale(1.001);
+            }
+            75% { 
+                transform: translateY(-0.2px) rotate(0.05deg) scale(1.0016);
+            }
+        }
+
+        /* Rainbow Wave Text Animation */
+        .pride-mode h1,
+        .pride-mode h2,
+        .pride-mode h3,
+        .pride-mode .wave-text {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow-wave 2s ease-in-out infinite;
+        }
+
+        @keyframes rainbow-wave {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Pride Mode Links */
+        .pride-mode a {
+            transition: all 0.3s ease;
+            transform-origin: center;
+            will-change: transform;
+        }
+        
+        .pride-mode a:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            transform: scale(1.02);
+            animation: hover-shimmer 0.6s ease-in-out;
+        }
+
+        @keyframes hover-shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 10px rgba(255,255,255,0.8)); }
+        }
+        
+        /* Pride Mode Sponsor Section */
+        .pride-mode .sponsor-section-overlay {
+            background: linear-gradient(135deg, 
+                rgba(228, 14, 120, 0.1), 
+                rgba(255, 107, 53, 0.1), 
+                rgba(247, 147, 29, 0.1), 
+                rgba(255, 210, 63, 0.1), 
+                rgba(114, 200, 55, 0.1), 
+                rgba(46, 134, 171, 0.1), 
+                rgba(142, 68, 173, 0.1)
+            ) !important;
+        }
+        
+        .pride-mode .sponsor-section {
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            animation: pride-border-dance 3s linear infinite;
+        }
+        
+        @keyframes pride-border-dance {
+            0% { border-color: #e40e78; }
+            14% { border-color: #ff6b35; }
+            28% { border-color: #f7931d; }
+            42% { border-color: #ffd23f; }
+            56% { border-color: #72c837; }
+            70% { border-color: #2e86ab; }
+            84% { border-color: #8e44ad; }
+            100% { border-color: #e40e78; }
+        }
+        
+        /* Pride Mode Sponsor Images - DANCING ONLY */
+        .pride-mode .sponsor-section img {
+            transition: all 0.5s ease;
+            position: relative;
+            contain: layout style;
+            will-change: transform;
+            animation: sponsor-dance 4s ease-in-out infinite;
+        }
+        
+        .pride-mode .sponsor-section img:hover {
+            transform: scale(1.15) rotate(3deg);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+        }
+
+        .pride-mode .sponsor-section img:nth-child(even) {
+            animation-delay: 1s;
+        }
+        
+        /* REDUCED MOTION */
+        @keyframes sponsor-dance {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-0.2px) rotate(0.1deg) scale(1.002);
+            }
+            50% {
+                transform: translateY(-0.4px) rotate(0deg) scale(1.004);
+            }
+            75% {
+                transform: translateY(-0.2px) rotate(-0.1deg) scale(1.002);
+            }
+        }
+        
+        /* Particle Effects - PERFORMANCE OPTIMIZED */
+        .pride-particle, .softball-trail, .golden-particle, .sparkle-trail {
+            position: absolute !important; /* Switched from fixed for performance */
+            pointer-events: none;
+            z-index: 9999;
+            will-change: transform, opacity;
+            display: none; /* Hidden by default, enabled by JS */
+        }
+        
+        body.enable-particles .pride-particle, 
+        body.enable-particles .softball-trail, 
+        body.enable-particles .golden-particle,
+        body.enable-particles .sparkle-trail {
+            display: block;
+        }
+
+        .pride-particle {
+            font-size: 20px;
+            animation: pride-float 6s linear infinite;
+            transition: all 0.3s ease;
+        }
+
+        .pride-particle.magnetic {
+            animation: pride-magnetic 0.8s ease-out forwards;
+        }
+
+        .pride-particle.exploding {
+            animation: particle-explode 0.6s ease-out forwards;
+        }
+        
+        @keyframes pride-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pride-magnetic {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5) rotate(180deg); }
+            100% { transform: scale(0.8) rotate(360deg); }
+        }
+
+        @keyframes particle-explode {
+            0% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(2) rotate(180deg);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Free Agents Button Styles */
+        .free-agents-btn {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+            color: white;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free-agents-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .free-agents-btn:hover::before {
+            left: 100%;
+        }
+
+        .free-agents-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #0891b2 100%);
+        }
+        
+        /* Pride Mode Free Agents Button */
+        .pride-mode .free-agents-btn {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad) !important;
+            background-size: 300% 300% !important;
+            animation: pride-gradient 2s ease infinite, pride-pulse 1.5s ease-in-out infinite !important;
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+            border: 2px solid white !important;
+        }
+        
+        @keyframes pride-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+        }
+        
+        /* Pride Mode Social Icons */
+        .pride-mode .social-icon {
+            transition: all 0.5s ease;
+        }
+        
+        .pride-mode .social-icon:hover {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad) !important;
+            background-size: 300% 300% !important;
+            animation: pride-gradient 1s ease infinite !important;
+            transform: scale(1.2) rotate(15deg);
+        }
+        
+        /* Pride Mode Logo Enhancement */
+        .pride-mode .logo-container img {
+            filter: saturate(1.5) brightness(1.2);
+            animation: logo-pride-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes logo-pride-glow {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(228, 14, 120, 0.6);
+            }
+            16% {
+                box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+            }
+            32% {
+                box-shadow: 0 0 30px rgba(247, 147, 29, 0.6);
+            }
+            48% {
+                box-shadow: 0 0 30px rgba(255, 210, 63, 0.6);
+            }
+            64% {
+                box-shadow: 0 0 30px rgba(114, 200, 55, 0.6);
+            }
+            80% {
+                box-shadow: 0 0 30px rgba(46, 134, 171, 0.6);
+            }
+        }
+        
+        /* Pride Mode Text Glow */
+        .pride-mode h1,
+        .pride-mode h2,
+        .pride-mode h3 {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .sparkle-trail {
+            font-size: 16px;
+            animation: sparkle-trail-anim 2s ease-out forwards;
+        }
+
+        .quantum-sparkle {
+            animation: quantum-sparkle-anim 1.5s ease-out forwards;
+        }
+        
+        @keyframes sparkle-trail-anim {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5) translateY(-50px);
+            }
+        }
+
+        @keyframes quantum-sparkle-anim {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.5) rotate(180deg);
+                filter: hue-rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(360deg);
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* NEW: Rainbow Sweep Effect */
+        .rainbow-sweep {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(228, 14, 120, 0.3),
+                rgba(255, 107, 53, 0.3),
+                rgba(247, 147, 29, 0.3),
+                rgba(255, 210, 63, 0.3),
+                rgba(114, 200, 55, 0.3),
+                rgba(46, 134, 171, 0.3),
+                rgba(142, 68, 173, 0.3),
+                transparent
+            );
+            pointer-events: none;
+            z-index: 10000;
+            animation: rainbow-sweep-anim 3s ease-in-out forwards;
+        }
+
+        @keyframes rainbow-sweep-anim {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .golden-particle {
+            font-size: 24px;
+            color: gold;
+            animation: golden-rain 4s linear forwards;
+        }
+
+        @keyframes golden-rain {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Audio Feedback Indicator */
+        .audio-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 10001;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .audio-indicator.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Flying Softball Animation - Now hidden by default */
+        .flying-softball {
+            position: fixed; /* Softball stays fixed for its flight path */
+            top: 25%;
+            left: -200px;
+            font-size: 40px;
+            z-index: 9999;
+            pointer-events: none;
+            display: none; 
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+        }
+
+        @keyframes softball-flight {
+            0% {
+                left: -200px;
+                top: 25%;
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                left: 25vw;
+                top: 20%;
+                transform: rotate(90deg) scale(1.1);
+            }
+            50% {
+                left: 50vw;
+                top: 15%;
+                transform: rotate(180deg) scale(1.2);
+            }
+            75% {
+                left: 75vw;
+                top: 20%;
+                transform: rotate(270deg) scale(1.1);
+            }
+            100% {
+                left: calc(100vw + 200px);
+                top: 25%;
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        /* 🥎 NEW: SOFTBALL SPIN AND TRAIL 🥎 */
+        @keyframes softball-spin {
+          0%   { transform: rotate(0deg);   }
+          100% { transform: rotate(360deg); }
+        }
+        .flying-softball { 
+            animation: softball-flight 8s linear infinite,
+                         softball-spin   8s linear infinite; 
+        }
+
+        .softball-trail {
+            font-size: 20px;
+            animation: trail-fade 2s ease-out forwards;
+        }
+
+        @keyframes trail-fade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) translateY(-30px);
+            }
+        }
+
+        /* 💎 Sponsor Section Enhancement 💎 */
+        .sponsor-section-overlay {
+            animation: gentle-breathe 4s ease-in-out infinite;
+        }
+        @keyframes gentle-breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .sponsor-bingo {
+            filter: grayscale(30%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0; /* for lazy load fade-in */
+        }
+        .sponsor-bingo.fade-in {
+            opacity: 1;
+        }
+        .sponsor-bingo:hover {
+            filter: grayscale(0%) drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* 📱 Mobile Experience Polish 📱 */
+        @media (max-width: 768px) {
+            .nav-link, .social-icon, .sponsor-bingo {
+                position: relative;
+                min-height: 44px; /* Apple's recommended touch target */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .nav-link::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, transparent 70%);
+                transform: scale(0);
+                opacity: 0;
+            }
+            .nav-link:active::before {
+                transform: scale(1);
+                opacity: 1;
+                transition: transform 0.3s, opacity 0.3s;
+            }
+        }
+
+        /* ⚡ Performance & Accessibility ⚡ */
+        .sponsor-section {
+            contain: layout style; /* Use CSS containment for performance */
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                animation-delay: -0.01ms !important;
+            }
+            .flying-softball {
+                display: none !important;
+            }
+        }
+    </style>
+    <!-- === CSS OVERRIDE FOR WHITESPACE === -->
+    <style>
+      html, body {
+        min-height: auto !important;
+        height: auto !important;
+      }
+    </style>
+    <!-- === SPONSOR BINGO STYLES === -->
+    <style>
+        .sponsor-bingo {
+            cursor: pointer;
+            position: relative;
+            transition: opacity 0.3s ease, filter 0.3s ease;
+        }
+        .sponsor-bingo.tapped {
+            opacity: 0.75;
+            filter: drop-shadow(0 0 6px #00ffc3);
+        }
+        .sponsor-bingo.tapped::after {
+            content: '✅';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 20px;
+            text-shadow: 0 0 5px white;
+            z-index: 10;
+        }
+        #bingo-reset-btn {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 10002;
+            /* Hidden by default, add .show-dev to body to display */
+            display: none;
+        }
+        body.show-dev #bingo-reset-btn {
+            display: block;
+        }
+    </style>
+    <title>Homepage Banner - Aloha State Softball League</title>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation Bar -->
+    <nav id="main-nav" class="bg-[#fef9ed] shadow-sm sticky top-0 z-40 transition-all duration-300 ease-in-out">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-y-4 lg:gap-y-0 py-4">
+            
+            <!-- Left Side: Logo & Mobile Quick Links -->
+            <div class="flex-shrink-0 w-full lg:w-auto flex justify-between items-center">
+                <a href="https://www.aikaneohana.com/softball" target="_top" aria-label="Homepage" class="logo-container block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-500 focus-visible:ring-offset-white hover:ring-2 hover:ring-gray-300 hover:ring-offset-2 hover:ring-offset-white transition duration-150 ease-in-out">
+                    <img class="h-16 md:h-20 w-auto rounded-md shadow-sm" src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png" alt="Aloha State Softball League Logo" onerror="this.onerror=null; this.src='https://placehold.co/100x56/f0f0f0/333?text=Logo';" loading="lazy">
+                    <span class="logo-landed-effect dust-1">✨</span>
+                    <span class="logo-landed-effect dust-2">💫</span>
+                    <span class="logo-landed-effect dust-3">⭐</span>
+                </a>
+                <div class="flex items-center lg:hidden space-x-2">
+                    <a href="https://www.aikaneohana.com/softball" target="_top" class="nav-link text-gray-700 hover:text-teal-800 text-sm font-medium">Home</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="https://teamsideline.com/sites/aikaneohana/schedules" target="_blank" rel="noopener noreferrer" class="nav-link text-gray-700 hover:text-teal-800 text-sm font-medium">Schedules</a>
+                     <span class="text-gray-300">|</span>
+                     <div class="relative inline-block">
+                         <button type="button" id="mobile-more-menu-button" onclick="toggleDropdown('mobile-more-menu')" class="nav-link inline-flex items-center text-gray-700 hover:text-teal-800 text-sm font-medium">
+                             More
+                             <svg class="ml-1 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                         </button>
+                          <!-- DROPDOWN FIX: Changed z-10 to z-50 to appear above other content -->
+                          <div id="mobile-more-menu" class="dropdown-menu absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="mobile-more-menu-button" tabindex="-1">
+                              <div class="py-1" role="none">
+                                <a href="https://docs.google.com/document/d/1WVXGL7WZdNofOlHXv-ZwTB6xWIgGlyIvQmrkd3qVT44/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">2025 League Bylaws</a>
+                                <a href="https://docs.google.com/document/d/1_xuo1yCFGg8UXqA6PR-imTX50Zg0jvBTya6zu_9bNUc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">2025 Gameplay Rules</a>
+                                <a href="https://www.aikaneohana.com/bod" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Board of Directors</a>
+                                <a href="https://www.aikaneohana.com/softballratings" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Player Ratings 101</a>
+                                <a href="https://www.aikaneohana.com/scorekeeping" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Scorekeeping 101</a>
+                              </div>
+                          </div>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- Right Side: Links, Buttons, Social Icons -->
+            <div class="w-full lg:w-auto">
+                <div class="hidden lg:flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-y-4 lg:gap-y-0 w-full">
+                    <div class="flex items-center ml-10 space-x-4">
+                        <div class="pride-toggle-switch-container flex items-center gap-x-3">
+                            <span id="pride-toggle-label" class="font-semibold pride-text-animated wave-text">Pride Mode</span>
+                            <label class="pride-toggle-switch">
+                                <input type="checkbox" id="prideToggle" onclick="togglePrideMode()">
+                                <span class="pride-switch-track"><span class="pride-switch-thumb"></span></span>
+                            </label>
+                        </div>
+                        <a href="https://www.aikaneohana.com/softball" target="_top" class="nav-link relative group overflow-hidden text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"><span class="absolute inset-0 bg-gradient-to-r from-red-400 via-yellow-400 to-green-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span><span class="relative z-10">Home</span></a>
+                        <a href="https://teamsideline.com/sites/aikaneohana/schedules" target="_blank" rel="noopener noreferrer" class="nav-link relative group overflow-hidden text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"><span class="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span><span class="relative z-10">Schedules & Standings</span></a>
+                        <a href="https://www.aikaneohana.com/bod" target="_blank" rel="noopener noreferrer" class="nav-link relative group overflow-hidden text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hidden xl:block"><span class="absolute inset-0 bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span><span class="relative z-10">Board of Directors</span></a>
+                        <div class="relative">
+                            <button type="button" id="resources-menu-button" onclick="toggleDropdown('resources-menu')" class="nav-link relative group overflow-hidden inline-flex items-center justify-center text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium" aria-expanded="false" aria-haspopup="true">
+                                <span class="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                                <span class="relative z-10 flex items-center">
+                                  More
+                                  <svg class="ml-1 -mr-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </span>
+                            </button>
+                            <!-- DROPDOWN FIX: Changed z-10 to z-50 to appear above other content -->
+                            <div id="resources-menu" class="dropdown-menu absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="resources-menu-button" tabindex="-1">
+                                <div class="py-1" role="none">
+                                    <a href="https://docs.google.com/document/d/1WVXGL7WZdNofOlHXv-ZwTB6xWIgGlyIvQmrkd3qVT44/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">2025 League Bylaws</a>
+                                    <a href="https://docs.google.com/document/d/1_xuo1yCFGg8UXqA6PR-imTX50Zg0jvBTya6zu_9bNUc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">2025 Gameplay Rules</a>
+                                    <a href="https://www.aikaneohana.com/bod" target="_blank" rel="noopener noreferrer" class="text-gray-700 block xl:hidden px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Board of Directors</a>
+                                    <a href="https://www.aikaneohana.com/softballratings" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Player Ratings 101</a>
+                                    <a href="https://www.aikaneohana.com/scorekeeping" target="_blank" rel="noopener noreferrer" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1">Scorekeeping 101</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Desktop Free Agents Button -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="free-agents-btn relative inline-flex items-center px-4 py-2 ml-4 text-sm font-semibold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
+                         <span class="relative z-10">🏃‍♀️ Free Agent Signup</span>
+                    </a>
+                    <div class="flex items-center mt-4 lg:mt-0 lg:ml-4">
+                        <div class="flex items-center gap-4 ml-4">
+                            <a href="https://www.instagram.com/alohastatesoftballleague" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" class="social-icon relative group overflow-hidden block bg-pink-100 p-1.5 rounded-full hover:opacity-80 transition duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 fill-pink-600 group-hover:fill-white transition-colors duration-300" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.27.058 2.158.247 2.914.553a4.97 4.97 0 0 1 1.77 1.153 4.97 4.97 0 0 1 1.153 1.77c.306.756.495 1.644.553 2.914.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.058 1.27-.247 2.158-.553 2.914a4.97 4.97 0 0 1-1.153 1.77 4.97 4.97 0 0 1-1.77 1.153c-.756.306-1.644.495-2.914.553-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.27-.058-2.158-.247-2.914-.553a4.97 4.97 0 0 1-1.77-1.153 4.97 4.97 0 0 1-1.153-1.77c-.306-.756-.495-1.644-.553-2.914-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.058-1.27.247 2.158.553-2.914a4.97 4.97 0 0 1 1.153-1.77A4.97 4.97 0 0 1 4.237 2.81c.756-.306 1.644-.495 2.914-.553C8.416 2.175 8.796 2.163 12 2.163m0-1.625c-3.259 0-3.67.014-4.947.072-1.296.059-2.21.25-3.01.556a6.59 6.59 0 0 0-2.32 1.514 6.59 6.59 0 0 0-1.514 2.32c-.306.8-.497 1.714-.556 3.01C.014 8.33 0 8.741 0 12s.014 3.67.072 4.947c.059 1.296.25 2.21.556 3.01a6.59 6.59 0 0 0 1.514 2.32 6.59 6.59 0 0 0 2.32 1.514c.8.306 1.714.497 3.01.556 1.277.058 1.688.072 4.947.072s3.67-.014 4.947-.072c1.296-.059 2.21-.25 3.01-.556a6.59 6.59 0 0 0 2.32-1.514 6.59 6.59 0 0 0 1.514-2.32c.306-.8.497-1.714-.556-3.01.058-1.277.072-1.688.072-4.947s-.014-3.67-.072-4.947c-.059-1.296-.25-2.21-.556-3.01a6.59 6.59 0 0 0-1.514-2.32 6.59 6.59 0 0 0-2.32-1.514c-.8-.306-1.714-.497-3.01-.556C15.67.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.7a4.537 4.537 0 1 1 0-9.075 4.537 4.537 0 0 1 0 9.075zM18.402 6.4a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88z"/></svg></a>
+                            <a href="https://www.facebook.com/profile.php?id=61562725435340" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" class="social-icon relative group overflow-hidden block bg-blue-100 p-1.5 rounded-full hover:opacity-80 transition duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 fill-blue-700 group-hover:fill-white transition-colors duration-300" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.13 8.44 9.88v-6.99H8v-2.89h2.44V9.41c0-2.42 1.44-3.76 3.64-3.76 1.06 0 2.16.19 2.16.19v2.38h-1.22c-1.2 0-1.57.75-1.57 1.52v1.83h2.67l-.43 2.89h-2.24V21.9C18.34 21.13 22 17 22 12z"/></svg></a>
+                            <a href="mailto:mikey@alohastatesoftball.com" aria-label="Email Us" class="social-icon relative group overflow-hidden block bg-gray-200 p-1.5 rounded-full hover:opacity-80 transition duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 fill-gray-800 group-hover:fill-white transition-colors duration-300" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4.99-8 5-8-5V6l8 5 8-5v2.99z"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Mobile Action Buttons -->
+                <div class="lg:hidden flex flex-col w-full gap-y-4 mt-4">
+                     <!-- Mobile Free Agents Button -->
+                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+                        target="_blank" rel="noopener noreferrer"
+                        class="free-agents-btn w-full text-center px-6 py-3 text-base font-semibold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
+                          🏃‍♀️ Free Agent Signup
+                     </a>
+                     <div class="flex items-center justify-center gap-4">
+                         <a href="https://www.instagram.com/alohastatesoftballleague" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" class="social-icon relative group overflow-hidden block bg-pink-100 p-1.5 rounded-full hover:opacity-80 transition"><svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 fill-pink-600" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.27.058 2.158.247 2.914.553a4.97 4.97 0 0 1 1.77 1.153 4.97 4.97 0 0 1 1.153 1.77c.306.756.495 1.644.553 2.914.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.058 1.27-.247 2.158-.553 2.914a4.97 4.97 0 0 1-1.153 1.77 4.97 4.97 0 0 1-1.77 1.153c-.756.306-1.644.495-2.914.553-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.27-.058-2.158-.247-2.914-.553a4.97 4.97 0 0 1-1.77-1.153 4.97 4.97 0 0 1-1.153-1.77c-.306-.756-.495-1.644-.553-2.914-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.058-1.27.247 2.158.553-2.914a4.97 4.97 0 0 1 1.153-1.77A4.97 4.97 0 0 1 4.237 2.81c.756-.306 1.644-.495 2.914-.553C8.416 2.175 8.796 2.163 12 2.163m0-1.625c-3.259 0-3.67.014-4.947.072-1.296.059-2.21.25-3.01.556a6.59 6.59 0 0 0-2.32 1.514 6.59 6.59 0 0 0-1.514 2.32c-.306.8-.497 1.714-.556 3.01C.014 8.33 0 8.741 0 12s.014 3.67.072 4.947c.059 1.296.25 2.21.556 3.01a6.59 6.59 0 0 0 1.514 2.32 6.59 6.59 0 0 0 2.32 1.514c.8.306 1.714.497 3.01.556 1.277.058 1.688.072 4.947.072s3.67-.014 4.947-.072c1.296-.059 2.21-.25 3.01-.556a6.59 6.59 0 0 0 2.32-1.514 6.59 6.59 0 0 0 1.514-2.32c.306-.8.497-1.714-.556-3.01.058-1.277.072-1.688.072-4.947s-.014-3.67-.072-4.947c-.059-1.296-.25-2.21-.556-3.01a6.59 6.59 0 0 0-1.514-2.32 6.59 6.59 0 0 0-2.32-1.514c-.8-.306-1.714-.497-3.01-.556C15.67.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.7a4.537 4.537 0 1 1 0-9.075 4.537 4.537 0 0 1 0 9.075zM18.402 6.4a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88z"/></svg></a>
+                         <a href="https://www.facebook.com/profile.php?id=61562725435340" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" class="social-icon relative group overflow-hidden block bg-blue-100 p-1.5 rounded-full hover:opacity-80 transition"><svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 fill-blue-700" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.13 8.44 9.88v-6.99H8v-2.89h2.44V9.41c0-2.42 1.44-3.76 3.64-3.76 1.06 0 2.16.19 2.16.19v2.38h-1.22c-1.2 0-1.57.75-1.57 1.52v1.83h2.67l-.43 2.89h-2.24V21.9C18.34 21.13 22 17 22 12z"/></svg></a>
+                         <a href="mailto:mikey@alohastatesoftball.com" aria-label="Email Us" class="social-icon relative group overflow-hidden block bg-gray-200 p-1.5 rounded-full hover:opacity-80 transition"><svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 fill-gray-800" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4.99-8 5-8-5V6l8 5 8-5v2.99z"/></svg></a>
+                     </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </nav>
+    
+<div class="w-full mx-auto px-4 py-2">
+  <div class="sponsor-section max-w-screen-xl mx-auto bg-cover bg-center rounded-xl px-6 py-3 shadow-md"
+       style="background-image: url('https://static.wixstatic.com/media/df1e99_7d482e4975b446269ed7f7f9cb8c2d62~mv2.png');">
+
+    <div class="sponsor-section-overlay bg-gradient-to-br from-cyan-100/50 to-pink-100/50 backdrop-blur-md rounded-lg px-4 py-3">
+
+      <div class="flex justify-center mb-4">
+        <img src="https://static.wixstatic.com/media/df1e99_ad0f0c0a9221428690d41358cd5ad6c9~mv2.png"
+             alt="Mahalo to our 2025 Sponsors!"
+             class="w-auto max-h-10 md:max-h-12 object-contain"
+             loading="lazy">
+      </div>
+      <!-- Sponsor Logo Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 items-center justify-items-center min-h-[276px]">
+        <a href="https://hulas.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-hulas" data-src="https://static.wixstatic.com/media/df1e99_df8e26ec547d49d48546138fe541f8ef~mv2.png" alt="Hula's Bar & Lei Stand" title="Hula's Bar & Lei Stand" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.hawaiigaybar.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-tapas" data-src="https://static.wixstatic.com/media/df1e99_15421420fa1848a8a1ba6509e9bb80ef~mv2.png" alt="Tapas Waikiki" title="Tapas Waikiki" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.boh.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-boh" data-src="https://static.wixstatic.com/media/df1e99_b39ff2b25c5b492591872cf7fb1b34ee~mv2.png" alt="Bank of Hawai'i" title="Bank of Hawai'i" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.scarlethonolulu.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-scarlet" data-src="https://static.wixstatic.com/media/df1e99_d0a44f9755154669a51d7b884a01b91d~mv2.png" alt="Scarlet Honolulu" title="Scarlet Honolulu" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.instagram.com/whippednwhiskedhawaii/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-whipped" data-src="https://static.wixstatic.com/media/df1e99_80cc683f43274a94b66ecd62773e0d97~mv2.png" alt="Whipped & Whisked" title="Whipped & Whisked" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.kelliwithaneyephotography.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-kelli" data-src="https://static.wixstatic.com/media/df1e99_168ba11d5a514d338ece56115d5fe243~mv2.png" alt="Kelli with an Eye Photography" title="Kelli with an Eye Photography" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://ericzmartin.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-eric" data-src="https://static.wixstatic.com/media/df1e99_5890ac34dd0c48e9bf7d1b059fe1d5c9~mv2.png" alt="Eric Z Martin Photography" title="Eric Z Martin Photography" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.futureofcool.co/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-future" data-src="https://static.wixstatic.com/media/df1e99_85f53ed5f46246deb395e8e0f96e22f2~mv2.png" alt="Future of Cool" title="Future of Cool" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://oteamhawaii.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-OTeam" data-src="https://static.wixstatic.com/media/df1e99_b7555d6dc77c439f9cb4e7718bcd7148~mv2.png" alt="The O Team" title="The O Team" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.wangchungs.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-wang" data-src="https://static.wixstatic.com/media/df1e99_6fc56a91f0554b928bcf944fdf4d08b5~mv2.png" alt="Wang Chung's" title="Wang Chung's" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="#" class="block">
+            <img id="sponsor-bacchus" data-src="https://static.wixstatic.com/media/df1e99_c44094fb039e4250ab4c770d4063fc77~mv2.png" alt="Bacchus Waikiki" title="Bacchus Waikiki" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="#" class="block">
+            <img id="sponsor-mimosa" data-src="https://static.wixstatic.com/media/df1e99_56ea612f4d554ad2b98f6b7687725051~mv2.png" alt="Team Mimosa" title="Team Mimosa" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.mylemon.com/hawaii-lemon-law/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-mylemon" data-src="https://static.wixstatic.com/media/df1e99_949a605d460e4f0e96855ac5f51d59ed~mv2.png" alt="Hawai'i Lemon Law" title="Hawai'i Lemon Law" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+        <a href="https://www.kaimana.com/" target="_blank" rel="noopener noreferrer" class="block">
+            <img id="sponsor-kaimana" data-src="https://static.wixstatic.com/media/df1e99_5f8cc36fa139496b9d35798aa4279ab9~mv2.png" alt="Kaimana Beach Hotel" title="Kaimana Beach Hotel" class="sponsor-bingo h-32 max-w-[180px] object-contain mx-auto" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </a>
+      </div>
+
+      <div class="mt-4 text-center">
+        <a href="https://www.zeffy.com/en-US/fundraising/support-aloha-state-softball-2025-season" 
+           target="_blank" rel="noopener noreferrer"
+           class="relative group overflow-hidden inline-block bg-gradient-to-r from-pink-500 to-yellow-400 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:scale-105 transition-transform duration-200">
+          <span class="absolute inset-0 bg-gradient-to-r from-teal-400 via-purple-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+          <span class="relative z-10">Become a Sponsor</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+    <!-- Container for all absolute-positioned effects -->
+    <div id="effect-container" style="position: relative; z-index: 9990;"></div>
+
+    <!-- Audio Feedback Indicator -->
+    <div id="audioIndicator" class="audio-indicator">
+        🎵 Sound Enabled
+    </div>
+
+    <!-- Bingo Reset Button (for testing) -->
+    <button id="bingo-reset-btn">Reset Bingo</button>
+
+    <!-- Flying softball (spawns only in Pride Mode) -->
+    <div id="softball" class="flying-softball">🥎</div>
+
+    <script>
+     // =========================
+     // AUDIO SYSTEM
+     // =========================
+     class PrideSoundSystem {
+       constructor() {
+         this.audioContext = null;
+         this.sounds = {};
+         this.isEnabled = false;
+         this.init();
+       }
+
+       async init() {
+         try {
+           this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+           this.isEnabled = true;
+           this.createSounds();
+         } catch (error) {
+           console.log('Audio not supported:', error);
+         }
+       }
+
+       createSounds() {
+         // Pride toggle celebration - the only sound we need!
+         this.sounds.prideToggle = this.createTone([523.25, 659.25, 783.99, 1046.50, 1318.51], 1.5);
+       }
+
+       createTone(frequencies, duration) {
+         return () => {
+           if (!this.isEnabled || !this.audioContext) return;
+           
+           const now = this.audioContext.currentTime;
+           frequencies.forEach((freq, i) => {
+             const oscillator = this.audioContext.createOscillator();
+             const gainNode = this.audioContext.createGain();
+             
+             oscillator.connect(gainNode);
+             gainNode.connect(this.audioContext.destination);
+             
+             oscillator.frequency.setValueAtTime(freq, now + i * 0.1);
+             oscillator.type = 'sine';
+             
+             gainNode.gain.setValueAtTime(0, now + i * 0.1);
+             gainNode.gain.linearRampToValueAtTime(0.1, now + i * 0.1 + 0.01);
+             gainNode.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + duration / frequencies.length);
+             
+             oscillator.start(now + i * 0.1);
+             oscillator.stop(now + i * 0.1 + duration / frequencies.length);
+           });
+         };
+       }
+
+       play(soundName) {
+         if (this.sounds[soundName]) {
+           this.sounds[soundName]();
+           this.showAudioIndicator();
+         }
+       }
+
+       showAudioIndicator() {
+         const indicator = document.getElementById('audioIndicator');
+         indicator.classList.add('show');
+         setTimeout(() => indicator.classList.remove('show'), 1500);
+       }
+     }
+
+     // Initialize sound system
+     const soundSystem = new PrideSoundSystem();
+
+     // =========================
+     // PRIDE MODE SYSTEM
+     // =========================
+     let prideMode = false;
+     let prideParticleInterval = null;
+     let sparkleTrail = [];
+     let particles = [];
+     let mouseX = 0;
+     let mouseY = 0;
+     const effectContainer = document.getElementById('effect-container');
+     const emojiPool = ['🏳️‍🌈','🥎','🌺','🦄','💃','🌈','⭐','🎉'];
+
+     /** Enhanced Pride Mode Toggle */
+     function togglePrideMode() {
+       prideMode = !prideMode;
+       const body = document.body;
+       const prideLabel = document.getElementById('pride-toggle-label');
+
+       if (prideMode) {
+         body.classList.add('pride-mode');
+         prideLabel.classList.remove('pride-text-animated');
+         startPrideEffects();
+         soundSystem.play('prideToggle');
+       } else {
+         body.classList.remove('pride-mode');
+         prideLabel.classList.add('pride-text-animated');
+         stopPrideEffects();
+       }
+     }
+     
+     /** Start Enhanced Pride Mode Effects - OPTIMIZED */
+     function startPrideEffects() {
+       // All ambient particle effects are removed for performance.
+       // Mouse trail is also removed.
+       // Flying softball remains.
+       createFlyingSoftball();
+     }
+
+     /* ===  FLYING SOFTBALL WITH RAINBOW TRAIL === */
+     let trailTimer;
+     function createFlyingSoftball() {
+       const ball = document.getElementById('softball');
+       if (!ball) return;
+       ball.style.display = prideMode ? 'block' : 'none';
+       if (!prideMode) {
+           if (trailTimer) clearInterval(trailTimer);
+           return;
+       }
+
+       if (trailTimer) clearInterval(trailTimer);
+       trailTimer = setInterval(() => spawnTrail(ball), 150);
+     }
+     function spawnTrail(ball) {
+       if (!prideMode) return;
+       const trail = document.createElement('div');
+       trail.className = 'softball-trail';
+       trail.textContent = ['🌈','✨','⭐','💫','🌟'][Math.floor(Math.random()*5)];
+       const rect = ball.getBoundingClientRect();
+       
+       trail.style.left = rect.left + window.scrollX + 'px';
+       trail.style.top  = rect.top  + window.scrollY  + 'px';
+       trail.style.position = 'fixed'; 
+       document.body.appendChild(trail); 
+       setTimeout(()=>trail.remove(),2000);
+     }
+     
+     /** Stop Pride Mode Effects */
+     function stopPrideEffects() {
+       document.body.classList.remove('enable-particles');
+       if (prideParticleInterval) {
+         clearInterval(prideParticleInterval);
+         prideParticleInterval = null;
+       }
+       if (trailTimer) {
+         clearInterval(trailTimer);
+         trailTimer = null;
+       }
+       
+       // Clear existing particles and effects
+       effectContainer.innerHTML = '';
+       document.querySelectorAll('.flying-softball, .softball-trail').forEach(el => {
+            if(el.parentNode) el.parentNode.removeChild(el)
+       });
+       particles = [];
+     }
+     
+     /** Create Quantum Pride Particles for Storm Effect */
+     function createQuantumPrideParticle() {
+       const particle = document.createElement('div');
+       particle.className = 'pride-particle';
+       particle.textContent = emojiPool[Math.floor(Math.random() * emojiPool.length)];
+       particle.style.left = Math.random() * 100 + 'vw';
+       particle.style.animationDelay = Math.random() * 2 + 's';
+       particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+       
+       effectContainer.appendChild(particle);
+       
+       setTimeout(() => {
+         if (particle.parentNode) {
+           particle.parentNode.removeChild(particle);
+         }
+       }, 6000);
+     }
+
+     // =========================
+     // EASTER EGG SYSTEM
+     // =========================
+     let keySequence = [];
+     const easterEggCodes = {
+       'rainbow': ['KeyR', 'KeyA', 'KeyI', 'KeyN', 'KeyB', 'KeyO', 'KeyW'],
+       'sparkle': ['KeyS', 'KeyP', 'KeyA', 'KeyR', 'KeyK', 'KeyL', 'KeyE'],
+       'pride': ['KeyP', 'KeyR', 'KeyI', 'KeyD', 'KeyE'],
+       'fabulous': ['KeyF', 'KeyA', 'KeyB', 'KeyU', 'KeyL', 'KeyO', 'KeyU', 'KeyS']
+     };
+
+     document.addEventListener('keydown', function(e) {
+       keySequence.push(e.code);
+       if (keySequence.length > 8) keySequence.shift();
+       
+       Object.entries(easterEggCodes).forEach(([name, sequence]) => {
+         if (arraysEqual(keySequence.slice(-sequence.length), sequence)) {
+           triggerEasterEgg(name);
+           keySequence = [];
+         }
+       });
+     });
+
+     function arraysEqual(a, b) {
+       return a.length === b.length && a.every((val, i) => val === b[i]);
+     }
+
+     function triggerEasterEgg(type) {
+       if (type === 'fabulous') {
+         soundSystem.play('prideToggle');
+       }
+       
+       switch(type) {
+         case 'rainbow':
+           createRainbowSweep();
+           break;
+         case 'sparkle':
+           createMassiveSparkleStorm();
+           break;
+         case 'pride':
+           createPrideTextExplosion();
+           break;
+         case 'fabulous':
+           createUltimateSpectacle();
+           break;
+       }
+     }
+
+     // =========================
+     // SPECIAL EFFECTS
+     // =========================
+     function createRainbowSweep() {
+       const sweep = document.createElement('div');
+       sweep.className = 'rainbow-sweep';
+       document.body.appendChild(sweep);
+       
+       setTimeout(() => {
+         if (sweep.parentNode) {
+           sweep.parentNode.removeChild(sweep);
+         }
+       }, 3000);
+     }
+
+     function createMassiveSparkleStorm() {
+       document.body.classList.add('enable-particles');
+       for (let i = 0; i < 100; i++) {
+         setTimeout(() => createQuantumPrideParticle(), i * 20);
+       }
+     }
+
+     function createPrideTextExplosion() {
+       const messages = ['FABULOUS!', 'PRIDE!', 'LOVE WINS!', 'BE YOURSELF!', 'RAINBOW POWER!'];
+       const message = messages[Math.floor(Math.random() * messages.length)];
+       
+       const textElement = document.createElement('div');
+       textElement.style.cssText = `
+         position: fixed;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         font-size: 3rem;
+         font-weight: bold;
+         z-index: 10000;
+         pointer-events: none;
+         animation: text-explosion 2s ease-out forwards;
+       `;
+       textElement.className = 'wave-text';
+       textElement.textContent = message;
+       
+       const style = document.createElement('style');
+       style.textContent = `
+         @keyframes text-explosion {
+           0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+           20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+           80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+           100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+         }
+       `;
+       document.head.appendChild(style);
+       document.body.appendChild(textElement);
+       
+       setTimeout(() => {
+         if (textElement.parentNode) textElement.parentNode.removeChild(textElement);
+         if (style.parentNode) style.parentNode.removeChild(style);
+       }, 2000);
+     }
+
+     function createUltimateSpectacle() {
+       createRainbowSweep();
+       createMassiveSparkleStorm();
+       setTimeout(() => createPrideTextExplosion(), 600);
+       
+       if (!prideMode) {
+         document.getElementById('prideToggle').checked = true;
+         togglePrideMode();
+       }
+     }
+
+     // =========================
+     // SPONSOR BINGO SYSTEM
+     // =========================
+     const BINGO_STORAGE_KEY = 'asslBingoProgress';
+     const BINGO_VICTORY_THRESHOLD = 5;
+     let tappedSponsors = new Set();
+     let bingoComplete = false;
+
+     function initSponsorBingo() {
+        const sponsors = document.querySelectorAll('.sponsor-bingo');
+        loadBingoProgress();
+
+        sponsors.forEach(sponsor => {
+            sponsor.addEventListener('click', handleSponsorTap);
+        });
+
+        const resetButton = document.getElementById('bingo-reset-btn');
+        resetButton.addEventListener('click', () => {
+            sessionStorage.removeItem(BINGO_STORAGE_KEY);
+            window.location.reload();
+        });
+     }
+
+     function handleSponsorTap(event) {
+        if (bingoComplete) return;
+
+        const logo = event.currentTarget;
+        const sponsorId = logo.id;
+
+        if (!tappedSponsors.has(sponsorId)) {
+            logo.classList.add('tapped');
+            tappedSponsors.add(sponsorId);
+            saveBingoProgress();
+            checkBingoProgress();
+        }
+     }
+
+     function checkBingoProgress() {
+        if (tappedSponsors.size >= BINGO_VICTORY_THRESHOLD) {
+            bingoComplete = true;
+            createMassiveSparkleStorm();
+            
+            setTimeout(() => {
+                alert("🎉 You completed Sponsor Bingo! Mahalo for supporting our league.");
+            }, 1000);
+        }
+     }
+
+     function loadBingoProgress() {
+        const savedProgress = sessionStorage.getItem(BINGO_STORAGE_KEY);
+        if (savedProgress) {
+            const tappedIds = JSON.parse(savedProgress);
+            tappedSponsors = new Set(tappedIds);
+            
+            tappedSponsors.forEach(sponsorId => {
+                const logo = document.getElementById(sponsorId);
+                if (logo) {
+                    logo.classList.add('tapped');
+                }
+            });
+
+            if (tappedSponsors.size >= BINGO_VICTORY_THRESHOLD) {
+                bingoComplete = true;
+            }
+        }
+     }
+
+     function saveBingoProgress() {
+        sessionStorage.setItem(BINGO_STORAGE_KEY, JSON.stringify([...tappedSponsors]));
+     }
+
+     // =========================
+     // ORIGINAL FUNCTIONALITY
+     // =========================
+     
+     function toggleDropdown(menuId) {
+         const menu = document.getElementById(menuId);
+         const button = document.getElementById(menuId + '-button');
+         if (menu && button) {
+             const isExpanded = button.getAttribute('aria-expanded') === 'true';
+             menu.classList.toggle('hidden');
+             button.setAttribute('aria-expanded', !isExpanded);
+             
+             if (!isExpanded && menuId !== 'mobile-menu') {
+                 menu.querySelector('[role="menuitem"]')?.focus();
+             }
+         }
+     }
+
+     function handleScroll() {
+       const nav = document.getElementById('main-nav');
+       if (nav) {
+           if (window.scrollY > 20) {
+               nav.classList.add('shadow-md');
+                if (!prideMode) nav.classList.add('bg-[#fef9ed]/95', 'backdrop-blur-sm');
+           } else {
+               nav.classList.remove('shadow-md');
+               if (!prideMode) nav.classList.remove('bg-[#fef9ed]/95', 'backdrop-blur-sm');
+           }
+       }
+     }
+
+     window.addEventListener('scroll', handleScroll);
+
+     document.addEventListener('click', function(event) {
+       const resourcesMenu = document.getElementById('resources-menu');
+       const resourcesMenuButton = document.getElementById('resources-menu-button');
+       const mobileMoreMenu = document.getElementById('mobile-more-menu');
+       const mobileMoreMenuButton = document.getElementById('mobile-more-menu-button');
+
+       if (resourcesMenuButton && resourcesMenu && !resourcesMenu.classList.contains('hidden') &&
+           !resourcesMenu.contains(event.target) && !resourcesMenuButton.contains(event.target)) {
+               toggleDropdown('resources-menu');
+       }
+
+       if (mobileMoreMenuButton && mobileMoreMenu && !mobileMoreMenu.classList.contains('hidden') &&
+           !mobileMoreMenu.contains(event.target) && !mobileMoreMenuButton.contains(event.target)) {
+               toggleDropdown('mobile-more-menu');
+       }
+     });
+
+     document.addEventListener('keydown', function(event) {
+         if (event.key === 'Escape') {
+             const resourcesMenu = document.getElementById('resources-menu');
+             const resourcesMenuButton = document.getElementById('resources-menu-button');
+              if (resourcesMenu && !resourcesMenu.classList.contains('hidden')) {
+                  toggleDropdown('resources-menu');
+                  resourcesMenuButton.focus();
+              }
+             
+             const mobileMoreMenu = document.getElementById('mobile-more-menu');
+             const mobileMoreMenuButton = document.getElementById('mobile-more-menu-button');
+             if (mobileMoreMenu && !mobileMoreMenu.classList.contains('hidden')) {
+                  toggleDropdown('mobile-more-menu');
+                  mobileMoreMenuButton.focus();
+             }
+         }
+     });
+
+   // Swipe to toggle Pride Mode
+   let touchStartX = 0;
+   document.addEventListener('touchstart', (e) => {
+       touchStartX = e.touches[0].clientX;
+   });
+   document.addEventListener('touchend', (e) => {
+       const touchEndX = e.changedTouches[0].clientX;
+       const swipeDistance = touchEndX - touchStartX;
+       if (Math.abs(swipeDistance) > 100) { // 100px threshold
+           if (swipeDistance > 0 && touchStartX < 50) { // Swipe right from left edge
+               if (!prideMode) {
+                   document.getElementById('prideToggle').checked = true;
+                   togglePrideMode();
+               }
+           }
+       }
+   });
+
+     document.addEventListener('DOMContentLoaded', function() {
+       handleScroll();
+       initSponsorBingo();
+       
+       document.addEventListener('click', () => {
+         if (soundSystem.audioContext && soundSystem.audioContext.state === 'suspended') {
+           soundSystem.audioContext.resume();
+         }
+       }, { once: true });
+
+        // Lazy load sponsor images
+        const sponsorImages = document.querySelectorAll('.sponsor-bingo');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('fade-in');
+                    observer.unobserve(img);
+                }
+            });
+        });
+        sponsorImages.forEach(img => imageObserver.observe(img));
+     });
+    </script>
+
+</body>
+</html>
