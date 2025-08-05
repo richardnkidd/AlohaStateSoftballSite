@@ -131,6 +131,51 @@ body.pride-mode {
   transform: scale(1.1);
 }
 
+/* Sponsor Banner Styles */
+.sponsor-section {
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+.sponsor-section-overlay {
+  background: linear-gradient(135deg, 
+    rgba(6, 182, 212, 0.5), 
+    rgba(236, 72, 153, 0.5)
+  );
+  backdrop-filter: blur(10px);
+}
+
+.sponsor-bingo {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sponsor-bingo:hover {
+  transform: scale(1.1);
+}
+
+.sponsor-bingo.tapped {
+  opacity: 0.75;
+  transform: scale(0.95);
+}
+
+.sponsor-bingo.tapped::after {
+  content: '✓';
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(34, 197, 94, 0.9);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 .skill-section-image {
   display: block;
   max-width: 150px;
