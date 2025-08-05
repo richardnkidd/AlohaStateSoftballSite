@@ -152,7 +152,7 @@ export default function SponsorBanner() {
           </div>
           
           {/* Sponsor Logo Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center min-h-[400px]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 items-center justify-items-center min-h-[276px]">
             {sponsors.map((sponsor) => (
               <a 
                 key={sponsor.id}
@@ -172,7 +172,7 @@ export default function SponsorBanner() {
                   src={sponsor.image}
                   alt={sponsor.name}
                   title={sponsor.name}
-                  className={`sponsor-bingo h-64 max-w-[360px] object-contain mx-auto transition-all duration-300 hover:scale-110 ${
+                  className={`sponsor-bingo h-32 max-w-[180px] object-contain mx-auto transition-all duration-300 hover:scale-110 ${
                     tappedSponsors.has(sponsor.id) ? 'opacity-75 scale-95' : ''
                   }`}
                   loading="lazy"
