@@ -1,353 +1,336 @@
 import { useEffect, useState } from "react";
 
 export default function Scorekeeping() {
-  const [currentBatter, setCurrentBatter] = useState(1);
-  const [inning, setInning] = useState(1);
-  const [outs, setOuts] = useState(0);
-  const [selectedBat, setSelectedBat] = useState<number | null>(null);
+  const [selectedPlay, setSelectedPlay] = useState<string>('');
+  const [hasRun, setHasRun] = useState(false);
+  const [isQuickNavOpen, setIsQuickNavOpen] = useState(false);
 
   useEffect(() => {
-    document.title = "Scorekeeping Tutorial - Aloha State Softball League";
+    document.title = "🥎 Aloha State Softball - Beginner's Guide to Scorekeeping";
   }, []);
 
-  const handleNextBatter = () => {
-    setCurrentBatter(prev => prev === 10 ? 1 : prev + 1);
-  };
-
-  const handleOut = () => {
-    if (outs < 3) {
-      setOuts(prev => prev + 1);
-      if (outs === 2) {
-        setInning(prev => prev + 1);
-        setOuts(0);
-      }
+  const updateScorebox = (play: string) => {
+    setSelectedPlay(play);
+    
+    // Add pulse animation to the diamond
+    const diamond = document.getElementById('demoDiamond');
+    if (diamond) {
+      diamond.classList.add('pulse-animation');
+      setTimeout(() => {
+        diamond.classList.remove('pulse-animation');
+      }, 500);
     }
   };
 
-  const resetDemo = () => {
-    setCurrentBatter(1);
-    setInning(1);
-    setOuts(0);
-    setSelectedBat(null);
+  const toggleRun = () => {
+    setHasRun(!hasRun);
+  };
+
+  const resetScorebox = () => {
+    setSelectedPlay('');
+    setHasRun(false);
+  };
+
+  const toggleQuickNav = () => {
+    setIsQuickNavOpen(!isQuickNavOpen);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsQuickNavOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-12">
+    <div className="bg-slate-100 min-h-screen" style={{fontFamily: "'Inter', sans-serif"}}>
+      
+      {/* Main Container */}
+      <div className="container mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
+
+        {/* Header Section */}
+        <header className="text-white rounded-2xl shadow-2xl p-6 sm:p-10 mb-8 text-center overflow-hidden" style={{
+          background: 'linear-gradient(135deg, #ef4444 0%, #f97316 100%)'
+        }}>
           <img 
             src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png" 
-            alt="Aloha State Softball League Logo" 
-            className="mx-auto mb-6 h-24 w-auto"
+            alt="iPride League Logo" 
+            className="mx-auto h-24 sm:h-32 w-auto mb-6 rounded-xl p-2"
+            style={{backgroundColor: 'rgba(255, 255, 255, 0.2)'}}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'https://placehold.co/300x120/ffffff/ef4444?text=Logo+Not+Found';
+            }}
           />
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">📊 Scorekeeping Tutorial</h1>
-          <p className="text-xl text-gray-700">Learn the basics of softball scorekeeping with our interactive guide!</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-2" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>
+            🥎 Aloha State Softball
+          </h1>
+          <h2 className="text-xl sm:text-2xl font-semibold opacity-90">Beginner's Guide to Scorekeeping</h2>
+          <p className="mt-4 text-lg font-medium opacity-80">iPride Style - Keep the Game, Keep the Pride! 🏳️‍🌈</p>
         </header>
 
-        {/* Interactive Demo Section */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
-          <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">🎮 Interactive Scorekeeping Demo</h2>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Scorebook Grid */}
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-center">📋 Sample Scorebook</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border-2 border-gray-400">
-                  <thead>
-                    <tr className="bg-blue-100">
-                      <th className="border border-gray-400 p-2 text-sm">#</th>
-                      <th className="border border-gray-400 p-2 text-sm">Player</th>
-                      <th className="border border-gray-400 p-2 text-sm">1</th>
-                      <th className="border border-gray-400 p-2 text-sm">2</th>
-                      <th className="border border-gray-400 p-2 text-sm">3</th>
-                      <th className="border border-gray-400 p-2 text-sm">4</th>
-                      <th className="border border-gray-400 p-2 text-sm">5</th>
-                      <th className="border border-gray-400 p-2 text-sm">R</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[1,2,3,4,5,6,7,8,9,10].map((playerNum) => (
-                      <tr key={playerNum} className={playerNum === currentBatter ? 'bg-yellow-100' : ''}>
-                        <td className="border border-gray-400 p-2 text-center font-bold">{playerNum}</td>
-                        <td className="border border-gray-400 p-2 text-sm">Player {playerNum}</td>
-                        <td className="border border-gray-400 p-2 h-8 w-8 relative">
-                          {inning >= 1 && (
-                            <div className="w-full h-full bg-white border border-gray-300 relative">
-                              {playerNum === 1 && inning >= 1 && <span className="text-xs">1B</span>}
-                            </div>
-                          )}
-                        </td>
-                        <td className="border border-gray-400 p-2 h-8 w-8"></td>
-                        <td className="border border-gray-400 p-2 h-8 w-8"></td>
-                        <td className="border border-gray-400 p-2 h-8 w-8"></td>
-                        <td className="border border-gray-400 p-2 h-8 w-8"></td>
-                        <td className="border border-gray-400 p-2 text-center font-bold">0</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+        {/* Section: What You Need */}
+        <section id="section-supplies" className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+            </svg>
+            What Do You Need?
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="bg-slate-50 p-6 rounded-xl text-center transition-transform hover:scale-105">
+              <div className="text-4xl mb-3">📖</div>
+              <h3 className="font-bold text-lg text-slate-700">Scorebook</h3>
+              <p className="text-slate-500">Official or any lined notebook.</p>
             </div>
-
-            {/* Controls */}
-            <div className="space-y-6">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-bold mb-2">Game Status</h4>
-                <p><strong>Inning:</strong> {inning}</p>
-                <p><strong>Outs:</strong> {outs}/3</p>
-                <p><strong>Current Batter:</strong> #{currentBatter}</p>
-              </div>
-
-              <div className="space-y-3">
-                <button 
-                  onClick={handleNextBatter}
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors"
-                >
-                  ⚾ Next Batter
-                </button>
-                <button 
-                  onClick={handleOut}
-                  className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors"
-                >
-                  ❌ Record Out
-                </button>
-                <button 
-                  onClick={resetDemo}
-                  className="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors"
-                >
-                  🔄 Reset Demo
-                </button>
-              </div>
+            <div className="bg-slate-50 p-6 rounded-xl text-center transition-transform hover:scale-105">
+              <div className="text-4xl mb-3">✏️</div>
+              <h3 className="font-bold text-lg text-slate-700">Pencil</h3>
+              <p className="text-slate-500">Erasable! Mistakes happen.</p>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-xl text-center transition-transform hover:scale-105">
+              <div className="text-4xl mb-3">📋</div>
+              <h3 className="font-bold text-lg text-slate-700">Team Lineups</h3>
+              <p className="text-slate-500">Get from the team captains.</p>
             </div>
           </div>
-        </div>
-
-        {/* Tutorial Sections */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Basic Symbols */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800">📝 Basic Scorekeeping Symbols</h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">1B</span>
-                <span>Single</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">2B</span>
-                <span>Double</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">3B</span>
-                <span>Triple</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">HR</span>
-                <span>Home Run</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">BB</span>
-                <span>Walk (Base on Balls)</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">K</span>
-                <span>Strikeout</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">6-3</span>
-                <span>Ground out (SS to 1B)</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg">F7</span>
-                <span>Fly out to Left Field</span>
-              </div>
-            </div>
+          <div className="mt-6 bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-4 rounded-r-lg">
+            <strong>Pro Tip:</strong> Write down team names, date, and mark <strong>Home</strong> vs <strong>Visitor</strong>. Home team always bats second!
           </div>
+        </section>
 
-          {/* Position Numbers */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800">🔢 Position Numbers</h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">1</span>
-                <span>Pitcher</span>
+        {/* Section: Field Numbers */}
+        <section id="section-field" className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            The Field = Numbers
+          </h2>
+          <p className="text-slate-600 mb-6">Each position on the field has a number. You'll use these to record plays.</p>
+          <div className="rounded-2xl p-6 sm:p-8" style={{background: 'linear-gradient(to bottom, #16a34a, #15803d)'}}>
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
+              {/* Outfield */}
+              <div className="bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">7</div>
+                <div className="text-sm font-semibold text-slate-600">Left Field</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">2</span>
-                <span>Catcher</span>
+              <div className="bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">8</div>
+                <div className="text-sm font-semibold text-slate-600">Center Field</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">3</span>
-                <span>First Base</span>
+              <div className="bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">9</div>
+                <div className="text-sm font-semibold text-slate-600">Right Field</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">4</span>
-                <span>Second Base</span>
+              {/* Infield */}
+              <div className="bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">5</div>
+                <div className="text-sm font-semibold text-slate-600">3rd Base</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">5</span>
-                <span>Third Base</span>
+              <div className="bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">6</div>
+                <div className="text-sm font-semibold text-slate-600">Shortstop</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">6</span>
-                <span>Shortstop</span>
+              <div className="bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">4</div>
+                <div className="text-sm font-semibold text-slate-600">2nd Base</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">7</span>
-                <span>Left Field</span>
+              {/* Battery & 1st */}
+              <div className="col-start-2 bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">1</div>
+                <div className="text-sm font-semibold text-slate-600">Pitcher</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">8</span>
-                <span>Center Field</span>
+              <div className="col-start-3 bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">3</div>
+                <div className="text-sm font-semibold text-slate-600">1st Base</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="font-mono text-lg font-bold">9</span>
-                <span>Right Field</span>
+              <div className="col-start-2 bg-white/90 rounded-full p-4 text-center shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="font-black text-2xl text-green-700">2</div>
+                <div className="text-sm font-semibold text-slate-600">Catcher</div>
               </div>
             </div>
+            <p className="text-center text-white/80 mt-6 italic">(10 = Rover/Short Fielder, if used in your league)</p>
           </div>
-        </div>
-
-        {/* How to Fill the Box */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
-          <h3 className="text-2xl font-bold mb-6 text-gray-800 text-center">📐 How to Fill Each Box</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Diamond Diagram */}
-            <div className="text-center">
-              <h4 className="font-bold mb-4">🔷 The Diamond Method</h4>
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <svg width="120" height="120" className="mx-auto">
-                  <rect x="10" y="10" width="100" height="100" fill="white" stroke="black" strokeWidth="2"/>
-                  <line x1="60" y1="10" x2="110" y2="60" stroke="black" strokeWidth="1"/>
-                  <line x1="110" y1="60" x2="60" y2="110" stroke="black" strokeWidth="1"/>
-                  <line x1="60" y1="110" x2="10" y2="60" stroke="black" strokeWidth="1"/>
-                  <line x1="10" y1="60" x2="60" y2="10" stroke="black" strokeWidth="1"/>
-                  <text x="60" y="25" textAnchor="middle" className="text-xs">1B</text>
-                  <text x="95" y="65" textAnchor="middle" className="text-xs">2B</text>
-                  <text x="60" y="105" textAnchor="middle" className="text-xs">3B</text>
-                  <text x="25" y="65" textAnchor="middle" className="text-xs">H</text>
-                </svg>
-              </div>
-              <p className="text-sm mt-2">Track base advancement through the diamond</p>
-            </div>
-
-            {/* Example Plays */}
-            <div>
-              <h4 className="font-bold mb-4">✅ Example: Single to Right</h4>
-              <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-                <p className="text-sm"><strong>Record:</strong> 1B</p>
-                <p className="text-sm"><strong>Draw:</strong> Line from home to first base</p>
-                <p className="text-sm"><strong>Result:</strong> Runner on first base</p>
-              </div>
-              
-              <h4 className="font-bold mb-4 mt-6">❌ Example: Strikeout</h4>
-              <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
-                <p className="text-sm"><strong>Record:</strong> K</p>
-                <p className="text-sm"><strong>Draw:</strong> Large K in center</p>
-                <p className="text-sm"><strong>Result:</strong> Batter out</p>
-              </div>
-            </div>
-
-            {/* Advanced Tips */}
-            <div>
-              <h4 className="font-bold mb-4">💡 Pro Tips</h4>
-              <div className="space-y-3 text-sm">
-                <div className="bg-blue-50 p-3 rounded-lg">
-                  <strong>RBI:</strong> Circle the RBI in the corner when a run scores
-                </div>
-                <div className="bg-yellow-50 p-3 rounded-lg">
-                  <strong>Errors:</strong> Use E followed by position number (E6 = error by shortstop)
-                </div>
-                <div className="bg-purple-50 p-3 rounded-lg">
-                  <strong>Substitutions:</strong> Draw a line under the last at-bat for that player
-                </div>
-                <div className="bg-pink-50 p-3 rounded-lg">
-                  <strong>Stolen Bases:</strong> Use SB next to the base they steal
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bat Selection Guide */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
-          <h3 className="text-2xl font-bold mb-6 text-gray-800 text-center">🏏 ASSL Approved Bats</h3>
-          <p className="text-center text-gray-600 mb-8">Click on a bat to see its specifications</p>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { id: 1, name: "Demarini CF", compression: "240", approved: true },
-              { id: 2, name: "Easton Fire Flex", compression: "220", approved: true },
-              { id: 3, name: "Louisville Slugger", compression: "200", approved: true },
-              { id: 4, name: "Miken Freak", compression: "300", approved: false }
-            ].map((bat) => (
+        </section>
+        
+        {/* Section: Scoring Plays (Interactive) */}
+        <section id="section-scoring" className="text-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8" style={{
+          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
+        }}>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Try It: Interactive Scorebox
+          </h2>
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+            {/* Demo Scorebox */}
+            <div id="demoScorebox" className="bg-white border-4 border-slate-800 w-40 h-40 rounded-lg flex flex-col items-center justify-center relative shadow-2xl">
               <div 
-                key={bat.id}
-                className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                  selectedBat === bat.id 
-                    ? 'border-blue-500 bg-blue-50' 
-                    : bat.approved 
-                      ? 'border-green-300 bg-green-50 hover:border-green-500' 
-                      : 'border-red-300 bg-red-50'
+                id="demoDiamond" 
+                className={`w-20 h-20 bg-slate-200 border-2 border-slate-400 transform rotate-45 transition-all duration-300 ${
+                  hasRun ? 'bg-green-300' : ''
                 }`}
-                onClick={() => setSelectedBat(selectedBat === bat.id ? null : bat.id)}
-              >
-                <h4 className="font-bold text-center">{bat.name}</h4>
-                <p className="text-sm text-center">Compression: {bat.compression}</p>
-                <div className="text-center mt-2">
-                  {bat.approved ? (
-                    <span className="text-green-600 font-bold">✅ APPROVED</span>
-                  ) : (
-                    <span className="text-red-600 font-bold">❌ NOT APPROVED</span>
-                  )}
-                </div>
-                {selectedBat === bat.id && (
-                  <div className="mt-3 p-2 bg-white rounded border text-xs">
-                    <p><strong>Details:</strong> {bat.approved ? 'Meets ASSL compression standards and safety requirements.' : 'Exceeds compression limits for recreational play.'}</p>
-                  </div>
-                )}
+              ></div>
+              <div id="demoNotation" className="absolute bottom-2 text-slate-800 font-bold text-lg">
+                {selectedPlay || 'Click a play!'}
               </div>
-            ))}
+            </div>
+            {/* Controls */}
+            <div className="w-full lg:w-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-bold text-center">Hits</h4>
+                  <button onClick={() => updateScorebox('1B')} className="w-full bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded-lg transition">1B</button>
+                  <button onClick={() => updateScorebox('2B')} className="w-full bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded-lg transition">2B</button>
+                  <button onClick={() => updateScorebox('3B')} className="w-full bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded-lg transition">3B</button>
+                  <button onClick={() => updateScorebox('HR')} className="w-full bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded-lg transition">HR</button>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-bold text-center">Outs</h4>
+                  <button onClick={() => updateScorebox('K')} className="w-full bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition">K</button>
+                  <button onClick={() => updateScorebox('F8')} className="w-full bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition">F8</button>
+                  <button onClick={() => updateScorebox('6-3')} className="w-full bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition">6-3</button>
+                  <button onClick={() => updateScorebox('E5')} className="w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded-lg transition">E5</button>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-bold text-center">Other</h4>
+                  <button onClick={() => updateScorebox('BB')} className="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-lg transition">BB</button>
+                  <button onClick={() => updateScorebox('FC')} className="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-lg transition">FC</button>
+                  <button onClick={toggleRun} className="w-full bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-lg transition">
+                    {hasRun ? 'Remove Run' : 'Score Run'}
+                  </button>
+                  <button onClick={resetScorebox} className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded-lg transition">Reset</button>
+                </div>
+              </div>
+            </div>
           </div>
-          
-          <div className="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
-            <h4 className="font-bold mb-2">⚠️ Important Bat Guidelines</h4>
-            <ul className="text-sm space-y-1">
-              <li>• All bats must be ASA/USA approved</li>
-              <li>• Maximum compression rating of 240</li>
-              <li>• No altered or modified bats allowed</li>
-              <li>• Wood bats are always welcome</li>
-              <li>• When in doubt, ask the commissioner!</li>
+        </section>
+
+        {/* Section: Outs & Innings */}
+        <section id="section-outs" className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+            </svg>
+            Outs & Innings
+          </h2>
+          <div className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-4 rounded-r-lg space-y-2">
+            <p>⚾ Every team gets <strong>3 outs per inning</strong>.</p>
+            <p>🔢 After each out, write a small <strong>1</strong>, <strong>2</strong>, or <strong>3</strong> in the corner of the batter's scorebox.</p>
+            <p>📏 Once you hit 3 outs, draw a heavy line under the last batter to end the inning.</p>
+          </div>
+        </section>
+
+        {/* Section: Special Rules */}
+        <section id="section-rules" className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Slow-Pitch Special Rules
+          </h2>
+          <div className="bg-orange-50 border-l-4 border-orange-400 text-orange-800 p-4 rounded-r-lg space-y-2">
+            <p><strong>🎯 1-and-1 Count to Start:</strong> Batters begin with one ball and one strike.</p>
+            <p><strong>⚠️ One Foul After 2 Strikes:</strong> The second foul ball with two strikes is a strikeout!</p>
+            <p><strong>🚫 No Stealing or Leading Off:</strong> Runners must stay on base until the ball is hit.</p>
+          </div>
+        </section>
+
+        {/* Section: iPride Notes */}
+        <section id="section-ipride" className="text-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8" style={{
+          background: 'linear-gradient(45deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6)'
+        }}>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 flex items-center" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>
+            🏳️‍🌈 iPride League Special Notes
+          </h2>
+          <p className="opacity-90">If you're playing in an iPride-affiliated league like <strong>Aloha State Softball</strong>, details matter for stats!</p>
+          <div className="my-4 bg-white/20 p-4 rounded-lg">
+            <p><strong>📝 Be detailed with errors.</strong> Note how the error happened:</p>
+            <ul className="list-disc list-inside mt-2 space-y-1">
+              <li><code className="bg-slate-800 px-2 py-1 rounded">E6 (T)</code> = Error on shortstop (Throwing)</li>
+              <li><code className="bg-slate-800 px-2 py-1 rounded">E4 (F)</code> = Error on 2nd baseman (Fielding)</li>
             </ul>
           </div>
-        </div>
-
-        {/* Quick Reference Card */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl shadow-lg p-8 text-center">
-          <h3 className="text-2xl font-bold mb-4">📋 Quick Reference Card</h3>
-          <p className="mb-6">Keep these handy during games!</p>
-          <div className="grid md:grid-cols-3 gap-6 text-sm">
-            <div className="bg-white bg-opacity-20 p-4 rounded-lg">
-              <h4 className="font-bold mb-2">Common Outs</h4>
-              <p>K = Strikeout</p>
-              <p>6-3 = Ground out</p>
-              <p>F7 = Fly out</p>
-            </div>
-            <div className="bg-white bg-opacity-20 p-4 rounded-lg">
-              <h4 className="font-bold mb-2">Hits</h4>
-              <p>1B = Single</p>
-              <p>2B = Double</p>
-              <p>HR = Home Run</p>
-            </div>
-            <div className="bg-white bg-opacity-20 p-4 rounded-lg">
-              <h4 className="font-bold mb-2">Other</h4>
-              <p>BB = Walk</p>
-              <p>E = Error</p>
-              <p>SB = Stolen Base</p>
-            </div>
+          <div className="mt-6 bg-white/20 border-l-4 border-white text-white p-4 rounded-r-lg">
+            <strong>Extra Credit:</strong> Learn to mark <strong>RBIs</strong> (Run Batted In) and <strong>DPs</strong> (Double Plays). But don't stress — getting the basics right is a huge help!
           </div>
-        </div>
+        </section>
+        
+        {/* Section: Cheat Sheet */}
+        <section id="section-cheat" className="text-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8" style={{
+          background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)'
+        }}>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">✅ TL;DR Cheat Sheet</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>1B/2B/3B/HR</strong><br/>Hit (Single, etc.)</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>BB</strong><br/>Walk</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>K / ꓘ</strong><br/>Strikeout</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>F7</strong><br/>Fly Out to Left</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>6-3</strong><br/>Groundout (SS to 1B)</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>E5</strong><br/>Error by 3rd Base</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>FC</strong><br/>Fielder's Choice</div>
+            <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm"><strong>DP</strong><br/>Double Play</div>
+          </div>
+        </section>
+
+        {/* Final Motivation */}
+        <section className="text-center">
+           <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">🏆 You Got This!</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                If you keep the book for your team just once, you'll learn fast. Try it during a friendly game — and don't stress about perfection.
+                <strong className="block mt-2 text-indigo-600 text-lg">You're already the MVP for volunteering! 💪</strong>
+              </p>
+          </div>
+        </section>
       </div>
+
+      {/* Quick Nav Floating Action Button */}
+      <button 
+        onClick={toggleQuickNav}
+        className="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-4 shadow-2xl transition-transform hover:scale-110 z-50"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      
+      {/* Quick Nav Full-Screen Menu */}
+      {isQuickNavOpen && (
+        <div className="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-40 flex items-center justify-center">
+          <button 
+            onClick={toggleQuickNav}
+            className="absolute top-6 right-6 text-white/70 hover:text-white"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <nav className="text-center space-y-6">
+            <button onClick={() => scrollToSection('section-supplies')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">📝 What You Need</button>
+            <button onClick={() => scrollToSection('section-field')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">🏟️ Field Numbers</button>
+            <button onClick={() => scrollToSection('section-scoring')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">📊 Scoring Plays</button>
+            <button onClick={() => scrollToSection('section-outs')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">🔢 Outs & Innings</button>
+            <button onClick={() => scrollToSection('section-rules')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">🥎 Special Rules</button>
+            <button onClick={() => scrollToSection('section-ipride')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">🏳️‍🌈 iPride Notes</button>
+            <button onClick={() => scrollToSection('section-cheat')} className="block text-2xl font-bold text-white/80 hover:text-white hover:scale-110 transition-transform">✅ Cheat Sheet</button>
+          </nav>
+        </div>
+      )}
+
+      {/* Pulse animation for interactive demo */}
+      <style jsx>{`
+        .pulse-animation {
+          animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+          0%, 100% { transform: rotate(45deg) scale(1); }
+          50% { transform: rotate(45deg) scale(1.1); }
+        }
+      `}</style>
     </div>
   );
 }
