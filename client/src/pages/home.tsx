@@ -229,24 +229,120 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {/* Bank of Hawaiʻi */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_b39ff2b25c5b492591872cf7fb1b34ee~mv2.png"
+                   alt="Bank of Hawaiʻi – Financial Services"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Bank of Hawaiʻi</h3>
+              <p className="text-gray-600 mb-4 flex-grow">Hawaiʻi's largest independent financial institution, offering comprehensive banking and wealth management services.</p>
+              <a href="https://www.boh.com/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 🏦
+              </a>
+            </div>
+
+            {/* Tapas Waikiki */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_15421420fa1848a8a1ba6509e9bb80ef~mv2.png"
+                   alt="Tapas Waikiki – LGBTQ+ Bar and Restaurant"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Tapas Waikiki</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A lively Waikiki spot with creative cocktails, perfect for post-game celebrations and league gatherings with friends.</p>
+              <a href="https://www.hawaiigaybar.com/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 🍷
+              </a>
+            </div>
+
             {/* Bacchus Waikiki */}
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_ce3ba887fe03440fb8b4af0b8bb8090f~mv2.png"
-                   alt="Bacchus Waikiki Logo"
+              <img src="https://static.wixstatic.com/media/df1e99_c44094fb039e4250ab4c770d4063fc77~mv2.png"
+                   alt="Bacchus Waikiki – LGBTQ+ Bar"
                    className="sponsor-logo mx-auto mb-4 fade-in" />
               <h3 className="text-xl font-bold text-gray-800 mb-2">Bacchus Waikiki</h3>
-              <p className="text-gray-600 mb-4 flex-grow">The iconic LGBTQ+ bar and nightclub in the heart of Waikiki, supporting our community since 1979.</p>
-              <a href="https://www.instagram.com/bacchuswaikiki/"
+              <p className="text-gray-600 mb-4 flex-grow">A beloved LGBTQ+ bar in Waikiki known for its welcoming vibe, great music, and fun daily drink specials for everyone.</p>
+              <div className="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold px-6 py-2 rounded-full">
+                Sponsor Partner 🍻
+              </div>
+            </div>
+
+            {/* Hula's Bar & Lei Stand */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_df8e26ec547d49d48546138fe541f8ef~mv2.png"
+                   alt="Hula's Bar & Lei Stand – Iconic LGBTQ+ Bar"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Hula's Bar & Lei Stand</h3>
+              <p className="text-gray-600 mb-4 flex-grow">An iconic open-air gay bar and Waikiki landmark, offering great drinks, music, and amazing views for over 49 years.</p>
+              <a href="https://hulas.com/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 🌺
+              </a>
+            </div>
+
+            {/* The O Team */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_b7555d6dc77c439f9cb4e7718bcd7148~mv2.png"
+                   alt="The O Team – Real Estate Experts"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">The O Team</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A dedicated real estate team at Compass, helping clients navigate the O'ahu market with expertise and aloha spirit.</p>
+              <a href="https://oteamhawaii.com/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 🌐
+              </a>
+            </div>
+
+            {/* Kaimana Beach Hotel */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_5f8cc36fa139496b9d35798aa4279ab9~mv2.png"
+                   alt="Kaimana Beach Hotel – Beachfront Accommodation"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Kaimana Beach Hotel</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A stylish boutique hotel offering serene beachfront lodging and stunning ocean views away from the Waikiki crowds.</p>
+              <a href="https://www.kaimana.com/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 🏨
+              </a>
+            </div>
+
+            {/* Scarlet Honolulu */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_d0a44f9755154669a51d7b884a01b91d~mv2.png"
+                   alt="Scarlet Honolulu – Nightlife and Entertainment"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Scarlet Honolulu</h3>
+              <p className="text-gray-600 mb-4 flex-grow">Honolulu's premier LGBTQ+ nightclub, showcasing spectacular drag performances and high-energy dance floors.</p>
+              <a href="https://www.scarlethonolulu.com/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 💄
+              </a>
+            </div>
+
+            {/* Kelli with an Eye Photography */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_168ba11d5a514d338ece56115d5fe243~mv2.png"
+                   alt="Kelli with an Eye Photography – Professional Photography Services"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Kelli with an Eye Photography</h3>
+              <p className="text-gray-600 mb-4 flex-grow">An artistic photographer based on O'ahu, skillfully capturing beautiful moments from weddings to family portraits.</p>
+              <a href="https://www.kelliwithaneyephotography.com/"
                  target="_blank" rel="noopener noreferrer"
                  className="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
-                Visit Website →
+                Visit Website 📷
               </a>
             </div>
 
             {/* Eric Z Martin Photography */}
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_e6b32d604cd04eae834dd6db93b825f6~mv2.png"
-                   alt="Eric Z Martin Photography"
+              <img src="https://static.wixstatic.com/media/df1e99_5890ac34dd0c48e9bf7d1b059fe1d5c9~mv2.png"
+                   alt="Eric Z Martin Photography – Sports and Event Photography"
                    className="sponsor-logo mx-auto mb-4 fade-in" />
               <h3 className="text-xl font-bold text-gray-800 mb-2">Eric Z Martin Photography</h3>
               <p className="text-gray-600 mb-4 flex-grow">A premier Honolulu photographer specializing in capturing dynamic sports action and memorable event moments.</p>
