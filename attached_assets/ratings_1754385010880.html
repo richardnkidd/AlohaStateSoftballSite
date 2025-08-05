@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloha State Softball League Guide</title>
+    <style>
+        /* Import Google Fonts: Barlow for body, Poppins for headings */
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Poppins:wght@700&display=swap');
+
+        /* --- Color Variables --- */
+        :root {
+            --background-body: #ffffff; /* Fallback, overridden by body style */
+            --background-content: #ffffff;
+            --text-primary: #1b1c1d;
+            --text-headings: #000000;
+            --text-secondary: #505050;
+            --accent-primary: #007bff; /* Blue for notes */
+            --accent-secondary: #dc3545; /* Red for restrictions */
+            --link-color: #0056b3;
+            --link-hover-color: #003d80;
+            --border-color: #e0e0e0;
+            --tooltip-bg: #333333;
+            --tooltip-text: #ffffff;
+            --shadow-color: rgba(0,0,0,0.1);
+            --highlight-bg: #f8f9fa;
+            --switch-bg: #ccc;
+            --switch-indicator: white;
+            --switch-bg-active: #007bff;
+            --progress-bar-bg: var(--accent-primary);
+            --section-hitting-border: #f94144; /* Red/Pink */
+            --section-running-border: #f9c74f; /* Yellow */
+            --section-fielding-border: #43aa8b; /* Green */
+            --section-throwing-border: #577590; /* Blue */
+            --button-bg: var(--accent-primary);
+            --button-text: white;
+
+            /* Smooth transitions for color changes */
+            --color-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* --- Dark Mode Variables --- */
+        .dark-mode {
+            --background-content: #2c2c2c;
+            --text-primary: #f1f1f1;
+            --text-headings: #ffffff;
+            --text-secondary: #bbbbbb;
+            --accent-primary: #4dabf7; /* Lighter blue */
+            --accent-secondary: #ff6b6b; /* Lighter red */
+            --link-color: #69b1ff;
+            --link-hover-color: #a3ceff;
+            --border-color: #555555;
+            --tooltip-bg: #eeeeee;
+            --tooltip-text: #1b1c1d;
+            --shadow-color: rgba(255,255,255,0.1);
+            --highlight-bg: #3a3a3a;
+            --switch-bg: #555;
+            --switch-indicator: #ccc;
+            --switch-bg-active: #4dabf7;
+            --progress-bar-bg: var(--accent-primary);
+            --section-hitting-border: #ff6b6b; /* Lighter Red/Pink */
+            --section-running-border: #ffdd87; /* Lighter Yellow */
+            --section-fielding-border: #7fcdb6; /* Lighter Green */
+            --section-throwing-border: #a5bdd4; /* Lighter Blue */
+            --button-bg: var(--accent-primary);
+            --button-text: #2c2c2c;
+        }
+
+        /* Basic Reset & Body Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Barlow', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            background-image: url('https://static.wixstatic.com/media/df1e99_381ca0e7b1b84e88973b4ba2977f8fdb~mv2.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: var(--color-transition);
+        }
+
+        /* Container */
+        .content-wrapper {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem 2rem;
+            background-color: var(--background-content);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            position: relative;
+            transition: var(--color-transition);
+        }
+
+        /* --- Dark Mode Toggle --- */
+        .dark-mode-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .dark-mode-toggle span {
+            margin-right: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--switch-bg);
+            transition: .4s;
+            border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--switch-indicator);
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--switch-bg-active);
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--text-headings);
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+            transition: var(--color-transition);
+        }
+        h1 { font-size: 2.2rem; margin-top: 1rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.5rem; }
+        p + h1, p + h2, p + h3, img + h1, img + h2, img + h3 {
+            margin-top: 2rem;
+        }
+         img + h2, img + h3, img + h4 {
+            margin-top: 1.5rem;
+         }
+
+        /* Paragraphs */
+        p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            transition: var(--color-transition);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Barlow', sans-serif;
+            color: var(--text-primary);
+            transition: var(--color-transition);
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Images */
+        img {
+            display: block;
+            margin: 2rem auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            transition: box-shadow 0.3s ease;
+            object-fit: cover; /* Default fit */
+        }
+        .content-wrapper > img:first-child {
+             margin-top: 0;
+             margin-bottom: 2rem;
+        }
+        p + img {
+            margin-top: 1.5rem;
+        }
+        ul + img { /* Add margin after the Fairness/Safety/Fun list */
+             margin-top: 2rem;
+        }
+        /* Specific class for skill section header images */
+        .skill-section-image {
+            width: 56.25%;     /* Set specific width percentage */
+            max-width: 100%;   /* Ensure it doesn't overflow container */
+            height: auto;      /* Maintain aspect ratio */
+            margin: 2rem auto; /* Keep centering and vertical margin */
+            /* Removed max-height and object-fit: contain from previous attempt */
+            /* Inherits object-fit: cover from general img rule */
+        }
+
+
+        /* Links */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: var(--color-transition);
+        }
+        a:hover {
+            text-decoration: underline;
+            color: var(--link-hover-color);
+        }
+
+        /* Emphasis & Notes */
+        strong, b {
+            font-weight: 700;
+        }
+        .note, .important-note, .restriction {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            transition: var(--color-transition);
+        }
+         .restriction {
+            border-left-color: var(--accent-secondary);
+         }
+        .emoji-bullet {
+             list-style-type: none;
+             padding-left: 0;
+        }
+        .emoji-bullet li::before {
+            content: "🔹";
+            display: inline-block;
+            margin-right: 0.5em;
+        }
+        .pin-note::before {
+            content: "📌 ";
+            font-weight: bold;
+        }
+         .no-icon::before {
+            content: "🚫 ";
+            color: var(--accent-secondary);
+            font-weight: bold;
+         }
+        .checkmark-icon::before {
+             content: "✅ ";
+             color: #28a745; /* Keeping green */
+        }
+        .cross-icon::before {
+            content: "❌ ";
+            color: var(--accent-secondary);
+        }
+
+        /* Horizontal Rule */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 2.5rem 0;
+            transition: var(--color-transition);
+        }
+
+        /* --- Collapsible Details --- */
+        details {
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            transition: var(--color-transition);
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-secondary);
+            transition: var(--color-transition);
+        }
+        summary:hover {
+            color: var(--text-primary);
+        }
+        details[open] {
+            padding-bottom: 1rem;
+        }
+        details > p {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        /* --- Tooltips --- */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted var(--text-secondary);
+            transition: var(--color-transition);
+        }
+        .tooltip::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 125%; /* Position above the text */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 10;
+        }
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Simple triangle for tooltip */
+        .tooltip::before {
+             content: "";
+             position: absolute;
+             bottom: calc(125% - 5px); /* Position below the tooltip box */
+             left: 50%;
+             transform: translateX(-50%);
+             border-width: 5px;
+             border-style: solid;
+             border-color: var(--tooltip-bg) transparent transparent transparent;
+             opacity: 0;
+             visibility: hidden;
+             transition: opacity 0.2s ease, visibility 0.2s ease;
+             z-index: 10;
+        }
+         .tooltip:hover::before {
+             opacity: 1;
+             visibility: visible;
+         }
+
+        /* --- Scroll Animations --- */
+        .js-scroll-trigger {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .js-scroll-trigger.visible {
+          opacity: 1;
+          transform: none;
+        }
+        /* Optional: Stagger animations */
+        .js-scroll-trigger:nth-child(2) { transition-delay: 0.1s; }
+        .js-scroll-trigger:nth-child(3) { transition-delay: 0.2s; }
+        /* Add more if needed */
+
+        /* --- Scroll Progress Bar --- */
+        #scrollProgressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px; /* Increased height slightly */
+            width: 0%;
+            background-color: var(--progress-bar-bg);
+            z-index: 9999; /* Ensure it's on top */
+            transition: width 0.1s linear; /* Smoother transition */
+        }
+
+        /* --- Color-Coded Sections --- */
+        .section-content {
+            padding-left: 1rem;
+            margin-left: -1rem; /* Offset padding to align text */
+            border-left-width: 6px;
+            border-left-style: solid;
+            margin-bottom: 2rem; /* Add space between sections */
+            transition: border-color 0.3s ease;
+        }
+        .section-hitting { border-left-color: var(--section-hitting-border); }
+        .section-running { border-left-color: var(--section-running-border); }
+        .section-fielding { border-left-color: var(--section-fielding-border); }
+        .section-throwing { border-left-color: var(--section-throwing-border); }
+
+        /* --- Animated Icon --- */
+        .icon-emoji {
+            display: inline-block;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+            margin-right: 0.4rem;
+            cursor: default; /* Avoid text selection cursor */
+        }
+        h3:hover .icon-emoji { /* Animate on heading hover */
+            transform: scale(1.25) rotate(5deg);
+        }
+
+        /* --- Rating Calculator --- */
+        #ratingCalculator {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--highlight-bg);
+            transition: var(--color-transition);
+        }
+        #ratingCalculator h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-headings);
+        }
+        #ratingCalculator h4:first-of-type {
+            margin-top: 0;
+        }
+        #ratingCalculator label {
+            display: block;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: var(--color-transition);
+        }
+        #ratingCalculator input[type="checkbox"] {
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        #ratingResult {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border: 1px dashed var(--accent-primary);
+            border-radius: 4px;
+            background-color: var(--background-content); /* Match content background */
+            color: var(--text-primary);
+            font-weight: bold;
+            transition: var(--color-transition);
+            min-height: 50px; /* Ensure space even when empty */
+        }
+        .calculator-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+
+         /* --- Print Button --- */
+        .print-button-container {
+            text-align: right;
+            margin: 2rem 0 1rem 0; /* Adjusted margin */
+        }
+        .print-button {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 0.6rem 1.2rem; /* Slightly larger padding */
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Barlow', sans-serif; /* Match body font */
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .print-button:hover {
+            opacity: 0.9;
+        }
+         .print-button:active {
+             transform: scale(0.98);
+         }
+         /* Hide button when printing */
+         @media print {
+             .print-button-container, .dark-mode-toggle, #scrollProgressBar { /* Hide progress bar too */
+                 display: none;
+             }
+             body {
+                 background-image: none; /* Remove background for printing */
+             }
+             .content-wrapper {
+                 box-shadow: none;
+                 margin: 0;
+                 max-width: 100%;
+                 border: none;
+             }
+         }
+
+    </style>
+</head>
+<body>
+    <div id="scrollProgressBar"></div>
+
+    <div class="content-wrapper" id="contentWrapper">
+        <label class="dark-mode-toggle" for="darkModeToggleCheckbox" title="Toggle Dark Mode">
+            <span>🌙</span>
+            <span class="toggle-switch">
+                <input type="checkbox" id="darkModeToggleCheckbox">
+                <span class="slider"></span>
+            </span>
+        </label>
+
+        <img src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png" alt="Softball hitting graphic" class="js-scroll-trigger">
+
+        <h1 class="js-scroll-trigger">Player Ratings 101</h1>
+        <h2 class="js-scroll-trigger">Aloha State Softball League Guide for Beginners</h2>
+
+        <p class="js-scroll-trigger">Welcome to Player Ratings!</p>
+        <p class="js-scroll-trigger">The Aloha State Softball League uses the International Pride Softball (iPride) system to provide a fair and consistent way to evaluate players' core softball skills in four areas: <span class="tooltip" title="Ability to hit the ball effectively.">hitting</span>, <span class="tooltip" title="Speed running between bases.">running</span>, <span class="tooltip" title="Ability to catch or stop batted balls.">fielding</span>, and <span class="tooltip" title="Ability to throw the ball accurately and with velocity.">throwing</span>.</p>
+        <img src="https://static.wixstatic.com/media/df1e99_09f1b91277a64ce7af02918bdbc2118c~mv2.png" alt="Fair play graphic" class="js-scroll-trigger">
+
+        <p class="js-scroll-trigger">Each player is rated using 26 skill-based questions with a "YES" or "NO" based on specific criteria. Ratings help ensure fair, safe, and fun games by placing players in the right division based on their abilities.</p>
+
+        <p class="important-note js-scroll-trigger"><strong>Important Note:</strong> Ratings help us ensure fair and safe play—but they don’t measure everything that makes you a valuable teammate. <strong>Positive attitude, sportsmanship, effort, leadership, teamwork, and strategy matter just as much</strong>, even though they’re not part of the rating system.</p>
+
+        <h2 class="js-scroll-trigger">Why do we use player ratings?</h2>
+        <p class="js-scroll-trigger">Player ratings are important because they help us create a positive playing environment by ensuring:</p>
+        <ul class="js-scroll-trigger">
+            <li><strong>Fairness:</strong> You'll compete against players with similar skill levels.</li>
+            <li><strong>Safety:</strong> You won't face pitchers or hitters far beyond your ability level.</li>
+            <li><strong>Fun:</strong> Games are more enjoyable when teams are evenly matched.</li>
+        </ul>
+         <img src="https://static.wixstatic.com/media/df1e99_1847c91ae48545d2be9639b4b861dab3~mv2.png" alt="Team huddle" class="js-scroll-trigger">
+
+        <p class="js-scroll-trigger">The Aloha State Softball League uses the iPride Ratings System, a widely adopted standard across LGBTQ+ leagues in North America, to achieve these goals.</p>
+
+        <p class="note pin-note js-scroll-trigger">Think of ratings like belt colors in martial arts – they help place you with others at a similar level so everyone can enjoy the game and develop their skills appropriately.</p>
+
+        <hr class="js-scroll-trigger">
+
+        <img src="https://static.wixstatic.com/media/df1e99_2e1d96fc428548c4a7eb124f864cdb3a~mv2.jpg" alt="Close up of softball glove" class="js-scroll-trigger">
+        <h2 class="js-scroll-trigger">Sunday Scrimmages &amp; Rating Opportunities</h2>
+        <p class="js-scroll-trigger">We’re organizing Sunday Scrimmages at <a href="https://www.google.com/url?q=https://g.co/kgs/Rccw7r1&amp;sa=D&amp;source=editors&amp;ust=1744099417771359&amp;usg=AOvVaw2GBzvg-KbyanLd4XvesFG3" target="_blank" rel="noopener noreferrer">Crane Field</a> in April and May to help teams get ready and warmed up before the season starts. They also serve as official rating opportunities for new and returning players.</p>
+
+        <h3 class="js-scroll-trigger">Why Scrimmages?</h3>
+        <p class="js-scroll-trigger">They’re a fun way to shake off the rust and get play time in with your squad. Plus, they’re the official site for completing or reconfirming ratings.</p>
+
+        <h3 class="js-scroll-trigger">How Ratings Work During Scrimmage Days:</h3>
+        <p class="js-scroll-trigger">We’ll use the warmup time before each scrimmage to check key skills like hitting, fielding, throwing (including pitching), and running speed. These check-ins will follow iPride guidelines but will be short and low-stress.</p>
+
+        <h3 class="js-scroll-trigger">What You Need to Do:</h3>
+        <p class="js-scroll-trigger">Each team should attend at least one scrimmage. If someone can’t make it, we’ll offer a couple of makeup dates. Captains: Please coordinate with your teams to bring as many players as possible.</p>
+
+        <hr class="js-scroll-trigger">
+
+        <ul class="emoji-bullet js-scroll-trigger">
+           <li><strong>Quick Start: The 3 Most Important Things to Know</strong></li>
+        </ul>
+
+        <h3 class="js-scroll-trigger">The 60% Rule (Consistency is Key!)</h3>
+        <p class="js-scroll-trigger">To get a "YES" for most skills, you need to show you can do it successfully at least 6 out of 10 times (60%). This applies to most hitting, fielding, and throwing skills.</p>
+
+        <h3 class="js-scroll-trigger">Division Restrictions (Hitting Power Limits)</h3>
+        <p class="js-scroll-trigger">These rules prevent players with very high hitting power from playing in lower divisions, ensuring safety and fairness:</p>
+        <div class="restriction js-scroll-trigger">
+            <p><span class="no-icon"></span><strong>E Division Players CANNOT</strong> receive a YES for:</p>
+            <ul>
+                <li>Q3: Hitting high velocity balls ≥ 20% of the time</li>
+                <li>Q5: Hitting fly balls over 300 ft</li>
+            </ul>
+        </div>
+         <div class="restriction js-scroll-trigger">
+           <p><span class="no-icon"></span><strong>D Division Players CANNOT</strong> receive a YES for:</p>
+            <ul>
+                <li>Q5: Hitting fly balls over 300 ft</li>
+            </ul>
+        </div>
+        <p class="note pin-note js-scroll-trigger">If you demonstrate these restricted skills, you'll be rated for a higher division.</p>
+
+        <h3 class="js-scroll-trigger">The Ratings Process (How It Works)</h3>
+        <ol class="js-scroll-trigger">
+            <li>Attend a Sunday Scrimmage.</li>
+            <li>Evaluators watch during specific rating drills (part of the warm-up) and record YES (<span class="checkmark-icon"></span>) or NO (<span class="cross-icon"></span>) for each of the 26 skill-based questions based on the guidelines.</li>
+            <li>Your total YES answers help determine your division placement (see examples and typical ranges below).</li>
+        </ol>
+
+        <hr class="js-scroll-trigger">
+
+         <ul class="emoji-bullet js-scroll-trigger">
+           <li><strong>Complete Rating Questions Summary</strong></li>
+        </ul>
+        <p class="js-scroll-trigger">(Remember: Unless noted, a 60% success rate = YES)</p>
+        <p class="note pin-note js-scroll-trigger">Whenever a higher-level skill is a YES, all lower-level skills in the set are also YES.</p>
+         <details class="js-scroll-trigger">
+            <summary><strong>See Example</strong></summary>
+            <p>Example: If you throw 100 ft accurately (Q24), you also earn YES for Q21–Q23.</p>
+        </details>
+
+        <div class="section-content section-hitting js-scroll-trigger" id="hitting-skills">
+             <img src="https://static.wixstatic.com/media/df1e99_744c9166048448d2b6abc40c32a23aaa~mv2.jpg" alt="Velocity tiers graphic" class="js-scroll-trigger skill-section-image">
+            <h3><span class="icon-emoji">🥎</span>Hitting Skills (Questions 1–9)</h3>
+            <p>These questions evaluate how hard and consistently you can hit the ball, and how successful you are at the plate.</p>
+            <ul>
+                <li>Remember the 60% rule for these questions.</li>
+            </ul>
+
+            <img src="https://static.wixstatic.com/media/df1e99_ce9b64689bf24791bf91dfc4a0d8186d~mv2.png" alt="Runner sliding into base">
+            <h4>Velocity Tiers (for Hitting):</h4>
+            <ul>
+                <li><strong><span class="tooltip" title="Hit up to 150 ft in the air or ground ball equivalent.">Low Velocity</span>:</strong> A ball hit up to 150 feet (45.7m) or less in the air or a ground ball that would roll to a distance of less than 150 feet (45.7m), if not impeded.</li>
+                <li><strong><span class="tooltip" title="Hit 150-250 ft in the air or ground ball equivalent.">Medium Velocity</span>:</strong> A ball hit 150 to 250 feet (45.7 to 76.2 meters) in the air or a ground ball that would roll to a distance of 150 to 250 feet (45.7 to 76.2 meters), if not impeded.</li>
+                <li><strong><span class="tooltip" title="Hit over 250 ft in the air or ground ball equivalent.">High Velocity</span>:</strong> a ball hit greater than 250 feet (76.2m) in the air or a ground ball that would roll to a distance greater than 250 feet (76.2m), if not impeded.</li>
+            </ul>
+
+            <ul>
+                <li>Q1: Hit a fair or foul ball with low velocity. (60% threshold)</li>
+                <li>Q2: Hit a fair or foul ball with medium velocity. (60% threshold)</li>
+                <li class="restriction"><span class="no-icon"></span>Q3: Hit a fair or foul ball with high velocity. (20% threshold) <strong>(E Division Restriction)</strong></li>
+                <li>Q4: Hit a fair or foul ball with high velocity. (60% threshold)</li>
+                <li class="restriction"><span class="no-icon"></span>Q5: Hit a fly ball 300'+ (91.4m) or more. (5% threshold) <strong>(D &amp; E Division Restriction)</strong></li>
+            </ul>
+
+            <h4><span class="tooltip" title="Modified Batting Average – Measures how often you get on base with a hit or error vs. total at-bats.">Modified Batting Average (MBA)</span>:</h4>
+            <p>Measures how often you get on base with a hit or error vs. total at-bats (your batting effectiveness) against different levels.</p>
+            <ul>
+                <li>MBA is calculated as: (Hits + Bases Safely Reached on Error) ÷ At-Bats</li>
+            </ul>
+            <p>A <strong>hit</strong> is when the batter safely reaches base after hitting the ball fairly because:</p>
+            <ol>
+                <li>The ball lands in fair territory and either stays on the field, clears the fence (home run), or hits the fence before a fielder touches it.</li>
+                <li>The ball is hit so hard, so softly, or takes a strange bounce that a fielder cannot reasonably make the play in time for an out.</li>
+                <li>The fair ball touches an umpire (their body or clothing) before any fielder has touched it.</li>
+                <li>A fielder tries unsuccessfully to make an out on another runner, and the official scorer decides the batter-runner would have reached first base safely even with perfect fielding.</li>
+            </ol>
+            <ul>
+                <li>A <strong>base safely reached on error</strong> is when a defensive player(s) who is charged with an error by the scorekeeper.</li>
+                 <details>
+                    <summary><strong>See MBA Example</strong></summary>
+                    <p>Example: If you have 5 hits and 1 error in 10 at-bats against E Division pitching, your MBA is (5 + 1) / 10 = 0.600. These MBA calculations are based on performance against pitchers within the specified division (e.g., MBA vs. 'D' division pitchers).</p>
+                </details>
+                <li>Q6: MBA ≥ .700 (vs E Division pitching)</li>
+                <li>Q7: MBA ≥ .600 (vs D Division pitching)</li>
+                <li>Q8: MBA ≥ .500 (vs C Division pitching)</li>
+                <li>Q9: MBA ≥ .400 (vs B Division pitching)</li>
+            </ul>
+        </div> <div class="section-content section-running js-scroll-trigger" id="running-speed">
+             <img src="https://static.wixstatic.com/media/df1e99_ebdd29086143488798c287ad91e6b60b~mv2.jpg" alt="Softball players fielding" class="js-scroll-trigger skill-section-image">
+            <h3><span class="icon-emoji">🏃</span>Running Speed (Questions 10–12)</h3>
+            <p>Measures base-to-base sprinting speed.</p>
+            <ul>
+                <li>No 60% threshold here – just need to do it successfully once!</li>
+                <li>The 70-foot distance is measured from home plate to first base, one base to the next, or third base to home plate.</li>
+                <li>Q10: Run 70 feet in under 4.5 seconds.</li>
+                <li>Q11: Run 70 feet in under 4.0 seconds.</li>
+                <li>Q12: Run 70 feet in under 3.5 seconds.</li>
+            </ul>
+        </div> <div class="section-content section-fielding js-scroll-trigger" id="fielding-skills">
+             <img src="https://static.wixstatic.com/media/df1e99_b29070098bda492781bff3daa6e67a37~mv2.jpg" alt="Pitcher throwing ball" class="js-scroll-trigger skill-section-image">
+            <h3><span class="icon-emoji">🧤</span>Fielding Skills (Questions 13–20)</h3>
+            <p>Assesses how reliably you stop, control, and respond to hit balls.</p>
+            <ul>
+                <li>60% success rate = YES</li>
+                <li>Generally, an <span class="tooltip" title="A misplay by a fielder allowing a batter/runner to advance when ordinary effort could have made the play.">error</span> is a misplay by a fielder that allows a batter to reach base or a runner to advance when, with ordinary effort, the play could have been made. Examples include dropping a catchable fly ball, mishandling a ground ball, or making a wild throw. The scorer's judgment according to USA Softball (ASA) rules is the final authority.</li>
+            </ul>
+
+            <h4>Fielding Locations Explained:</h4>
+            <ul>
+                <li><strong>Directly at player:</strong> A ball hit at a player that does not require the player to move his/her feet, although it may cause the player to reach in any direction to make the play.</li>
+                <li><strong>Within a few steps:</strong> A ball hit that requires a player to take 2-3 steps (9-10 feet or 2.7-3 meters) in order to make the play.</li>
+                <li><strong>In the hole:</strong> A ball hit that requires a player to take 4-5 steps (12 feet (3.7m) or greater) in order to make the play.</li>
+                <li>Q13–15: Cleanly fields a ball hit with low velocity (directly at, nearby, in the hole)</li>
+                <li>Q16–18: Cleanly fields a ball hit with medium velocity (directly at, nearby, in the hole)</li>
+                <li>Q19–20: Cleanly fields a ball hit with high velocity (directly at, nearby)</li>
+                <li>Note: The full system distinguishes between cleanly stopping vs. cleanly fielding, fly balls vs. grounders, and infield/outfield skill.</li>
+            </ul>
+        </div>
+         <img src="https://static.wixstatic.com/media/df1e99_509f4987cb8141a881c53d79218e2fa2~mv2.jpg" alt="Softball action shot" class="js-scroll-trigger skill-section-image">
+        <div class="section-content section-throwing js-scroll-trigger" id="throwing-skills">
+            <h3><span class="icon-emoji">🎯</span>Throwing Skills (Questions 21-26)</h3>
+            <p>Evaluates strength and accuracy of your throws across distances, including pitching ability.</p>
+            <ul>
+                <li>60% success rate = YES (unless otherwise noted)</li>
+                <li><strong><span class="tooltip" title="A throw within one or two steps of the intended target.">Accuracy Explained</span>:</strong> A throw that is within one to two steps of the intended target.</li>
+                <li>Q21: Throw 50 feet (15.2 meters) with a <span class="tooltip" title="A ball that rises vertically less than 5% of its horizontal distance.">line drive</span> (regardless of accuracy)</li>
+                <li>Q22: Throw 50 feet (15.2 meters) with a line drive and accuracy</li>
+                <li>Q23: Throw 70 feet (21.3 meters) with a line drive and accuracy</li>
+                <li>Q24: Throw 100 feet (30.5 meters) with a line drive and accuracy</li>
+                <li>Q25: Throw 150 feet (45.7 meters) with a line drive and accuracy</li>
+                <li>Q26: Throw &gt;200 feet (61 meters) with a line drive and accuracy OR 100/150 ft off-balance with accuracy (e.g., throwing after fielding a ground ball while running toward first base)</li>
+            </ul>
+            <ul>
+                <li>Within these throwing questions (21-26), evaluators will also assess the following pitching criteria:
+                    <ul>
+                        <li>Deliver multiple pitch techniques (e.g., curve, change up) while pitching a strike and/or causing the batter to swing (60% threshold).</li>
+                        <li>Vary the height, depth, and location of the pitch while pitching a strike and/or causing the batter to swing (60% threshold).</li>
+                        <li>Pitch a strike and/or cause the batter to swing (60% threshold).</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li>Definitions:
+                    <ul>
+                        <li>A "strike" is a legally delivered ball that enters the strike zone or that the batter swings at and misses.</li>
+                        <li>"Multiple pitch techniques" refers to the ability to use arc, spin, location and movement of the ball to deliver various pitches (e.g. curve, change up, cutter / reverse curve, knuckle ball) that are called strikes or cause the batter to swing.</li>
+                        <li>"Vary the height, depth, and location" means the pitcher can control where the ball goes within and around the strike zone.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div> <hr class="js-scroll-trigger">
+
+         <ul class="emoji-bullet js-scroll-trigger">
+           <li><strong>Real-World Rating Examples (Illustrative)</strong></li>
+        </ul>
+         <div class="note js-scroll-trigger">
+             <p><strong>Typical YES Score Ranges:</strong></p>
+            <ul>
+                <li>0–6 YES → Likely E Division</li>
+                <li>7–10 YES → Likely D Division</li>
+                <li>11+ YES → May qualify for C Division or higher</li>
+            </ul>
+             <p>(League raters make final placement based on all observations.)</p>
+         </div>
+
+
+        <hr class="js-scroll-trigger">
+
+         <ul class="emoji-bullet js-scroll-trigger">
+           <li><strong>Sportsmanship and Preparation</strong></li>
+        </ul>
+         <ul class="js-scroll-trigger">
+            <li>While these aren’t scored, how you show up — as a teammate, leader, and good sport — absolutely shapes how you're seen.</li>
+            <li>Players are expected to arrive on time and prepared to warm up efficiently. This includes participating in team stretches, throwing exercises, and batting practice to ensure readiness and prevent injury.</li>
+            <li>Positive attitude, respectful communication with teammates and opponents, hustle, and constructive feedback are essential for a positive team environment. Unsportsmanlike conduct, such as arguing with umpires or displaying negativity, is discouraged.</li>
+        </ul>
+
+        <hr class="js-scroll-trigger">
+
+        <div class="js-scroll-trigger">
+            <h2><span class="icon-emoji">🧮</span>Rating Calculator (Estimate)</h2>
+            <p>Check "YES" for each skill you can perform consistently (usually 60% success rate). This tool provides an *estimate* based on the iPride system summary.</p>
+            <form id="ratingCalculator">
+                <h4>Hitting Skills</h4>
+                <label><input type="checkbox" name="q1" value="yes"> Q1: Hit low velocity</label>
+                <label><input type="checkbox" name="q2" value="yes"> Q2: Hit medium velocity</label>
+                <label><input type="checkbox" name="q3" value="yes"> Q3: Hit high velocity (20%+) <span class="restriction">(E Restricted)</span></label>
+                <label><input type="checkbox" name="q4" value="yes"> Q4: Hit high velocity (60%+)</label>
+                <label><input type="checkbox" name="q5" value="yes"> Q5: Hit 300ft+ (5%+) <span class="restriction">(D/E Restricted)</span></label>
+                <label><input type="checkbox" name="q6" value="yes"> Q6: MBA ≥ .700 (vs E)</label>
+                <label><input type="checkbox" name="q7" value="yes"> Q7: MBA ≥ .600 (vs D)</label>
+                <label><input type="checkbox" name="q8" value="yes"> Q8: MBA ≥ .500 (vs C)</label>
+                <label><input type="checkbox" name="q9" value="yes"> Q9: MBA ≥ .400 (vs B)</label>
+
+                <h4>Running Speed</h4>
+                <label><input type="checkbox" name="q10" value="yes"> Q10: Run 70ft &lt; 4.5s</label>
+                <label><input type="checkbox" name="q11" value="yes"> Q11: Run 70ft &lt; 4.0s</label>
+                <label><input type="checkbox" name="q12" value="yes"> Q12: Run 70ft &lt; 3.5s</label>
+
+                <h4>Fielding Skills</h4>
+                <label><input type="checkbox" name="q13" value="yes"> Q13: Field low velocity (direct)</label>
+                <label><input type="checkbox" name="q14" value="yes"> Q14: Field low velocity (nearby)</label>
+                <label><input type="checkbox" name="q15" value="yes"> Q15: Field low velocity (hole)</label>
+                <label><input type="checkbox" name="q16" value="yes"> Q16: Field medium velocity (direct)</label>
+                <label><input type="checkbox" name="q17" value="yes"> Q17: Field medium velocity (nearby)</label>
+                <label><input type="checkbox" name="q18" value="yes"> Q18: Field medium velocity (hole)</label>
+                <label><input type="checkbox" name="q19" value="yes"> Q19: Field high velocity (direct)</label>
+                <label><input type="checkbox" name="q20" value="yes"> Q20: Field high velocity (nearby)</label>
+
+                <h4>Throwing Skills</h4>
+                <label><input type="checkbox" name="q21" value="yes"> Q21: Throw 50ft line drive</label>
+                <label><input type="checkbox" name="q22" value="yes"> Q22: Throw 50ft accurate</label>
+                <label><input type="checkbox" name="q23" value="yes"> Q23: Throw 70ft accurate</label>
+                <label><input type="checkbox" name="q24" value="yes"> Q24: Throw 100ft accurate</label>
+                <label><input type="checkbox" name="q25" value="yes"> Q25: Throw 150ft accurate</label>
+                <label><input type="checkbox" name="q26" value="yes"> Q26: Throw 200ft+ accurate / off-balance</label>
+
+                <div id="ratingResult">Select skills above to see estimated division...</div>
+                <p class="calculator-note">Note: Official ratings are determined by league evaluators during scrimmages or tryouts.</p>
+            </form>
+        </div> <hr class="js-scroll-trigger">
+
+        <ul class="emoji-bullet js-scroll-trigger">
+           <li><strong>Glossary of Common Terms</strong></li>
+        </ul>
+        <ul class="js-scroll-trigger">
+             <li><strong>Accuracy (Throwing):</strong> A throw that is within one to two steps of the intended target.</li>
+            <li><strong><span class="tooltip" title="Charged after every plate appearance except for specific situations like walks or sacrifice flies.">At-bat</span>:</strong> An at-bat is charged to a player following every plate appearance except when: 1) the player hits a sacrifice fly that scores a runner, 2) the player is awarded a base on balls, or 3) the third out occurs and the batter is not entitled to run to first base. Exception #3 shall not be considered if the batter is out due to a strike being a foul ball which ends the at-bat.</li>
+            <li><strong>Base Safely Reached on Error:</strong> A batter shall be credited with a base safely reached on error on the part of a defensive player(s) who is charged with an error by the scorekeeper.</li>
+            <li><strong><span class="tooltip" title="Batted ball in the air for 3-5 seconds.">Fly Ball</span>:</strong> Any batted ball that is in the air for more than three (3) seconds but less than five (5) seconds</li>
+            <li><strong><span class="tooltip" title="Batted ball hitting the ground in front of the fielder or bases.">Ground Ball</span>:</strong> Ball hit with a downward trajectory that makes contact with the ground in front of the player when hit directly at a player or in front of the bases when hit between players.</li>
+            <li><strong>High Velocity:</strong> a ball hit greater than 250 feet (76.2m) in the air or a ground ball that would roll to a distance greater than 250 feet (76.2m), if not impeded.</li>
+            <li><strong>In the Hole:</strong> A ball hit that requires a player to take 4-5 steps (12 feet (3.7m) or greater) in order to make the play.</li>
+            <li><strong><span class="tooltip" title="A ball hit or thrown with a low vertical rise relative to its horizontal distance.">Line Drive</span>:</strong> a ball that from the point of contact rises vertically less than 10% of the total horizontal distance it travels, or in the case of a throw, a ball that from the point of release rises vertically less than 5% of the total horizontal distance it travels.</li>
+            <li><strong>Low Velocity:</strong> a ball hit up to 150 feet (45.7m) or less in the air or a ground ball that would roll to a distance of less than 150 feet (45.7m), if not impeded.</li>
+            <li><strong>Medium Velocity:</strong> a ball hit 150 to 250 feet (45.7 to 76.2 meters) in the air or a ground ball that would roll to a distance of 150 to 250 feet (45.7 to 76.2 meters), if not impeded.</li>
+        </ul>
+
+        <hr class="js-scroll-trigger">
+
+        <p class="js-scroll-trigger">Questions? Reach out to Rich at &lt;rich@alohastatesoftball.com&gt;</p>
+
+        <div class="print-button-container js-scroll-trigger">
+            <button onclick="window.print()" class="print-button">📄 Print Guide</button>
+        </div>
+
+    </div> <script>
+        // --- Scroll Animation ---
+        const scrollElements = document.querySelectorAll(".js-scroll-trigger");
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: observer.unobserve(entry.target);
+                    }
+                    // Optional: else { entry.target.classList.remove('visible'); }
+                });
+            }, { threshold: 0.1 });
+            scrollElements.forEach(el => observer.observe(el));
+        } else {
+            // Fallback for older browsers
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    if (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / 1.15) {
+                        el.classList.add("visible");
+                    }
+                })
+            }
+            window.addEventListener("scroll", handleScrollAnimation);
+            handleScrollAnimation(); // Initial check
+        }
+
+        // --- Dark Mode Toggle ---
+        const toggleSwitch = document.getElementById('darkModeToggleCheckbox');
+        const contentWrapper = document.getElementById('contentWrapper');
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            contentWrapper.classList.add('dark-mode');
+            toggleSwitch.checked = true;
+        }
+        toggleSwitch.addEventListener('change', function() {
+            contentWrapper.classList.toggle('dark-mode', this.checked);
+            localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+        });
+
+        // --- Scroll Progress Bar ---
+        const progressBar = document.getElementById('scrollProgressBar');
+        // Ensure progressBar exists before adding listener
+        if (progressBar) {
+            window.addEventListener('scroll', () => {
+              const scrollTop = window.scrollY || document.documentElement.scrollTop;
+              // Calculate total scrollable height relative to the body inside the iframe
+              const docHeight = document.body.scrollHeight - window.innerHeight;
+              // Prevent division by zero if content is shorter than viewport
+              const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+              // Ensure percent doesn't exceed 100
+              progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+            });
+        } else {
+            console.error("Scroll progress bar element not found.");
+        }
+
+
+        // --- Rating Calculator ---
+        const calculatorForm = document.getElementById('ratingCalculator');
+        const resultDisplay = document.getElementById('ratingResult');
+        const checkboxes = calculatorForm.querySelectorAll('input[type="checkbox"]');
+
+        function calculateRating() {
+            let yesCount = 0;
+            let q3Checked = false;
+            let q5Checked = false;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    yesCount++;
+                    if (cb.name === 'q3') q3Checked = true;
+                    if (cb.name === 'q5') q5Checked = true;
+                }
+            });
+
+            let estimatedDivision = '';
+            let feedback = '';
+
+            // Determine base division
+            if (yesCount <= 6) {
+                estimatedDivision = 'E';
+                feedback = '🧢 Looks like a solid E-level player. Focus on fundamentals and having fun!';
+            } else if (yesCount <= 10) {
+                estimatedDivision = 'D';
+                feedback = '👍 Good progress! Likely a D-level player. Work on consistency and specific skills.';
+            } else {
+                estimatedDivision = 'C';
+                feedback = '🔥 Strong skills! Likely C Division or higher. Keep refining those advanced techniques!';
+            }
+
+            // Apply restrictions
+            if (q5Checked) { // Q5 restriction (D & E not allowed)
+                if (estimatedDivision === 'E' || estimatedDivision === 'D') {
+                    estimatedDivision = 'C'; // Bump up to minimum C
+                    feedback += ' (Note: Hitting 300ft+ moves you out of D/E).';
+                }
+            } else if (q3Checked) { // Q3 restriction (E not allowed)
+                 if (estimatedDivision === 'E') {
+                    estimatedDivision = 'D'; // Bump up to minimum D
+                     feedback += ' (Note: Hitting high velocity moves you out of E).';
+                 }
+            }
+
+             resultDisplay.innerHTML = `Estimated Division: ${estimatedDivision} (${yesCount} YES answers)<br>${feedback}`;
+        }
+
+        // Calculate rating whenever a checkbox changes
+        checkboxes.forEach(cb => cb.addEventListener('change', calculateRating));
+
+        // Initial calculation on load (if needed, though starts empty)
+        // calculateRating();
+
+        // --- Easter Egg ---
+        let inputBuffer = '';
+        window.addEventListener('keydown', (e) => {
+          inputBuffer += e.key.toLowerCase();
+          if (inputBuffer.includes('legend')) {
+            alert('✨ You found the hidden C-level humor! ✨');
+            inputBuffer = ''; // Reset buffer after triggering
+          }
+          // Keep buffer length manageable
+          if (inputBuffer.length > 10) inputBuffer = inputBuffer.slice(-10);
+        });
+
+    </script>
+
+</body>
+</html>

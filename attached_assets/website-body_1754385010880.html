@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styling to match header/footer */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef9ed;
+        }
+        
+        /* Pride gradient animations */
+        .pride-gradient {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad);
+            background-size: 300% 300%;
+            animation: pride-gradient 3s ease infinite;
+        }
+        
+        @keyframes pride-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .pride-text {
+            background: linear-gradient(45deg, #e40e78, #ff6b35, #f7931d, #ffd23f, #72c837, #2e86ab, #8e44ad);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pride-gradient 3s ease infinite;
+        }
+        
+        /* Hover effects */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Sparkle animation */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        /* Image lazy loading fade-in */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .fade-in.loaded {
+            opacity: 1;
+        }
+        
+        /* ---------- Refined Sponsor Card Styling ---------- */
+        /* uniform logo sizing */
+        .logo-frame { background:transparent; }              /* allows centering */
+        .sponsor-logo {
+          height: 10rem; /* h-40 */
+          width:auto;
+          object-fit: contain; /* keeps aspect ratio */
+        }
+        
+        /* animated rainbow CTA */
+        .btn-rainbow{
+          @apply inline-flex items-center justify-center text-sm font-semibold text-white py-2 px-5 rounded-full transition-all;
+          background:linear-gradient(135deg,#e40e78 0%,#ff6b35 25%,#f7931d 50%,#72c837 75%,#2e86ab 100%);
+          background-size:200% 200%;
+        }
+        .btn-rainbow:hover{
+          background-position:100% 50%;
+          transform:scale(1.06);
+          box-shadow:0 4px 18px rgba(0,0,0,.15);
+        }
+        
+        .sponsor-partner {
+            @apply text-gray-500 text-sm font-medium;
+        }
+        
+        /* Fade up animation */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        .sponsor-card[data-animate] {
+            animation: fadeUp 0.6s ease-out both;
+        }
+    </style>
+    <title>Aloha State Softball League - Main Content</title>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <section class="w-full bg-gradient-to-br from-pink-100 via-yellow-50 to-blue-100 py-12 md:py-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="mb-8">
+                <img src="https://static.wixstatic.com/media/df1e99_b6ce734df1b94b96829b5aa7db6ae7f5~mv2.png/v1/fill/w_852,h_852,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Copy%20of%20Copy%20of%20ASSL%202024%20Template%20(Instagram%20Post)%20(Label%20(Circle))%20(4).png" 
+                     alt="Aloha State Softball League Logo" 
+                     class="mx-auto h-64 md:h-96 w-auto mb-6 hover-lift">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                    <span class="text-2xl">🏳️‍🌈</span> 
+                    <span class="pride-text">Aloha State Softball League</span> 
+                    <span class="text-2xl">🥎</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 font-medium max-w-4xl mx-auto leading-relaxed">
+                    Join O'ahu's LGBTQ+ softball league for <strong>Season 4</strong>, Summer 2025! 
+                    Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you.
+                </p>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300">
+                    🏃‍♀️ Join as Free Agent
+                </a>
+                <a href="https://linktr.ee/alohastatesoftball" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="bg-red-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-red-600 transition-all duration-300 hover-lift">
+                    🌺 Explore Our Links
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="w-full py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <span class="pride-text">Inclusive Since 2022</span> 🌈
+                </h2>
+                <div class="w-24 h-1 pride-gradient mx-auto rounded-full mb-6"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg text-gray-700 leading-relaxed flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                         <img src="https://static.wixstatic.com/media/df1e99_011ab5c76f8b4953aab67f6137aa9f9c~mv2.png" alt="International Pride Softball Logo" class="h-24 w-auto object-contain flex-shrink-0">
+                        <span>As proud members of <a href="http://ipridesoftball.org/" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-pink-800 font-semibold underline">International Pride Softball</a>, we bring together players of all skill levels to enjoy exciting, competitive games in a supportive and fun environment.</span>
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Our community celebrates diversity, fosters friendship, and creates lasting memories on and off the field. 
+                        From beginners to all-stars, everyone has a place in our 'ohana!
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-sm justify-center sm:justify-start">
+                        <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full">🏳️‍🌈 LGBTQ+ Friendly</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">🌺 All Skill Levels</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">🤝 Inclusive Community</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">⚾ Competitive Fun</span>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://static.wixstatic.com/media/df1e99_eddacc95808f44b78a9575024b4b58ec~mv2.jpg/v1/fill/w_1234,h_820,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/SOFTBALL072323-KWEP-218.jpg" 
+                         alt="ASSL Players in Action" 
+                         class="rounded-xl shadow-lg hover-lift fade-in w-full">
+                    <div class="absolute top-4 right-4 text-2xl sparkle">✨</div>
+                    <div class="absolute bottom-4 left-4 text-2xl sparkle" style="animation-delay: 1s;">⭐</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Divider -->
+    <div class="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             class="w-full h-auto">
+    </div>
+
+    <!-- Site Links Section -->
+    <section class="w-full py-16 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <span class="pride-text">Stay Connected</span> 🔗
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Everything you need to follow our league and capture the memories!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Season 4 Standings -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center relative overflow-hidden flex flex-col items-center">
+                    <div class="absolute top-0 right-0 text-6xl opacity-10">⚾</div>
+                    <div class="relative z-10">
+                        <img src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png" alt="ASSL Team Sideline Logo" class="h-72 mx-auto mb-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Season 4 Standings, Scores, and Schedule!</h3>
+                        <p class="text-gray-600 mb-6">Follow all the action, check standings, and never miss a game!</p>
+                        <a href="https://teamsideline.com/sites/aikaneohana/schedules" 
+                           target="_blank" rel="noopener noreferrer"
+                           class="pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300 inline-block">
+                            View Standings & Schedule
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Eric Z Martin Photos -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center relative overflow-hidden flex flex-col items-center">
+                    <div class="absolute top-0 right-0 text-6xl opacity-10">📸</div>
+                    <div class="relative z-10">
+                        <img src="https://static.wixstatic.com/media/df1e99_5890ac34dd0c48e9bf7d1b059fe1d5c9~mv2.png" alt="Eric Z Martin Photography Logo" class="h-72 mx-auto mb-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Gameday Photos by Eric Z Martin</h3>
+                        <p class="text-gray-600 mb-6">Professional photography capturing all our best moments on and off the field!</p>
+                        <a href="https://ericzmartin.com/" 
+                           target="_blank" rel="noopener noreferrer"
+                           class="bg-indigo-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-indigo-600 hover-lift transition-all duration-300 inline-block">
+                            View Photos
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <div class="flex justify-center space-x-4 text-3xl mb-4">
+                    <span class="sparkle">📱</span>
+                    <span class="sparkle" style="animation-delay: 0.5s;">💻</span>
+                    <span class="sparkle" style="animation-delay: 1s;">📊</span>
+                    <span class="sparkle" style="animation-delay: 1.5s;">📸</span>
+                </div>
+                <p class="text-gray-600">
+                    Don't forget to check out our 
+                    <a href="https://linktr.ee/alohastatesoftball" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="text-pink-600 hover:text-pink-800 font-semibold underline">
+                        Linktree
+                    </a> 
+                    for even more links and resources!
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Image Gallery Section -->
+    <section class="w-full py-16 bg-gradient-to-br from-purple-50 via-pink-50 to-yellow-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <span class="pride-text">Our Amazing Community</span> 📸
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Take a look at the joy, competition, and camaraderie that defines our league!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="hover-lift">
+                    <img src="https://static.wixstatic.com/media/df1e99_02b6891c73f241cda2d8848e11427950~mv2.jpg/v1/fill/w_1261,h_985,fp_0.50_0.61,q_85,enc_avif,quality_auto/AlohaStateSoftballNov24PLayoffs%C2%A9ezm-1983.jpg" 
+                         alt="ASSL Playoffs Action" 
+                         class="rounded-xl shadow-lg w-full h-80 object-cover fade-in">
+                </div>
+                <div class="hover-lift">
+                    <img src="https://static.wixstatic.com/media/df1e99_82edc6bdc7cc4e90b6d8a1d66d712a9d~mv2.jpg/v1/fill/w_1462,h_1142,fp_0.51_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AlohaStateSoftball2023Week7-7948.jpg" 
+                         alt="Team Spirit" 
+                         class="rounded-xl shadow-lg w-full h-80 object-cover fade-in">
+                </div>
+                <div class="hover-lift">
+                    <img src="https://static.wixstatic.com/media/df1e99_22fa80c2998b422a9eb3663a8b7bd292~mv2.jpg/v1/fill/w_1302,h_820,fp_0.52_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ARCHI2024-980.jpg" 
+                         alt="Championship Celebration" 
+                         class="rounded-xl shadow-lg w-full h-80 object-cover fade-in">
+                </div>
+                <div class="hover-lift">
+                    <img src="https://static.wixstatic.com/media/df1e99_1d2a6e354b1e420383130b4198177786~mv2.jpg" 
+                         alt="Team Photo" 
+                         class="rounded-xl shadow-lg w-full h-80 object-cover fade-in">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Season 4 Events Section -->
+    <section class="w-full py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <span class="pride-text">Season 4 Events</span> 📅
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Mark your calendars for an exciting season of softball and community events!
+                </p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-pink-100 to-yellow-100 rounded-2xl p-8 text-center">
+                <img src="https://static.wixstatic.com/media/df1e99_a499a46ae03548b7ba2db534af034a8d~mv2.png/v1/fill/w_1363,h_924,al_c,q_90,enc_avif,quality_auto/Pop%20Up%20Market%20Festival%20Schedule%20Flyer-1.png" 
+                     alt="Season 4 Events Calendar" 
+                     class="mx-auto rounded-xl shadow-lg max-w-full h-auto hover-lift fade-in">
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Divider -->
+    <div class="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             class="w-full h-auto">
+    </div>
+
+<!-- Sponsors Section -->
+<section class="w-full py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        <span class="pride-text">Our Amazing Sponsors</span> 🙏
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        A huge mahalo to these incredible sponsors for making our league possible!
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <!-- Bank of Hawaiʻi -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_b39ff2b25c5b492591872cf7fb1b34ee~mv2.png"
+             alt="Bank of Hawaiʻi – Financial Services"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Bank of Hawaiʻi</h3>
+        <p class="text-gray-600 mb-4 flex-grow">Hawaiʻi's largest independent financial institution, offering comprehensive banking and wealth management services.</p>
+        <a href="https://www.boh.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🏦
+        </a>
+      </div>
+
+      <!-- Tapas Waikiki -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_15421420fa1848a8a1ba6509e9bb80ef~mv2.png"
+             alt="Tapas Waikiki – LGBTQ+ Bar and Restaurant"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Tapas Waikiki</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A lively Waikiki spot with creative cocktails, perfect for post-game celebrations and league gatherings with friends.</p>
+        <a href="https://www.hawaiigaybar.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🍷
+        </a>
+      </div>
+
+      <!-- Bacchus Waikiki -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_c44094fb039e4250ab4c770d4063fc77~mv2.png"
+             alt="Bacchus Waikiki – LGBTQ+ Bar"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Bacchus Waikiki</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A beloved LGBTQ+ bar in Waikiki known for its welcoming vibe, great music, and fun daily drink specials for everyone.</p>
+        <div class="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold px-6 py-2 rounded-full">
+          Sponsor Partner 🍻
+        </div>
+      </div>
+
+      <!-- Hula's Bar & Lei Stand -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_df8e26ec547d49d48546138fe541f8ef~mv2.png"
+             alt="Hula's Bar & Lei Stand – Iconic LGBTQ+ Bar"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Hula's Bar & Lei Stand</h3>
+        <p class="text-gray-600 mb-4 flex-grow">An iconic open-air gay bar and Waikiki landmark, offering great drinks, music, and amazing views for over 49 years.</p>
+        <a href="https://hulas.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🌺
+        </a>
+      </div>
+
+      <!-- The O Team -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_b7555d6dc77c439f9cb4e7718bcd7148~mv2.png"
+             alt="The O Team – Real Estate Experts"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">The O Team</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A dedicated real estate team at Compass, helping clients navigate the O'ahu market with expertise and aloha spirit.</p>
+        <a href="https://oteamhawaii.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🌐
+        </a>
+      </div>
+
+      <!-- Kaimana Beach Hotel -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_5f8cc36fa139496b9d35798aa4279ab9~mv2.png"
+             alt="Kaimana Beach Hotel – Beachfront Accommodation"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Kaimana Beach Hotel</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A stylish boutique hotel offering serene beachfront lodging and stunning ocean views away from the Waikiki crowds.</p>
+        <a href="https://www.kaimana.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🏨
+        </a>
+      </div>
+      
+      <!-- Scarlet Honolulu -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_d0a44f9755154669a51d7b884a01b91d~mv2.png"
+             alt="Scarlet Honolulu – Nightlife and Entertainment"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Scarlet Honolulu</h3>
+        <p class="text-gray-600 mb-4 flex-grow">Honolulu's premier LGBTQ+ nightclub, showcasing spectacular drag performances and high-energy dance floors.</p>
+        <a href="https://www.scarlethonolulu.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 💄
+        </a>
+      </div>
+
+      <!-- Kelli with an Eye Photography -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_168ba11d5a514d338ece56115d5fe243~mv2.png"
+             alt="Kelli with an Eye Photography – Professional Photography Services"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Kelli with an Eye Photography</h3>
+        <p class="text-gray-600 mb-4 flex-grow">An artistic photographer based on O'ahu, skillfully capturing beautiful moments from weddings to family portraits.</p>
+        <a href="https://www.kelliwithaneyephotography.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 📷
+        </a>
+      </div>
+
+      <!-- Eric Z Martin Photography -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_5890ac34dd0c48e9bf7d1b059fe1d5c9~mv2.png"
+             alt="Eric Z Martin Photography – Sports and Event Photography"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Eric Z Martin Photography</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A premier Honolulu photographer specializing in capturing dynamic sports action and memorable event moments.</p>
+        <a href="https://ericzmartin.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 📸
+        </a>
+      </div>
+
+      <!-- Future of Cool -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_85f53ed5f46246deb395e8e0f96e22f2~mv2.png"
+             alt="Future of Cool – Retail and Lifestyle Brand"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Future of Cool</h3>
+        <p class="text-gray-600 mb-4 flex-grow">An innovative lifestyle brand and creative agency from Honolulu, shaping what's next in local style and culture.</p>
+        <a href="https://www.futureofcool.co/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 😎
+        </a>
+      </div>
+
+      <!-- Whipped & Whisked -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_eef8042349bb45a5924462578d99c658~mv2.png"
+             alt="Whipped & Whisked – Bakery and Confections"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Whipped & Whisked</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A local bakery crafting delicious, handcrafted confections and custom cakes that are perfect for any special occasion.</p>
+        <a href="https://www.instagram.com/whippednwhiskedhawaii/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🌐
+        </a>
+      </div>
+
+      <!-- Wang Chung's -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_6fc56a91f0554b928bcf944fdf4d08b5~mv2.png"
+             alt="Wang Chung's – Restaurant and Bar"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Wang Chung's</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A fun-loving karaoke bar in Waikiki with creative cocktails and a welcoming atmosphere for everyone to enjoy.</p>
+        <a href="https://www.wangchungs.com/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website 🍜
+        </a>
+      </div>
+
+      <!-- Team Mimosa -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_56ea612f4d554ad2b98f6b7687725051~mv2.png"
+             alt="Team Mimosa – ASSL Team Sponsor"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Team Mimosa</h3>
+        <p class="text-gray-600 mb-4 flex-grow">A dedicated team sponsor and an integral part of our league, uplifting players and fostering true camaraderie.</p>
+        <div class="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold px-6 py-2 rounded-full">
+          Sponsor Partner 🥂
+        </div>
+      </div>
+
+      <!-- Hawaiʻi Lemon Law -->
+      <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+        <img src="https://static.wixstatic.com/media/df1e99_949a605d460e4f0e96855ac5f51d59ed~mv2.png"
+             alt="Hawaiʻi Lemon Law – Legal Services"
+             class="sponsor-logo mx-auto mb-4 fade-in">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Hawaiʻi Lemon Law</h3>
+        <p class="text-gray-600 mb-4 flex-grow">Trusted legal advisors dedicated to protecting consumer rights for owners of defective vehicles across the islands.</p>
+        <a href="https://www.mylemon.com/hawaii-lemon-law/"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+          Visit Website ⚖️
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
+      <p class="text-gray-600 text-sm">
+        Interested in supporting the league?
+        <a href="mailto:sponsor@alohastatesoftball.com"
+           class="text-pink-600 hover:text-pink-800 font-semibold underline">
+          Become a Sponsor!
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Friends of the League Section -->
+    <section class="w-full py-16 bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <span class="pride-text">Friends of the League</span> 🤝
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Special thanks to our community partners who support our league and players!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Timmy T's -->
+                <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+                    <img src="https://static.wixstatic.com/media/df1e99_4c82c574e05d4b47a11be7f74d8f280b~mv2.png" 
+                         alt="Timmy T's Gourmet Grinders" 
+                         class="sponsor-logo mx-auto mb-4 fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Timmy T's Gourmet Grinders</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">A local favorite serving up delicious, hearty gourmet grinders with the freshest ingredients for a satisfying meal.</p>
+                    <a href="https://www.timmytsgourmetgrinders.com/" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-block bg-teal-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-teal-600 transition-all duration-300">
+                        Visit Website 🥪
+                    </a>
+                </div>
+                
+                <!-- Chronic Tacos -->
+                <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+                    <img src="https://static.wixstatic.com/media/df1e99_1c2bab03b11a4594b14d2b206f90b728~mv2.png" 
+                         alt="Chronic Tacos" 
+                         class="sponsor-logo mx-auto mb-4 fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Chronic Tacos</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Home of the #TacoLife, serving authentic Mexican food made with fresh ingredients and third-generation recipes.</p>
+                    <a href="https://www.chronictacos.com/" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-block bg-blue-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-blue-600 transition-all duration-300">
+                        Visit Website 🌮
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <p class="text-gray-600 text-sm">
+                    Interested in becoming a Friend of the League? 
+                    <a href="mailto:mikey@alohastatesoftball.com" class="text-pink-600 hover:text-pink-800 font-semibold underline">
+                        Contact us!
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Divider -->
+    <div class="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             class="w-full h-auto">
+    </div>
+
+
+
+    <!-- Final CTA Section -->
+    <section class="w-full py-16 bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-600 text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Join Our 'Ohana? 🌺
+            </h2>
+            <p class="text-xl mb-8 opacity-90">
+                Whether you're looking to play, volunteer, or support our community, there's a place for you in the Aloha State Softball League!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="bg-purple-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-purple-600 transition-all duration-300 hover-lift">
+                    🏃‍♀️ Sign Up as Free Agent
+                </a>
+                <a href="https://linktr.ee/alohastatesoftball" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="bg-pink-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-pink-600 transition-all duration-300 hover-lift">
+                    🔗 All Our Links
+                </a>
+            </div>
+            <div class="mt-8 flex justify-center space-x-4 text-2xl">
+                <span class="sparkle">🏳️‍🌈</span>
+                <span class="sparkle" style="animation-delay: 0.5s;">🥎</span>
+                <span class="sparkle" style="animation-delay: 1s;">🌺</span>
+                <span class="sparkle" style="animation-delay: 1.5s;">⭐</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Lazy loading for images
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.fade-in');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('loaded');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+
+            images.forEach(img => {
+                imageObserver.observe(img);
+            });
+        });
+
+        // Add some playful interaction
+        document.querySelectorAll('.hover-lift').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                // Add a little extra sparkle on hover
+                if (Math.random() > 0.7) {
+                    const sparkle = document.createElement('div');
+                    sparkle.textContent = '✨';
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.fontSize = '20px';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                    sparkle.style.zIndex = '1000';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1000);
+                }
+            });
+        });
+        
+        // Sponsor card fade-up animations
+        document.querySelectorAll('#sponsors-section .sponsor-card')
+          .forEach((c,i)=>{c.style.opacity='0'});
+        const io=new IntersectionObserver(es=>{
+          es.forEach((e,i)=>{if(e.isIntersecting){
+              e.target.style.animation=`fadeUp .6s ease-out forwards ${i*50}ms`;
+              io.unobserve(e.target);
+          }});
+        },{threshold:.15});
+        document.querySelectorAll('#sponsors-section .sponsor-card').forEach(c=>io.observe(c));
+    </script>
+
+</body>
+</html>
