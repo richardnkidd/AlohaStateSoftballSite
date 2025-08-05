@@ -229,87 +229,191 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {/* Bank of Hawaiʻi */}
-            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_b39ff2b25c5b492591872cf7fb1b34ee~mv2.png"
-                   alt="Bank of Hawaiʻi – Financial Services"
-                   className="sponsor-logo mx-auto mb-4 fade-in" />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Bank of Hawaiʻi</h3>
-              <p className="text-gray-600 mb-4 flex-grow">Hawaiʻi's largest independent financial institution, offering comprehensive banking and wealth management services.</p>
-              <a href="https://www.boh.com/"
-                 target="_blank" rel="noopener noreferrer"
-                 className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
-                Visit Website 🏦
-              </a>
-            </div>
-
-            {/* Tapas Waikiki */}
-            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_15421420fa1848a8a1ba6509e9bb80ef~mv2.png"
-                   alt="Tapas Waikiki – LGBTQ+ Bar and Restaurant"
-                   className="sponsor-logo mx-auto mb-4 fade-in" />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Tapas Waikiki</h3>
-              <p className="text-gray-600 mb-4 flex-grow">A lively Waikiki spot with creative cocktails, perfect for post-game celebrations and league gatherings with friends.</p>
-              <a href="https://www.hawaiigaybar.com/"
-                 target="_blank" rel="noopener noreferrer"
-                 className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
-                Visit Website 🍷
-              </a>
-            </div>
-
             {/* Bacchus Waikiki */}
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_c44094fb039e4250ab4c770d4063fc77~mv2.png"
-                   alt="Bacchus Waikiki – LGBTQ+ Bar"
+              <img src="https://static.wixstatic.com/media/df1e99_ce3ba887fe03440fb8b4af0b8bb8090f~mv2.png"
+                   alt="Bacchus Waikiki Logo"
                    className="sponsor-logo mx-auto mb-4 fade-in" />
               <h3 className="text-xl font-bold text-gray-800 mb-2">Bacchus Waikiki</h3>
-              <p className="text-gray-600 mb-4 flex-grow">A beloved LGBTQ+ bar in Waikiki known for its welcoming vibe, great music, and fun daily drink specials for everyone.</p>
-              <div className="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold px-6 py-2 rounded-full">
-                Sponsor Partner 🍻
-              </div>
-            </div>
-
-            {/* Hula's Bar & Lei Stand */}
-            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_df8e26ec547d49d48546138fe541f8ef~mv2.png"
-                   alt="Hula's Bar & Lei Stand – Iconic LGBTQ+ Bar"
-                   className="sponsor-logo mx-auto mb-4 fade-in" />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Hula's Bar & Lei Stand</h3>
-              <p className="text-gray-600 mb-4 flex-grow">An iconic open-air gay bar and Waikiki landmark, offering great drinks, music, and amazing views for over 49 years.</p>
-              <a href="https://hulas.com/"
+              <p className="text-gray-600 mb-4 flex-grow">The iconic LGBTQ+ bar and nightclub in the heart of Waikiki, supporting our community since 1979.</p>
+              <a href="https://www.instagram.com/bacchuswaikiki/"
                  target="_blank" rel="noopener noreferrer"
-                 className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
-                Visit Website 🌺
+                 className="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website →
               </a>
             </div>
 
-            {/* The O Team */}
+            {/* Eric Z Martin Photography */}
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_b7555d6dc77c439f9cb4e7718bcd7148~mv2.png"
-                   alt="The O Team – Real Estate Experts"
+              <img src="https://static.wixstatic.com/media/df1e99_e6b32d604cd04eae834dd6db93b825f6~mv2.png"
+                   alt="Eric Z Martin Photography"
                    className="sponsor-logo mx-auto mb-4 fade-in" />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">The O Team</h3>
-              <p className="text-gray-600 mb-4 flex-grow">A dedicated real estate team at Compass, helping clients navigate the O'ahu market with expertise and aloha spirit.</p>
-              <a href="https://oteamhawaii.com/"
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Eric Z Martin Photography</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A premier Honolulu photographer specializing in capturing dynamic sports action and memorable event moments.</p>
+              <a href="https://ericzmartin.com/"
                  target="_blank" rel="noopener noreferrer"
-                 className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                 className="inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 📸
+              </a>
+            </div>
+
+            {/* Future of Cool */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_85f53ed5f46246deb395e8e0f96e22f2~mv2.png"
+                   alt="Future of Cool – Retail and Lifestyle Brand"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Future of Cool</h3>
+              <p className="text-gray-600 mb-4 flex-grow">An innovative lifestyle brand and creative agency from Honolulu, shaping what's next in local style and culture.</p>
+              <a href="https://www.futureofcool.co/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 😎
+              </a>
+            </div>
+
+            {/* Whipped & Whisked */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_eef8042349bb45a5924462578d99c658~mv2.png"
+                   alt="Whipped & Whisked – Bakery and Confections"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Whipped & Whisked</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A local bakery crafting delicious, handcrafted confections and custom cakes that are perfect for any special occasion.</p>
+              <a href="https://www.instagram.com/whippednwhiskedhawaii/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
                 Visit Website 🌐
               </a>
             </div>
 
-            {/* Kaimana Beach Hotel */}
+            {/* Wang Chung's */}
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
-              <img src="https://static.wixstatic.com/media/df1e99_5f8cc36fa139496b9d35798aa4279ab9~mv2.png"
-                   alt="Kaimana Beach Hotel – Beachfront Accommodation"
+              <img src="https://static.wixstatic.com/media/df1e99_6fc56a91f0554b928bcf944fdf4d08b5~mv2.png"
+                   alt="Wang Chung's – Restaurant and Bar"
                    className="sponsor-logo mx-auto mb-4 fade-in" />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Kaimana Beach Hotel</h3>
-              <p className="text-gray-600 mb-4 flex-grow">A stylish boutique hotel offering serene beachfront lodging and stunning ocean views away from the Waikiki crowds.</p>
-              <a href="https://www.kaimana.com/"
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Wang Chung's</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A fun-loving karaoke bar in Waikiki with creative cocktails and a welcoming atmosphere for everyone to enjoy.</p>
+              <a href="https://www.wangchungs.com/"
                  target="_blank" rel="noopener noreferrer"
-                 className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
-                Visit Website 🏨
+                 className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website 🍜
               </a>
             </div>
+
+            {/* Team Mimosa */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_56ea612f4d554ad2b98f6b7687725051~mv2.png"
+                   alt="Team Mimosa – ASSL Team Sponsor"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Team Mimosa</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A dedicated team sponsor and an integral part of our league, uplifting players and fostering true camaraderie.</p>
+              <div className="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold px-6 py-2 rounded-full">
+                Sponsor Partner 🥂
+              </div>
+            </div>
+
+            {/* Hawaiʻi Lemon Law */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_949a605d460e4f0e96855ac5f51d59ed~mv2.png"
+                   alt="Hawaiʻi Lemon Law – Legal Services"
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Hawaiʻi Lemon Law</h3>
+              <p className="text-gray-600 mb-4 flex-grow">Trusted legal advisors dedicated to protecting consumer rights for owners of defective vehicles across the islands.</p>
+              <a href="https://www.mylemon.com/hawaii-lemon-law/"
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition-all duration-300">
+                Visit Website ⚖️
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Friends of the League Section */}
+      <section className="w-full py-16 bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              <span className="pride-text">Friends of the League</span> 🤝
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Special thanks to our community partners who support our league and players!
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Timmy T's */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_4c82c574e05d4b47a11be7f74d8f280b~mv2.png" 
+                   alt="Timmy T's Gourmet Grinders" 
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Timmy T's Gourmet Grinders</h3>
+              <p className="text-gray-600 mb-4 flex-grow">A local favorite serving up delicious, hearty gourmet grinders with the freshest ingredients for a satisfying meal.</p>
+              <a href="https://www.timmytsgourmetgrinders.com/" 
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-teal-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-teal-600 transition-all duration-300">
+                Visit Website 🥪
+              </a>
+            </div>
+            
+            {/* Chronic Tacos */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src="https://static.wixstatic.com/media/df1e99_1c2bab03b11a4594b14d2b206f90b728~mv2.png" 
+                   alt="Chronic Tacos" 
+                   className="sponsor-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Chronic Tacos</h3>
+              <p className="text-gray-600 mb-4 flex-grow">Home of the #TacoLife, serving authentic Mexican food made with fresh ingredients and third-generation recipes.</p>
+              <a href="https://www.chronictacos.com/" 
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-blue-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-blue-600 transition-all duration-300">
+                Visit Website 🌮
+              </a>
+            </div>
+          </div>
+          
+          <div className="text-center mt-8">
+            <p className="text-gray-600 text-sm">
+              Interested in becoming a Friend of the League? 
+              <a href="mailto:mikey@alohastatesoftball.com" className="text-pink-600 hover:text-pink-800 font-semibold underline">
+                Contact us!
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Banner Divider */}
+      <div className="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             className="w-full h-auto" />
+      </div>
+
+      {/* Final CTA Section */}
+      <section className="w-full py-16 bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Join Our 'Ohana? 🌺
+          </h2>
+          <p className="text-xl mb-8 opacity-90">
+            Whether you're looking to play, volunteer, or support our community, there's a place for you in the Aloha State Softball League!
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+               target="_blank" rel="noopener noreferrer"
+               className="bg-purple-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-purple-600 transition-all duration-300 hover-lift">
+              🏃‍♀️ Sign Up as Free Agent
+            </a>
+            <a href="https://linktr.ee/alohastatesoftball" 
+               target="_blank" rel="noopener noreferrer"
+               className="bg-pink-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-pink-600 transition-all duration-300 hover-lift">
+              🔗 All Our Links
+            </a>
+          </div>
+          <div className="mt-8 flex justify-center space-x-4 text-2xl">
+            <span className="sparkle">🏳️‍🌈</span>
+            <span className="sparkle" style={{animationDelay: '0.5s'}}>🥎</span>
+            <span className="sparkle" style={{animationDelay: '1s'}}>🌺</span>
+            <span className="sparkle" style={{animationDelay: '1.5s'}}>⭐</span>
           </div>
         </div>
       </section>
