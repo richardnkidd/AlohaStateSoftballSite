@@ -927,6 +927,86 @@ html.dark-mode img {
     100% { background-position: 0% 50%; }
   }
 
+  /* Enhanced CTA Button Animations */
+  .animated-cta-primary {
+    position: relative;
+    overflow: hidden;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animated-cta-primary::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s linear infinite;
+  }
+
+  .animated-cta-secondary {
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite, bounce-subtle 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+      transform: scale(1);
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  /* Animated Navigation Links */
+  .animated-nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .animated-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff4d6d, #ff7f50, #ffd700, #32cd32, #40e0d0, #6495ed, #9370db, #ff69b4);
+    background-size: 200% 100%;
+    animation: rainbow-underline 2s linear infinite;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .animated-nav-link:hover::after {
+    width: 100%;
+  }
+
+  @keyframes rainbow-underline {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
   /* Pride Mode Background */
   body.pride-mode {
     background: linear-gradient(-45deg, 

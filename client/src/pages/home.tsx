@@ -31,12 +31,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
                target="_blank" rel="noopener noreferrer"
-               className="pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300">
+               className="animated-cta-primary pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300">
               🏃‍♀️ Join as Free Agent
             </a>
             <a href="https://linktr.ee/alohastatesoftball" 
                target="_blank" rel="noopener noreferrer"
-               className="bg-red-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-red-600 transition-all duration-300 hover-lift">
+               className="animated-cta-secondary bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg transition-all duration-300 hover-lift">
               🌺 Explore Our Links
             </a>
           </div>
