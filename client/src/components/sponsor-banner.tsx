@@ -29,7 +29,7 @@ const sponsors = [
     id: "sponsor-whipped",
     name: "Whipped & Whisked",
     url: "https://www.instagram.com/whippednwhiskedhawaii/",
-    image: "https://static.wixstatic.com/media/df1e99_eef8042349bb45a5924462578d99c658~mv2.png"
+    image: "https://static.wixstatic.com/media/df1e99_80cc683f43274a94b66ecd62773e0d97~mv2.png"
   },
   {
     id: "sponsor-kelli",
@@ -112,7 +112,7 @@ export default function SponsorBanner() {
       setTappedSponsors(newTappedSponsors);
       
       // Save to sessionStorage
-      sessionStorage.setItem('sponsor-bingo-taps', JSON.stringify([...newTappedSponsors]));
+      sessionStorage.setItem('sponsor-bingo-taps', JSON.stringify(Array.from(newTappedSponsors)));
       
       // Check for bingo victory
       if (newTappedSponsors.size >= BINGO_VICTORY_THRESHOLD) {

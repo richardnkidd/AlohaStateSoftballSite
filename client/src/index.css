@@ -120,6 +120,89 @@ body.pride-mode {
   transform: scale(1.05);
 }
 
+/* Sponsor Section Styling */
+.sponsor-section-overlay {
+  animation: gentle-breathe 4s ease-in-out infinite;
+}
+
+@keyframes gentle-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.sponsor-bingo {
+  filter: grayscale(30%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sponsor-bingo:hover {
+  filter: grayscale(0%) drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* Pride Mode Sponsor Section */
+body.pride-mode .sponsor-section-overlay {
+  background: linear-gradient(135deg, 
+    rgba(228, 14, 120, 0.1), 
+    rgba(255, 107, 53, 0.1), 
+    rgba(247, 147, 29, 0.1), 
+    rgba(255, 210, 63, 0.1), 
+    rgba(114, 200, 55, 0.1), 
+    rgba(46, 134, 171, 0.1), 
+    rgba(142, 68, 173, 0.1)
+  ) !important;
+}
+
+body.pride-mode .sponsor-section {
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  animation: pride-border-dance 3s linear infinite;
+}
+
+@keyframes pride-border-dance {
+  0% { border-color: #e40e78; }
+  14% { border-color: #ff6b35; }
+  28% { border-color: #f7931d; }
+  42% { border-color: #ffd23f; }
+  56% { border-color: #72c837; }
+  70% { border-color: #2e86ab; }
+  84% { border-color: #8e44ad; }
+  100% { border-color: #e40e78; }
+}
+
+/* Pride Mode Sponsor Images - Dancing Animation */
+body.pride-mode .sponsor-section img {
+  transition: all 0.5s ease;
+  position: relative;
+  contain: layout style;
+  will-change: transform;
+  animation: sponsor-dance 4s ease-in-out infinite;
+}
+
+body.pride-mode .sponsor-section img:hover {
+  transform: scale(1.15) rotate(3deg);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+}
+
+body.pride-mode .sponsor-section img:nth-child(even) {
+  animation-delay: 1s;
+}
+
+@keyframes sponsor-dance {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-0.2px) rotate(0.1deg) scale(1.002);
+  }
+  50% {
+    transform: translateY(-0.4px) rotate(0deg) scale(1.004);
+  }
+  75% {
+    transform: translateY(-0.2px) rotate(-0.1deg) scale(1.002);
+  }
+}
+
 .sponsor-logo {
   height: 120px;
   width: auto;
