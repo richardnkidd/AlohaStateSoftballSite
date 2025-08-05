@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(47, 83%, 95%);
+  --foreground: hsl(224, 17%, 15%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* Pride colors */
+  --pride-pink: hsl(341, 90%, 48%);
+  --pride-orange: hsl(20, 100%, 60%);
+  --pride-yellow: hsl(39, 95%, 55%);
+  --pride-lime: hsl(51, 100%, 60%);
+  --pride-green: hsl(87, 67%, 52%);
+  --pride-blue: hsl(201, 72%, 39%);
+  --pride-purple: hsl(271, 52%, 47%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+  }
+
+  .font-header {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  /* Logo Animation */
+  .logo-container {
+    position: relative;
+    display: inline-block;
+    animation: logoFlyIn 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both,
+               gentleGlow 4s ease-in-out 3.5s infinite;
+  }
+  
+  @keyframes logoFlyIn {
+    0% {
+      transform: translateX(-80px) translateY(-30px) rotate(-144deg) scale(0.2);
+      opacity: 0;
+      box-shadow: 6px 3px 0 rgba(255, 0, 150, 0.9), 12px 6px 0 rgba(255, 100, 0, 0.8);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+      opacity: 1;
+      box-shadow: none;
+    }
+  }
+  
+  @keyframes gentleGlow {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(255, 0, 150, 0.3)); }
+    50% { filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4)); }
+  }
+
+  /* Pride gradient animations */
+  .pride-gradient {
+    background: linear-gradient(45deg, 
+      hsl(341, 90%, 48%), 
+      hsl(20, 100%, 60%), 
+      hsl(39, 95%, 55%), 
+      hsl(51, 100%, 60%), 
+      hsl(87, 67%, 52%), 
+      hsl(201, 72%, 39%), 
+      hsl(271, 52%, 47%)
+    );
+    background-size: 300% 300%;
+    animation: prideGradient 3s ease infinite;
+  }
+  
+  .pride-text {
+    background: linear-gradient(45deg, 
+      hsl(341, 90%, 48%), 
+      hsl(20, 100%, 60%), 
+      hsl(39, 95%, 55%), 
+      hsl(51, 100%, 60%), 
+      hsl(87, 67%, 52%), 
+      hsl(201, 72%, 39%), 
+      hsl(271, 52%, 47%)
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: prideGradient 3s ease infinite;
+  }
+  
+  @keyframes prideGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Pride Mode Background */
+  body.pride-mode {
+    background: linear-gradient(-45deg, 
+      hsl(341, 90%, 48%), 
+      hsl(20, 100%, 60%), 
+      hsl(39, 95%, 55%), 
+      hsl(51, 100%, 60%), 
+      hsl(87, 67%, 52%), 
+      hsl(201, 72%, 39%), 
+      hsl(271, 52%, 47%)
+    ) !important;
+    background-size: 300% 300% !important;
+    animation: prideGradient 8s linear infinite !important;
+  }
+  
+  /* Pride Mode Navigation */
+  .pride-mode .main-nav {
+    background: linear-gradient(90deg, 
+      hsla(341, 90%, 48%, 0.9), 
+      hsla(20, 100%, 60%, 0.9), 
+      hsla(39, 95%, 55%, 0.9), 
+      hsla(51, 100%, 60%, 0.9), 
+      hsla(87, 67%, 52%, 0.9), 
+      hsla(201, 72%, 39%, 0.9), 
+      hsla(271, 52%, 47%, 0.9)
+    ) !important;
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Pride Mode Text */
+  .pride-mode h1,
+  .pride-mode h2,
+  .pride-mode h3,
+  .pride-mode .wave-text {
+    background: linear-gradient(45deg, 
+      hsl(341, 90%, 48%), 
+      hsl(20, 100%, 60%), 
+      hsl(39, 95%, 55%), 
+      hsl(51, 100%, 60%), 
+      hsl(87, 67%, 52%), 
+      hsl(201, 72%, 39%), 
+      hsl(271, 52%, 47%)
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: prideGradient 2s ease-in-out infinite;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Sparkle animation */
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  }
+  
+  .sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  /* Fade animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Interactive Elements */
+  .board-card {
+    background-color: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+}
