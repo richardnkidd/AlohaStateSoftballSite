@@ -131,7 +131,7 @@ export default function SponsorBanner() {
           backgroundImage: "url('https://static.wixstatic.com/media/df1e99_7d482e4975b446269ed7f7f9cb8c2d62~mv2.png')"
         }}
       >
-        <div className="sponsor-section-overlay bg-gradient-to-br from-cyan-100/50 to-pink-100/50 backdrop-blur-md rounded-lg px-4 py-3">
+        <div className="sponsor-section-overlay bg-gradient-to-br from-cyan-100/50 via-white/60 to-pink-100/50 backdrop-blur-md rounded-lg px-4 py-3">
           
           {/* Header Image */}
           <div className="flex justify-center mb-4">
