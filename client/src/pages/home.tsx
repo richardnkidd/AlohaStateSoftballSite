@@ -17,9 +17,9 @@ export default function Home() {
               className="mx-auto h-64 md:h-96 w-auto mb-6 hover-lift"
             />
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              <span className="text-2xl">🏳️‍🌈</span> 
+              <span className="text-4xl md:text-6xl mr-2">🏳️‍🌈</span> 
               <span className="pride-text">Aloha State Softball League</span> 
-              <span className="text-2xl">🥎</span>
+              <span className="text-4xl md:text-6xl ml-2">🥎</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-4xl mx-auto leading-relaxed">
               Join O'ahu's LGBTQ+ softball league for <strong>Season 4</strong>, Summer 2025! 

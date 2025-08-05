@@ -1,12 +1,25 @@
 import { Link, useLocation } from "wouter";
 import { usePrideMode } from "../hooks/use-pride-mode";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navigation() {
   const [location] = useLocation();
   const { isPrideMode, togglePrideMode } = usePrideMode();
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const [isMobileMoreOpen, setIsMobileMoreOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showMobileHamburger, setShowMobileHamburger] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 20;
+      setIsScrolled(scrolled);
+      setShowMobileHamburger(scrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleDropdown = (menu: string) => {
     if (menu === 'resources-menu') {
@@ -35,8 +48,21 @@ export default function Navigation() {
               <span className="logo-landed-effect dust-3">⭐</span>
             </Link>
             
-            {/* Mobile Quick Links */}
-            <div className="flex items-center lg:hidden space-x-2">
+            {/* Mobile Quick Links / Hamburger Menu */}
+            <div className={`flex items-center lg:hidden transition-all duration-300 ${showMobileHamburger ? 'space-x-0' : 'space-x-2'}`}>
+              {showMobileHamburger ? (
+                <button 
+                  type="button" 
+                  onClick={() => setIsMobileMoreOpen(!isMobileMoreOpen)}
+                  className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              ) : (
+                <>
               <Link href="/" className="nav-link text-gray-700 hover:text-teal-800 text-sm font-medium">
                 Home
               </Link>
@@ -70,6 +96,8 @@ export default function Navigation() {
                   </div>
                 </div>
               </div>
+                </>
+              )}
             </div>
           </div>
           

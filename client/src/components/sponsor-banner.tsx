@@ -152,7 +152,7 @@ export default function SponsorBanner() {
           </div>
           
           {/* Sponsor Logo Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 items-center justify-items-center min-h-[276px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center min-h-[400px]">
             {sponsors.map((sponsor) => (
               <a 
                 key={sponsor.id}
@@ -172,7 +172,7 @@ export default function SponsorBanner() {
                   src={sponsor.image}
                   alt={sponsor.name}
                   title={sponsor.name}
-                  className={`sponsor-bingo h-32 max-w-[180px] object-contain mx-auto transition-all duration-300 hover:scale-110 ${
+                  className={`sponsor-bingo h-64 max-w-[360px] object-contain mx-auto transition-all duration-300 hover:scale-110 ${
                     tappedSponsors.has(sponsor.id) ? 'opacity-75 scale-95' : ''
                   }`}
                   loading="lazy"
@@ -187,7 +187,7 @@ export default function SponsorBanner() {
               href="https://www.zeffy.com/en-US/fundraising/support-aloha-state-softball-2025-season"
               target="_blank" 
               rel="noopener noreferrer"
-              className="relative group overflow-hidden inline-block bg-gradient-to-r from-pink-500 to-yellow-400 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:scale-105 transition-transform duration-200"
+              className="relative group overflow-hidden inline-block pride-gradient text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:scale-105 transition-transform duration-200"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-teal-400 via-purple-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <span className="relative z-10">Become a Sponsor</span>
