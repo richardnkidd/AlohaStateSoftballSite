@@ -59,52 +59,52 @@ export default function Board() {
       title: "Member at Large",
       description: "Represents the general membership on the board.",
       email: "bkamealoha@gmail.com"
+    },
+    {
+      name: "🏃‍♂️ Scott Cubbedge",
+      title: "Member at Large",
+      description: "Represents the general membership on the board.",
+      email: "cub8119@gmail.com"
     }
   ];
 
   const bccEmails = boardMembers.map(member => member.email).join(',');
 
   return (
-    <div className="py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <img 
-            src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png"
-            alt="Aloha State Softball League Logo"
-            className="mx-auto mb-8 h-32 w-auto rounded-md shadow-sm animate-fade-in-up"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-            }}
-          />
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-header">🌺 2025 Board of Directors</h2>
-          <p className="text-xl md:text-2xl text-gray-700 font-header mb-8">Leading with Aloha and Inclusivity</p>
-          
-          <a 
-            href={`mailto:?bcc=${bccEmails}`}
-            className="inline-block bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-6 py-3 rounded-full shadow-md transition duration-300 transform hover:scale-105"
-          >
-            📬 Contact Entire Board (BCC)
-          </a>
-        </div>
+    <div className="container mx-auto px-4 py-8 md:py-12 min-h-screen" style={{background: 'linear-gradient(to bottom, #fffdf8, #faf3e0)'}}>
+      <header className="text-center mb-10">
+        <img src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png"
+             alt="Aloha State Softball League Logo"
+             className="mx-auto mb-6 h-32 w-auto rounded-md shadow-sm animate-fade-in-up"
+             style={{animationDelay: '0.1s'}}
+             onError={(e) => {
+               const target = e.target as HTMLImageElement;
+               target.style.display = 'none';
+             }}
+             loading="lazy" />
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 font-header animate-fade-in-up" style={{animationDelay: '0.2s'}}>🌺 2025 Board of Directors</h1>
+        <p className="text-xl md:text-2xl text-gray-700 font-header animate-fade-in-up" style={{animationDelay: '0.3s'}}>Aloha State Softball League</p>
+      </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="text-center mb-12">
+         <a href={`mailto:?bcc=${bccEmails}`}
+           className="inline-block bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-6 py-3 rounded-full shadow-md transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-300">
+           📬 Contact Entire Board (BCC)
+         </a>
+      </div>
+
+      <section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {boardMembers.map((member, index) => (
-            <div key={index} className="board-card p-6 rounded-lg shadow-lg transform transition duration-300 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col">
+            <article key={index} tabIndex={0} className="board-card p-6 rounded-lg shadow-lg transform transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-1 hover:ring-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-full flex flex-col">
               <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
               <p className="text-md text-blue-700 font-semibold mb-1">{member.title}</p>
               <p className="text-sm text-gray-600 mb-3 flex-grow">{member.description}</p>
-              <a 
-                href={`mailto:${member.email}`} 
-                className="text-sm text-gray-700 hover:text-blue-700 hover:underline transition duration-200"
-              >
-                📧 {member.email}
-              </a>
-            </div>
+              <a href={`mailto:${member.email}`} className="email-link text-sm text-gray-700 hover:text-blue-700 hover:underline focus:outline-none focus:ring-1 focus:ring-blue-500 rounded transition duration-200 mt-auto">📧 {member.email}</a>
+            </article>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

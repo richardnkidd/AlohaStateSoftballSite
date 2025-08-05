@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
-import PrideToggle from "./pride-toggle";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -49,7 +48,7 @@ export default function Navigation() {
               <Link
                 key={href}
                 href={href}
-                className={`font-medium transition-colors ${
+                className={`font-medium transition-colors nav-link ${
                   isActive(href)
                     ? "text-teal-600"
                     : "text-gray-700 hover:text-teal-600"
@@ -58,7 +57,22 @@ export default function Navigation() {
                 {label}
               </Link>
             ))}
-            <PrideToggle />
+            
+            {/* Pride Toggle */}
+            <div className="pride-toggle-switch-container flex items-center space-x-2">
+              <span className="text-sm font-medium">Pride Mode</span>
+              <label className="pride-toggle-switch">
+                <input
+                  type="checkbox"
+                  onChange={() => {
+                    document.body.classList.toggle('pride-mode');
+                  }}
+                />
+                <div className="pride-switch-track">
+                  <div className="pride-switch-thumb"></div>
+                </div>
+              </label>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -82,7 +96,7 @@ export default function Navigation() {
                 key={href}
                 href={href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-md font-medium ${
+                className={`block px-3 py-2 rounded-md font-medium nav-link ${
                   isActive(href)
                     ? "text-teal-600 bg-gray-50"
                     : "text-gray-700 hover:text-teal-600 hover:bg-gray-50"
@@ -92,7 +106,20 @@ export default function Navigation() {
               </Link>
             ))}
             <div className="flex items-center justify-between px-3 py-2">
-              <PrideToggle />
+              <div className="pride-toggle-switch-container flex items-center space-x-2">
+                <span className="text-sm font-medium">Pride Mode</span>
+                <label className="pride-toggle-switch">
+                  <input
+                    type="checkbox"
+                    onChange={() => {
+                      document.body.classList.toggle('pride-mode');
+                    }}
+                  />
+                  <div className="pride-switch-track">
+                    <div className="pride-switch-thumb"></div>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
