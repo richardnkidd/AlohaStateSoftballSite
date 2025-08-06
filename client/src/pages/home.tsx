@@ -441,7 +441,7 @@ export default function Home() {
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
               <img src="https://static.wixstatic.com/media/df1e99_4c82c574e05d4b47a11be7f74d8f280b~mv2.png" 
                    alt="Timmy T's Gourmet Grinders" 
-                   className="sponsor-logo mx-auto mb-4 fade-in" />
+                   className="friends-logo mx-auto mb-4 fade-in" />
               <h3 className="text-xl font-bold text-gray-800 mb-2">Timmy T's Gourmet Grinders</h3>
               <p className="text-gray-600 mb-4 flex-grow">A local favorite serving up delicious, hearty gourmet grinders with the freshest ingredients for a satisfying meal.</p>
               <a href="https://www.timmytsgourmetgrinders.com/" 
@@ -455,7 +455,7 @@ export default function Home() {
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
               <img src="https://static.wixstatic.com/media/df1e99_1c2bab03b11a4594b14d2b206f90b728~mv2.png" 
                    alt="Chronic Tacos" 
-                   className="sponsor-logo mx-auto mb-4 fade-in" />
+                   className="friends-logo mx-auto mb-4 fade-in" />
               <h3 className="text-xl font-bold text-gray-800 mb-2">Chronic Tacos</h3>
               <p className="text-gray-600 mb-4 flex-grow">Home of the #TacoLife, serving authentic Mexican food made with fresh ingredients and third-generation recipes.</p>
               <a href="https://www.chronictacos.com/" 

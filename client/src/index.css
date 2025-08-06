@@ -235,6 +235,28 @@ body.pride-mode .sponsor-section img:nth-child(even) {
   }
 }
 
+/* Friends of the League logos - 25% smaller */
+.friends-logo {
+  height: 225px !important;
+  max-height: 225px !important;
+  width: auto !important;
+  max-width: 90vw !important;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Desktop: Friends logos 25% smaller */
+@media (min-width: 768px) {
+  .friends-logo {
+    height: 135px !important;
+    max-height: 135px !important;
+    max-width: none !important;
+  }
+}
+
 .sponsor-logo:hover {
   transform: scale(1.1);
 }
