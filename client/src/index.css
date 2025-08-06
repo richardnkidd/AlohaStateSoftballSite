@@ -221,6 +221,9 @@ body.pride-mode .sponsor-section img:nth-child(even) {
   max-width: 90vw !important;
   object-fit: contain;
   transition: transform 0.3s ease;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /* Desktop: Smaller logos */
