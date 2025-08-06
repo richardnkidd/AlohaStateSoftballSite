@@ -213,17 +213,22 @@ body.pride-mode .sponsor-section img:nth-child(even) {
   }
 }
 
+/* Mobile first - Large logos */
 .sponsor-logo {
-  height: 810px; /* Mobile first - 50% larger from current size */
-  width: auto;
+  height: 300px !important;
+  max-height: 300px !important;
+  width: auto !important;
+  max-width: 90vw !important;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-/* Desktop: Keep smaller size */
+/* Desktop: Smaller logos */
 @media (min-width: 768px) {
   .sponsor-logo {
-    height: 180px;
+    height: 180px !important;
+    max-height: 180px !important;
+    max-width: none !important;
   }
 }
 
