@@ -16,8 +16,9 @@ function updateScrollProgress() {
     scrollProgress.style.width = scrollPercent + '%';
     
     // Position softball at the front of the progress bar
+    const progressWidth = (scrollPercent / 100) * window.innerWidth;
     const maxPosition = window.innerWidth - 24; // Account for softball width
-    const softballPosition = Math.min((scrollPercent / 100) * window.innerWidth, maxPosition);
+    const softballPosition = Math.min(Math.max(progressWidth - 12, 0), maxPosition);
     scrollSoftball.style.left = softballPosition + 'px';
   }
 }
