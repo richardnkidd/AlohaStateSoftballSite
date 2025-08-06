@@ -18,8 +18,9 @@ function updateSoftballProgress() {
     const softballProgress = document.querySelector('.softball-progress') as HTMLElement;
     
     if (rainbowTrail && softballProgress) {
-      rainbowTrail.style.width = `${scrollPercent}%`;
-      softballProgress.style.width = `${scrollPercent}%`;
+      const adjustedPercent = scrollPercent * 0.5; // Make rainbow trail 50% shorter
+      rainbowTrail.style.width = `${adjustedPercent}%`;
+      softballProgress.style.width = `${scrollPercent}%`; // Keep softball at full progress
     }
     
     isUpdating = false;
