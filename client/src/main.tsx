@@ -5,6 +5,7 @@ import "./index.css";
 
 // Track celebration state
 let celebrationFired = false;
+let ticking = false;
 
 // Scroll progress functionality
 function updateScrollProgress() {
@@ -16,13 +17,15 @@ function updateScrollProgress() {
     const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollPercent = (scrollTop / docHeight) * 100;
     
-    // Update progress bar width
+    // Update progress bar width with smooth transition
+    scrollProgress.style.transition = 'width 0.1s ease-out';
     scrollProgress.style.width = scrollPercent + '%';
     
-    // Position softball at the front of the progress bar
+    // Position softball at the front of the progress bar with smooth transition
     const progressWidth = (scrollPercent / 100) * window.innerWidth;
     const maxPosition = window.innerWidth - 24; // Account for softball width
     const softballPosition = Math.min(Math.max(progressWidth - 12, 0), maxPosition);
+    scrollSoftball.style.transition = 'left 0.1s ease-out, transform 0.1s ease-out';
     scrollSoftball.style.left = softballPosition + 'px';
     
     // Make the softball spin based on scroll progress
@@ -104,9 +107,23 @@ function updateScrollProgress() {
   }
 }
 
+// Throttled scroll handler using requestAnimationFrame
+function requestTick() {
+  if (!ticking) {
+    requestAnimationFrame(updateScrollProgress);
+    ticking = true;
+  }
+}
+
+function scrollHandler() {
+  requestTick();
+  // Reset ticking after the animation frame
+  setTimeout(() => { ticking = false; }, 0);
+}
+
 // Add scroll listener
-window.addEventListener('scroll', updateScrollProgress);
-window.addEventListener('resize', updateScrollProgress);
+window.addEventListener('scroll', scrollHandler);
+window.addEventListener('resize', scrollHandler);
 
 // Initialize on load
 window.addEventListener('load', updateScrollProgress);
