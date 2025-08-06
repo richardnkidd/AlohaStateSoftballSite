@@ -1001,7 +1001,7 @@ html.dark-mode img {
   /* Softball Progress Bar */
   #scrollProgress {
     background: transparent;
-    top: -4px !important;
+    top: -6px !important;
   }
 
   .rainbow-trail {
