@@ -1035,8 +1035,11 @@ html.dark-mode img {
   }
 
   @keyframes softball-spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
+    0% { transform: translateY(-50%) rotate(0deg) translateX(0px); }
+    25% { transform: translateY(-50%) rotate(90deg) translateX(1px); }
+    50% { transform: translateY(-50%) rotate(180deg) translateX(0px); }
+    75% { transform: translateY(-50%) rotate(270deg) translateX(-1px); }
+    100% { transform: translateY(-50%) rotate(360deg) translateX(0px); }
   }
 
   @keyframes softball-bounce {
