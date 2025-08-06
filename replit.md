@@ -58,3 +58,5 @@ The UI follows **atomic design principles**:
 - **Responsive Design**: Mobile-first approach with Tailwind CSS breakpoints
 - **Interactive Elements**: Scorekeeping guide with interactive demonstrations
 - **Accessibility**: Focus on keyboard navigation and screen reader compatibility through shadcn/ui components
+- **Scroll Progress Indicator**: Rainbow-colored progress bar with animated softball emoji that rolls across the screen as users scroll
+- **Celebration Animation**: Pride-themed confetti explosion when users complete scrolling to the bottom of the page, featuring multiple bursts with LGBTQ+ colors and softball-themed particles
