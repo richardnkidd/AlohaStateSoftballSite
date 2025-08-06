@@ -1016,13 +1016,17 @@ html.dark-mode img {
   .softball-progress {
     width: 0%;
     transition: width 0.1s ease-out;
+    position: relative;
   }
 
   .softball-ball {
     font-size: 16px;
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
     animation: softball-bounce 0.8s ease-in-out infinite;
-    transform: translateX(-8px);
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   @keyframes rainbow-flow {
@@ -1031,10 +1035,10 @@ html.dark-mode img {
   }
 
   @keyframes softball-bounce {
-    0%, 100% { transform: translateX(-8px) translateY(0px) rotate(0deg); }
-    25% { transform: translateX(-8px) translateY(-1px) rotate(90deg); }
-    50% { transform: translateX(-8px) translateY(0px) rotate(180deg); }
-    75% { transform: translateX(-8px) translateY(-1px) rotate(270deg); }
+    0%, 100% { transform: translateY(-50%) translateX(0px) rotate(0deg); }
+    25% { transform: translateY(-60%) translateX(0px) rotate(90deg); }
+    50% { transform: translateY(-50%) translateX(0px) rotate(180deg); }
+    75% { transform: translateY(-60%) translateX(0px) rotate(270deg); }
   }
 
   /* Pride Mode Background */
