@@ -998,6 +998,21 @@ html.dark-mode img {
     100% { background-position: 200% 50%; }
   }
 
+  /* Scroll Progress Softball Animation */
+  #scrollSoftball {
+    transform: translateX(-50%);
+    animation: softball-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes softball-bounce {
+    0%, 100% { 
+      transform: translateX(-50%) rotate(0deg) translateY(0px);
+    }
+    50% { 
+      transform: translateX(-50%) rotate(180deg) translateY(-2px);
+    }
+  }
+
   /* Pride Mode Background */
   body.pride-mode {
     background: linear-gradient(-45deg, 
