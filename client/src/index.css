@@ -1022,17 +1022,11 @@ html.dark-mode img {
   .softball-ball {
     font-size: 18px;
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-    animation: softball-bounce 2s ease-in-out infinite;
+    animation: softball-spin 1.2s linear infinite, softball-bounce 2s ease-in-out infinite;
     position: absolute;
     right: -9px;
     top: 50%;
-    transform-origin: center center;
-  }
-
-  .softball-ball::before {
-    content: '🥎';
-    display: inline-block;
-    animation: softball-spin 1.2s linear infinite;
+    transform: translateY(-50%);
   }
 
   @keyframes rainbow-flow {
@@ -1041,23 +1035,16 @@ html.dark-mode img {
   }
 
   @keyframes softball-spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
+    0% { transform: translateY(-50%) rotate(0deg) translateX(0px); }
+    25% { transform: translateY(-50%) rotate(90deg) translateX(1px); }
+    50% { transform: translateY(-50%) rotate(180deg) translateX(0px); }
+    75% { transform: translateY(-50%) rotate(270deg) translateX(-1px); }
+    100% { transform: translateY(-50%) rotate(360deg) translateX(0px); }
   }
 
   @keyframes softball-bounce {
-    0%, 100% { 
-      transform: translateY(-50%) translateX(0px) scale(1); 
-    }
-    25% { 
-      transform: translateY(-60%) translateX(1px) scale(1.05); 
-    }
-    50% { 
-      transform: translateY(-65%) translateX(0px) scale(1.1); 
-    }
-    75% { 
-      transform: translateY(-60%) translateX(-1px) scale(1.05); 
-    }
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-65%) scale(1.1); }
   }
 
   /* Pride Mode Background */
