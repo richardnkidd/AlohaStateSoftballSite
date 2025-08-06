@@ -25,6 +25,11 @@ function updateScrollProgress() {
     const softballPosition = Math.min(Math.max(progressWidth - 12, 0), maxPosition);
     scrollSoftball.style.left = softballPosition + 'px';
     
+    // Make the softball spin based on scroll progress
+    const rotationDegrees = (scrollPercent / 100) * 720; // 2 full rotations during scroll
+    scrollSoftball.style.transform = `rotate(${rotationDegrees}deg)`;
+    scrollSoftball.style.display = 'inline-block'; // Needed for transform to work
+    
     // Trigger celebration when reaching the bottom
     if (scrollPercent >= 99.5 && !celebrationFired) {
       celebrationFired = true;

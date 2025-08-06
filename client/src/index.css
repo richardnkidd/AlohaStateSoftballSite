@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Softball spinning animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Pride Mode Styling */
 :root {
   --pride-gradient: linear-gradient(45deg, #e40476, #fe6b35, #fed800, #56c02b, #0f9cda, #732982);
