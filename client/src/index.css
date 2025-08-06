@@ -1020,11 +1020,11 @@ html.dark-mode img {
   }
 
   .softball-ball {
-    font-size: 18px;
+    font-size: 20px;
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
     animation: softball-spin 1.2s linear infinite, softball-bounce 2s ease-in-out infinite;
     position: absolute;
-    right: -9px;
+    right: -10px;
     top: 50%;
     transform: translateY(-50%);
   }
