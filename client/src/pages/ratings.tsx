@@ -2,18 +2,9 @@ import { useEffect, useState } from "react";
 
 export default function Ratings() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     document.title = "Aloha State Softball League Guide";
-    
-    // Scroll progress handler
-    const handleScroll = () => {
-      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      setScrollProgress(scrolled);
-    };
 
     // Scroll animation observer
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -33,11 +24,7 @@ export default function Ratings() {
     const scrollElements = document.querySelectorAll('.js-scroll-trigger');
     scrollElements.forEach(el => observer.observe(el));
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       scrollElements.forEach(el => observer.unobserve(el));
     };
   }, []);
@@ -49,21 +36,6 @@ export default function Ratings() {
 
   return (
     <>
-      {/* Scroll Progress Bar */}
-      <div 
-        id="scrollProgressBar" 
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '5px',
-          width: `${scrollProgress}%`,
-          backgroundColor: isDarkMode ? '#4dabf7' : '#007bff',
-          zIndex: 9999,
-          transition: 'width 0.1s linear'
-        }}
-      />
-
       <div className="min-h-screen" style={{
         fontFamily: "'Barlow', sans-serif",
         backgroundImage: 'url("https://static.wixstatic.com/media/df1e99_381ca0e7b1b84e88973b4ba2977f8fdb~mv2.png")',
@@ -445,243 +417,6 @@ export default function Ratings() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .content-wrapper {
-          max-width: 800px;
-          margin: 2rem auto;
-          padding: 1.5rem 2rem;
-          background-color: ${isDarkMode ? '#2c2c2c' : '#ffffff'};
-          border-radius: 8px;
-          box-shadow: 0 4px 15px ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
-          position: relative;
-          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-          color: ${isDarkMode ? '#f1f1f1' : '#1b1c1d'};
-        }
-
-        .dark-mode-toggle {
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          z-index: 10;
-        }
-        .dark-mode-toggle span {
-          margin-right: 8px;
-          font-size: 0.9rem;
-          color: ${isDarkMode ? '#bbbbbb' : '#505050'};
-        }
-        .toggle-switch {
-          position: relative;
-          display: inline-block;
-          width: 40px;
-          height: 20px;
-        }
-        .toggle-switch input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-        .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: ${isDarkMode ? '#555' : '#ccc'};
-          transition: .4s;
-          border-radius: 20px;
-        }
-        .slider:before {
-          position: absolute;
-          content: "";
-          height: 16px;
-          width: 16px;
-          left: 2px;
-          bottom: 2px;
-          background-color: ${isDarkMode ? '#ccc' : 'white'};
-          transition: .4s;
-          border-radius: 50%;
-        }
-        input:checked + .slider {
-          background-color: ${isDarkMode ? '#4dabf7' : '#007bff'};
-        }
-        input:checked + .slider:before {
-          transform: translateX(20px);
-        }
-
-        h1, h2, h3, h4 {
-          color: ${isDarkMode ? '#ffffff' : '#000000'};
-        }
-
-        .note, .important-note {
-          background-color: ${isDarkMode ? '#3a3a3a' : '#f8f9fa'};
-          border-left: 4px solid ${isDarkMode ? '#4dabf7' : '#007bff'};
-          padding: 1rem;
-          margin: 1.5rem 0;
-          border-radius: 4px;
-        }
-
-        .restriction {
-          background-color: ${isDarkMode ? '#3a3a3a' : '#f8f9fa'};
-          border-left: 4px solid ${isDarkMode ? '#ff6b6b' : '#dc3545'};
-          padding: 1rem;
-          margin: 1.5rem 0;
-          border-radius: 4px;
-        }
-
-        .emoji-bullet {
-          list-style-type: none;
-          padding-left: 0;
-        }
-        .emoji-bullet li::before {
-          content: "🔹";
-          display: inline-block;
-          margin-right: 0.5em;
-        }
-
-        hr {
-          border: none;
-          height: 1px;
-          background-color: ${isDarkMode ? '#555555' : '#e0e0e0'};
-          margin: 2.5rem 0;
-        }
-
-        details {
-          background-color: ${isDarkMode ? '#3a3a3a' : '#f8f9fa'};
-          border: 1px solid ${isDarkMode ? '#555555' : '#e0e0e0'};
-          border-radius: 4px;
-          padding: 0.5rem 1rem;
-          margin: 1rem 0;
-        }
-        summary {
-          cursor: pointer;
-          font-weight: bold;
-          color: ${isDarkMode ? '#bbbbbb' : '#505050'};
-        }
-        summary:hover {
-          color: ${isDarkMode ? '#f1f1f1' : '#1b1c1d'};
-        }
-        details[open] {
-          padding-bottom: 1rem;
-        }
-        details > p {
-          margin-top: 0.5rem;
-          margin-bottom: 0;
-          font-size: 0.95rem;
-        }
-
-        .tooltip {
-          position: relative;
-          cursor: help;
-          border-bottom: 1px dotted ${isDarkMode ? '#bbbbbb' : '#505050'};
-        }
-        .tooltip::after {
-          content: attr(title);
-          position: absolute;
-          bottom: 125%;
-          left: 50%;
-          transform: translateX(-50%);
-          white-space: nowrap;
-          background-color: ${isDarkMode ? '#eeeeee' : '#333333'};
-          color: ${isDarkMode ? '#1b1c1d' : '#ffffff'};
-          padding: 5px 10px;
-          border-radius: 4px;
-          font-size: 0.85rem;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.2s ease, visibility 0.2s ease;
-          z-index: 10;
-        }
-        .tooltip:hover::after {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .js-scroll-trigger {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .js-scroll-trigger.visible {
-          opacity: 1;
-          transform: none;
-        }
-
-        .section-content {
-          padding-left: 1rem;
-          margin-left: -1rem;
-          border-left-width: 6px;
-          border-left-style: solid;
-          margin-bottom: 2rem;
-          transition: border-color 0.3s ease;
-        }
-        .section-hitting { border-left-color: ${isDarkMode ? '#ff6b6b' : '#f94144'}; }
-        .section-running { border-left-color: ${isDarkMode ? '#ffdd87' : '#f9c74f'}; }
-        .section-fielding { border-left-color: ${isDarkMode ? '#7fcdb6' : '#43aa8b'}; }
-        .section-throwing { border-left-color: ${isDarkMode ? '#a5bdd4' : '#577590'}; }
-
-        .icon-emoji {
-          display: inline-block;
-          transform: scale(1);
-          transition: transform 0.3s ease;
-          margin-right: 0.4rem;
-          cursor: default;
-        }
-        h3:hover .icon-emoji {
-          transform: scale(1.25) rotate(5deg);
-        }
-
-        img {
-          display: block;
-          margin: 2rem auto;
-          max-width: 100%;
-          height: auto;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
-        }
-
-        .skill-section-image {
-          width: 56.25%;
-          max-width: 100%;
-          height: auto;
-          margin: 2rem auto;
-        }
-
-        a {
-          color: ${isDarkMode ? '#69b1ff' : '#0056b3'};
-          text-decoration: none;
-        }
-        a:hover {
-          text-decoration: underline;
-          color: ${isDarkMode ? '#a3ceff' : '#003d80'};
-        }
-
-        ul, ol {
-          margin-left: 1.5rem;
-          padding-left: 1rem;
-          margin-bottom: 1rem;
-        }
-        li {
-          margin-bottom: 0.5rem;
-        }
-
-        p {
-          font-size: 1rem;
-          margin-bottom: 1rem;
-          line-height: 1.6;
-        }
-
-        :global(.dark-mode) {
-          filter: invert(1) hue-rotate(180deg);
-        }
-        :global(.dark-mode img) {
-          filter: invert(1) hue-rotate(180deg);
-        }
-      `}</style>
     </>
   );
 }
