@@ -214,7 +214,7 @@ body.pride-mode .sponsor-section img:nth-child(even) {
 }
 
 .sponsor-logo {
-  height: 240px;
+  height: 360px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
