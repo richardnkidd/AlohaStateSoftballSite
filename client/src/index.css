@@ -214,13 +214,13 @@ body.pride-mode .sponsor-section img:nth-child(even) {
 }
 
 .sponsor-logo {
-  height: 540px; /* Mobile first - 50% larger */
+  height: 810px; /* Mobile first - 50% larger from current size */
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-/* Desktop: 50% smaller */
+/* Desktop: Keep smaller size */
 @media (min-width: 768px) {
   .sponsor-logo {
     height: 180px;
