@@ -1026,7 +1026,7 @@ html.dark-mode img {
     position: absolute;
     right: -9px;
     top: 50%;
-    transform: translateY(-50%);
+    transform-origin: center center;
   }
 
   @keyframes rainbow-flow {
@@ -1035,16 +1035,23 @@ html.dark-mode img {
   }
 
   @keyframes softball-spin {
-    0% { transform: translateY(-50%) rotate(0deg) translateX(0px); }
-    25% { transform: translateY(-50%) rotate(90deg) translateX(1px); }
-    50% { transform: translateY(-50%) rotate(180deg) translateX(0px); }
-    75% { transform: translateY(-50%) rotate(270deg) translateX(-1px); }
-    100% { transform: translateY(-50%) rotate(360deg) translateX(0px); }
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
   }
 
   @keyframes softball-bounce {
-    0%, 100% { transform: translateY(-50%) scale(1); }
-    50% { transform: translateY(-65%) scale(1.1); }
+    0%, 100% { 
+      transform: translateY(-50%) translateX(0px) scale(1); 
+    }
+    25% { 
+      transform: translateY(-60%) translateX(1px) scale(1.05); 
+    }
+    50% { 
+      transform: translateY(-65%) translateX(0px) scale(1.1); 
+    }
+    75% { 
+      transform: translateY(-60%) translateX(-1px) scale(1.05); 
+    }
   }
 
   /* Pride Mode Background */
