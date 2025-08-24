@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import raisingCanesLogo from "../assets/raising-canes-logo.jpg";
 
 export default function Home() {
   useEffect(() => {
@@ -436,7 +437,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Timmy T's */}
             <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
               <img src="https://static.wixstatic.com/media/df1e99_4c82c574e05d4b47a11be7f74d8f280b~mv2.png" 
@@ -462,6 +463,20 @@ export default function Home() {
                  target="_blank" rel="noopener noreferrer"
                  className="inline-block bg-blue-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-blue-600 transition-all duration-300">
                 Visit Website 🌮
+              </a>
+            </div>
+
+            {/* Raising Cane's */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover-lift text-center flex flex-col items-center">
+              <img src={raisingCanesLogo} 
+                   alt="Raising Cane's Chicken Fingers" 
+                   className="friends-logo mx-auto mb-4 fade-in" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Raising Cane's Chicken Fingers</h3>
+              <p className="text-gray-600 mb-4 flex-grow">Famous for ONE LOVE® – quality chicken finger meals. As the Official Chicken of UH Athletics, they actively support Hawaii's youth sports through free softball clinics and community partnerships.</p>
+              <a href="https://www.raisingcanes.com/home/" 
+                 target="_blank" rel="noopener noreferrer"
+                 className="inline-block bg-red-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-red-600 transition-all duration-300">
+                Visit Website 🍗
               </a>
             </div>
           </div>
