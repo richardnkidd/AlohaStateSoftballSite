@@ -257,6 +257,27 @@ body.pride-mode .sponsor-section img:nth-child(even) {
   }
 }
 
+/* Specific sizing for Raising Cane's logo (50% smaller) */
+.canes-logo {
+  height: 112px !important;
+  max-height: 112px !important;
+  width: auto !important;
+  max-width: 90vw !important;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (min-width: 768px) {
+  .canes-logo {
+    height: 67px !important;
+    max-height: 67px !important;
+    max-width: none !important;
+  }
+}
+
 .sponsor-logo:hover {
   transform: scale(1.1);
 }
