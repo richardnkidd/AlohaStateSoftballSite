@@ -96,7 +96,7 @@ export default function Navigation() {
                           Home
                         </Link>
                         <a href="https://teamsideline.com/sites/aikaneohana/schedules" target="_blank" rel="noopener noreferrer" className="block text-xl font-medium text-gray-800 hover:text-teal-600 py-2 animated-nav-link" onClick={() => setIsMobileMoreOpen(false)}>
-                          Schedules & Standings
+                          Scores & Standings
                         </a>
                         <Link href="/board" className="block text-xl font-medium text-gray-800 hover:text-teal-600 py-2" onClick={() => setIsMobileMoreOpen(false)}>
                           Board of Directors
@@ -152,7 +152,7 @@ export default function Navigation() {
                     Home
                   </Link>
                   <span className="text-gray-300">|</span>
-                  <a href="https://teamsideline.com/sites/aikaneohana/schedules" target="_blank" rel="noopener noreferrer" className="nav-link text-gray-700 hover:text-teal-800 text-sm font-medium animated-nav-link">Schedules</a>
+                  <a href="https://teamsideline.com/sites/aikaneohana/schedules" target="_blank" rel="noopener noreferrer" className="nav-link text-gray-700 hover:text-teal-800 text-sm font-medium animated-nav-link">Scores</a>
                   <span className="text-gray-300">|</span>
                   <div className="relative inline-block">
                     <button 
@@ -209,7 +209,7 @@ export default function Navigation() {
                 </Link>
                 <a href="https://teamsideline.com/sites/aikaneohana/schedules" target="_blank" rel="noopener noreferrer" className="nav-link relative group overflow-hidden text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium animated-nav-link">
                   <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-                  <span className="relative z-10">Schedules & Standings</span>
+                  <span className="relative z-10">Scores & Standings</span>
                 </a>
                 <Link href="/board" className="nav-link relative group overflow-hidden text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hidden xl:block">
                   <span className="absolute inset-0 bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
