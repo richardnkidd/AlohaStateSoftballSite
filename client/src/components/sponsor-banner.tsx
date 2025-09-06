@@ -14,6 +14,8 @@ export default function SponsorBanner() {
           minHeight: "420px"
         }}
       >
+        {/* White overlay to lighten background by 25% */}
+        <div className="absolute inset-0 bg-white/25 z-0"></div>
         
         {/* Main Content Container */}
         <div className="relative z-10 px-6 py-6 md:px-8 md:py-8">
