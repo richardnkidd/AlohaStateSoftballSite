@@ -280,13 +280,6 @@ export default function Navigation() {
             
             {/* Mobile Action Buttons - Hidden when hamburger is shown */}
             <div className={`lg:hidden flex-col w-full gap-y-4 mt-4 ${showMobileHamburger ? 'hidden' : 'flex'}`}>
-              {/* Mobile Season 4 Photos Button */}
-              <a href="https://ericzmartin.com/" 
-                 target="_blank" rel="noopener noreferrer"
-                 className="free-agents-btn w-full text-center px-6 py-3 text-base font-semibold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
-                📸 Season 4 Photos
-              </a>
-              
               {/* Mobile Pride Toggle */}
               <div className="flex items-center justify-center gap-x-3">
                 <span className="font-semibold pride-text-animated wave-text">Pride Mode</span>
