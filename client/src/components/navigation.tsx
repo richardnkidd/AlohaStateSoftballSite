@@ -14,7 +14,11 @@ export default function Navigation() {
     const handleScroll = () => {
       const scrolled = window.scrollY > 20;
       setIsScrolled(scrolled);
-      setShowMobileHamburger(scrolled);
+      
+      // Only show hamburger menu after scrolling past the tournament banner
+      // Tournament banner is approximately 420px tall + some padding
+      const pastBanner = window.scrollY > 450;
+      setShowMobileHamburger(pastBanner);
     };
 
     window.addEventListener('scroll', handleScroll);
