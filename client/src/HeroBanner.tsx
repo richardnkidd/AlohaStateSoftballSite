@@ -52,7 +52,9 @@ export default function HeroBanner() {
           alt="Ānuenue Classic 2026 logo"
         />
         <div className="hero-title-wrap">
-          <h1 className="hero-title">ĀNUENUE CLASSIC 2026</h1>
+          <h1 className="hero-title">
+            ĀNUENUE CLASSIC <span className="year-pill">2026</span>
+          </h1>
           <p className="hero-sub">Hawai'i's Premier LGBTQ+ Softball Tournament</p>
           <span className="hero-spotlight" aria-hidden />
         </div>
