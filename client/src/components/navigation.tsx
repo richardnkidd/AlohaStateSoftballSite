@@ -63,8 +63,14 @@ export default function Navigation() {
                     </svg>
                   </button>
                   
+                  {/* Mobile Menu Backdrop */}
+                  <div 
+                    className={`fixed inset-0 z-40 bg-black transition-opacity duration-500 ease-in-out ${isMobileMoreOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => setIsMobileMoreOpen(false)}
+                  />
+                  
                   {/* Full-Screen Mobile Menu */}
-                  <div className={`fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                  <div className={`fixed inset-0 z-50 bg-white transform transition-all duration-400 ${isMobileMoreOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-12 opacity-0 scale-95'}`} style={{transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'}}>
                     <div className="flex flex-col h-full pt-16 px-6">
                       {/* Close Button */}
                       <button 
