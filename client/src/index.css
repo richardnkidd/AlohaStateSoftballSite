@@ -22,16 +22,25 @@
 
 /* Tournament Color Palette */
 :root {
-  /* Sunset-to-Ocean Colors */
+  /* Neutral sand/sky/aqua palette - logo-safe */
+  --sand-50: #F9F5EC;
+  --sky-50: #EEF7FB;
+  --aqua-50: #EAF6F3;
+  --ink: #0F172A;
+  --text: #1F2937;
+  --muted: #6B7280;
+  
+  /* CTA accent colors */
+  --cta-start: #FF8A66; /* coral */
+  --cta-end: #FFC168;   /* mango */
+  
+  /* Legacy colors kept for other components */
   --mango: #FFB457;
   --guava: #FF6F91;
   --plumeria: #FFD166;
   --ocean: #2EC4B6;
   --deep: #133C55;
   --sand: #FFF7ED;
-  --ink: #0F172A;
-  --text: #1F2937;
-  --muted: #6B7280;
   --accent: #FB6F92;
   
   /* Pride Mode Variables */

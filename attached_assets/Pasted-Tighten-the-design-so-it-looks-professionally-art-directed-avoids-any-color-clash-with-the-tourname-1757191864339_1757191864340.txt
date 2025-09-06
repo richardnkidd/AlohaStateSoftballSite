@@ -1,0 +1,65 @@
+Tighten the design so it looks professionally art-directed, avoids any color clash with the tournament logo, and updates the title.
+
+Required changes
+
+Title copy & style
+
+Replace H1 with exactly: ĀNUENUE CLASSIC 2026 (all caps).
+
+Slightly wider tracking on desktop (letter-spacing: .02em) and strong optical size (48–64px desktop / 32–40px mobile).
+
+Keep the subtle spotlight behind the H1 but reduce opacity to 20–28% so it doesn’t haze the logo.
+
+Logo-safe color system (no clash)
+
+Base the banner on calm sand/sky tints that complement a navy + yellow softball logo; avoid hot pink/orange near the logo area.
+
+Implement this palette and gradient (mobile-first):
+
+:root{
+  /* sampled to avoid clash with navy/yellow logo */
+  --sand-50:#F9F5EC;
+  --sky-50:#EEF7FB;
+  --aqua-50:#EAF6F3;
+  --ink:#0F172A;
+  --muted:#6B7280;
+
+  /* accent used sparingly for CTA only */
+  --cta-start:#FF8A66; /* coral */
+  --cta-end:#FFC168;   /* mango */
+}
+.hero{
+  background: linear-gradient(135deg, var(--sand-50) 0%, var(--sky-50) 55%, var(--aqua-50) 100%);
+}
+
+
+Add a 1px rainbow border on the hero wrapper only (very faint, 30% opacity) to nod to Pride without competing with the badge.
+
+Ensure all cards use white with a soft inner gradient and realistic layered shadows; keep contrast AA+.
+
+CTA refinement (no AI “glow”)
+
+Keep the pill button, but remove outer glows. Use the coral→mango gradient above, with tactile hover/active states and the existing confetti micro-burst (respect prefers-reduced-motion).
+
+Copy to keep (unchanged)
+
+Subhead, the three info chips, “Official Aloha State Softball League Tournament,” the supporting line, and the inclusivity note—replace emoji with inline SVGs.
+
+Nice-to-have polish
+
+Slight parallax drift on the background (1–2°), disabled for reduced-motion.
+
+Add a logo-safe CSS class that can switch the banner to a single-color fallback if needed:
+
+.hero.logo-safe{ background:#FAF7F0; }
+
+
+Acceptance criteria
+
+H1 shows ĀNUENUE CLASSIC 2026 in all caps.
+
+Banner colors read as neutral sand/sky/aqua and do not visually fight the navy/yellow logo.
+
+No neon or plastic AI sheen; shadows and textures feel real; WCAG AA contrast met.
+
+Mobile looks clean at 320px with readable type and tappable targets.
