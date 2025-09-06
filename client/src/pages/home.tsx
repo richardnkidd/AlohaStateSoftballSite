@@ -107,12 +107,12 @@ export default function Home() {
               <div className="absolute top-0 right-0 text-6xl opacity-10">⚾</div>
               <div className="relative z-10">
                 <img src="https://static.wixstatic.com/media/df1e99_c16538715deb475e9f25e24745a4d790~mv2.png" alt="ASSL Team Sideline Logo" className="h-72 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">Season 4 Standings, Scores, and Schedule!</h3>
-                <p className="text-gray-600 mb-6">Follow all the action, check standings, and never miss a game!</p>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">Season 4 Final Standings and Scores!</h3>
+                <p className="text-gray-600 mb-6">Check final standings and scores from Season 4!</p>
                 <a href="https://teamsideline.com/sites/aikaneohana/schedules" 
                    target="_blank" rel="noopener noreferrer"
                    className="pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300 inline-block">
-                  View Standings & Schedule
+                  View Standings & Scores
                 </a>
               </div>
             </div>
