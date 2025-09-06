@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import raisingCanesLogo from "../assets/raising-canes-logo.jpg";
-import anuenueClassicLogo from "../assets/anuenue-classic-logo.jpeg";
 
 export default function Home() {
   useEffect(() => {
@@ -83,30 +82,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ānuenue Classic Tournament Banner */}
-      <div className="w-full py-8 bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
-              <img 
-                src={anuenueClassicLogo} 
-                alt="Ānuenue Classic Tournament Logo" 
-                className="h-32 md:h-40 w-auto object-contain"
-              />
-              <div className="text-center md:text-left">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                  🌈 Ānuenue Classic Tournament 🥎
-                </h3>
-                <p className="text-lg md:text-xl text-gray-700 font-semibold mb-1">
-                  March 27, 28, 29 • Patsy Mink Field, O'ahu
-                </p>
-                <p className="text-base md:text-lg text-purple-600 font-medium animate-pulse">
-                  More Info Coming Soon!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Banner Divider */}
+      <div className="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             className="w-full h-auto" />
       </div>
 
       {/* Site Links Section */}
@@ -230,30 +210,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ānuenue Classic Tournament Banner */}
-      <div className="w-full py-8 bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
-              <img 
-                src={anuenueClassicLogo} 
-                alt="Ānuenue Classic Tournament Logo" 
-                className="h-32 md:h-40 w-auto object-contain"
-              />
-              <div className="text-center md:text-left">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                  🌈 Ānuenue Classic Tournament 🥎
-                </h3>
-                <p className="text-lg md:text-xl text-gray-700 font-semibold mb-1">
-                  March 27, 28, 29 • Patsy Mink Field, O'ahu
-                </p>
-                <p className="text-base md:text-lg text-purple-600 font-medium animate-pulse">
-                  More Info Coming Soon!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Banner Divider */}
+      <div className="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             className="w-full h-auto" />
       </div>
 
       {/* Sponsors Section */}
@@ -531,30 +492,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ānuenue Classic Tournament Banner */}
-      <div className="w-full py-8 bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
-              <img 
-                src={anuenueClassicLogo} 
-                alt="Ānuenue Classic Tournament Logo" 
-                className="h-32 md:h-40 w-auto object-contain"
-              />
-              <div className="text-center md:text-left">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                  🌈 Ānuenue Classic Tournament 🥎
-                </h3>
-                <p className="text-lg md:text-xl text-gray-700 font-semibold mb-1">
-                  March 27, 28, 29 • Patsy Mink Field, O'ahu
-                </p>
-                <p className="text-base md:text-lg text-purple-600 font-medium animate-pulse">
-                  More Info Coming Soon!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Banner Divider */}
+      <div className="w-full py-4">
+        <img src="https://static.wixstatic.com/media/df1e99_5197682b37e34d269664ff746162b543~mv2.png" 
+             alt="Section Divider" 
+             className="w-full h-auto" />
       </div>
 
       {/* Final CTA Section */}
