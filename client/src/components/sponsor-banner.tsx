@@ -20,7 +20,7 @@ export default function SponsorBanner() {
               <div className="flex-shrink-0">
                 <img 
                   src={anuenueClassicLogo}
-                  alt="Ānuenue Classic 2025 Logo" 
+                  alt="Ānuenue Classic 2026 Logo" 
                   className="w-24 h-24 md:w-32 md:h-32 rounded-full shadow-lg border-4 border-white object-cover"
                 />
               </div>
@@ -28,7 +28,7 @@ export default function SponsorBanner() {
               {/* Title Section */}
               <div className="text-center md:text-left">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
-                  Ānuenue Classic 2025
+                  ĀNUENUE CLASSIC 2026
                 </h2>
                 <p className="text-lg md:text-xl font-semibold text-gray-700 mt-1">
                   Hawai'i's Premier LGBTQ+ Softball Tournament
@@ -45,8 +45,8 @@ export default function SponsorBanner() {
               <div className="bg-white rounded-xl shadow-md p-4 border-t-4 border-purple-500 hover:shadow-lg transition-shadow">
                 <div className="text-center">
                   <div className="text-3xl mb-2">📅</div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">March 27-29, 2025</h3>
-                  <p className="text-sm text-gray-600">Thursday - Saturday</p>
+                  <h3 className="text-lg font-bold text-gray-800 mb-1">March 27-29, 2026</h3>
+                  <p className="text-sm text-gray-600">Friday - Sunday</p>
                   <p className="text-xs text-gray-500 mt-1">3 Days of Competition</p>
                 </div>
               </div>
