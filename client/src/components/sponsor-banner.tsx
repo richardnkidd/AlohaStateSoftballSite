@@ -21,7 +21,7 @@ export default function SponsorBanner() {
                 <img 
                   src={anuenueClassicLogo}
                   alt="Ānuenue Classic 2026 Logo" 
-                  className="w-24 h-24 md:w-32 md:h-32 rounded-full shadow-lg border-4 border-white object-cover"
+                  className="w-36 h-36 md:w-32 md:h-32 rounded-full shadow-lg border-4 border-white object-cover"
                 />
               </div>
               
