@@ -1,5 +1,5 @@
 import anuenueClassicLogo from "../assets/anuenue-classic-logo.jpeg";
-import tropicalBg from "../assets/tropical-palm-bg.png";
+import tropicalBg from "../assets/tropical-palm-bg-2.png";
 
 export default function SponsorBanner() {
   return (
