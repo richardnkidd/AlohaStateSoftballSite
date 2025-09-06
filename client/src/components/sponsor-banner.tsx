@@ -1,4 +1,5 @@
 import anuenueClassicLogo from "../assets/anuenue-classic-logo.jpeg";
+import tropicalBg from "../assets/tropical-palm-bg.png";
 
 export default function SponsorBanner() {
   return (
@@ -6,19 +7,13 @@ export default function SponsorBanner() {
       <div 
         className="max-w-screen-xl mx-auto rounded-2xl shadow-xl overflow-hidden relative"
         style={{
-          background: "linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 15%, #dda0dd 30%, #e6e6fa 45%, #b0e0e6 60%, #87ceeb 75%, #98d8c8 90%, #a8d8ea 100%)",
+          backgroundImage: `url(${tropicalBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           minHeight: "420px"
         }}
       >
-        {/* Palm Frond Overlay Pattern */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath d='M50 100 Q 100 50, 150 100 T 250 100 Q 300 50, 350 100' stroke='white' stroke-width='2' fill='none' opacity='0.3'/%3E%3Cpath d='M0 150 Q 50 100, 100 150 T 200 150 Q 250 100, 300 150 T 400 150' stroke='white' stroke-width='2' fill='none' opacity='0.3'/%3E%3Cpath d='M50 250 Q 100 200, 150 250 T 250 250 Q 300 200, 350 250' stroke='white' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
-            backgroundSize: "400px 400px",
-            backgroundRepeat: "repeat"
-          }}
-        />
         
         {/* Main Content Container */}
         <div className="relative z-10 px-6 py-6 md:px-8 md:py-8">
