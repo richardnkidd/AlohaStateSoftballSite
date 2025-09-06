@@ -4,122 +4,117 @@ export default function SponsorBanner() {
   return (
     <div className="w-full mx-auto px-4 py-3">
       <div 
-        className="max-w-screen-xl mx-auto rounded-2xl shadow-xl overflow-hidden"
+        className="max-w-screen-xl mx-auto rounded-2xl shadow-xl overflow-hidden relative"
         style={{
-          background: "linear-gradient(120deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #fbbf24 75%, #60a5fa 100%)"
+          background: "linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 15%, #dda0dd 30%, #e6e6fa 45%, #b0e0e6 60%, #87ceeb 75%, #98d8c8 90%, #a8d8ea 100%)",
+          minHeight: "420px"
         }}
       >
-        {/* Main Banner Container with Glass Effect */}
-        <div className="bg-gradient-to-b from-white/95 to-white/90 backdrop-blur-xl">
+        {/* Palm Frond Overlay Pattern */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath d='M50 100 Q 100 50, 150 100 T 250 100 Q 300 50, 350 100' stroke='white' stroke-width='2' fill='none' opacity='0.3'/%3E%3Cpath d='M0 150 Q 50 100, 100 150 T 200 150 Q 250 100, 300 150 T 400 150' stroke='white' stroke-width='2' fill='none' opacity='0.3'/%3E%3Cpath d='M50 250 Q 100 200, 150 250 T 250 250 Q 300 200, 350 250' stroke='white' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
+            backgroundSize: "400px 400px",
+            backgroundRepeat: "repeat"
+          }}
+        />
+        
+        {/* Main Content Container */}
+        <div className="relative z-10 px-6 py-6 md:px-8 md:py-8">
           
-          {/* Top Section with Logo and Title */}
-          <div className="px-6 pt-6 pb-4 md:px-8 md:pt-8">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-              
-              {/* Tournament Logo */}
-              <div className="flex-shrink-0">
-                <img 
-                  src={anuenueClassicLogo}
-                  alt="Ānuenue Classic 2026 Logo" 
-                  className="w-36 h-36 md:w-32 md:h-32 rounded-full shadow-lg border-4 border-white object-cover"
-                />
+          {/* Logo and Title Section */}
+          <div className="text-center mb-6">
+            <div className="flex justify-center mb-3">
+              <img 
+                src={anuenueClassicLogo}
+                alt="Ānuenue Classic 2026 Logo" 
+                className="w-20 h-20 md:w-24 md:h-24 rounded-full shadow-lg border-4 border-white object-cover"
+              />
+            </div>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2">
+              <span style={{
+                background: "linear-gradient(90deg, #9333ea 0%, #ec4899 50%, #f97316 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text"
+              }}>
+                ANUENUE CLASSIC 2026
+              </span>
+            </h2>
+            <p className="text-gray-700 text-base md:text-lg font-medium">
+              Hawai'i's Premier LGBTQ+ Softball Tournament
+            </p>
+          </div>
+
+          {/* Three Info Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-5">
+            
+            {/* Date Card */}
+            <div className="bg-white/95 backdrop-blur rounded-xl p-4 text-center shadow-md">
+              <div className="text-2xl mb-2">📅</div>
+              <h3 className="font-bold text-gray-800 text-base mb-1">March 27-29, 2026</h3>
+              <p className="text-sm text-gray-600">Friday - Sunday</p>
+              <div className="flex justify-center gap-1 mt-2">
+                <span className="text-xs">🎊</span>
+                <span className="text-xs text-gray-500">3 Days of Competition</span>
+                <span className="text-xs">🎊</span>
               </div>
-              
-              {/* Title Section */}
-              <div className="text-center md:text-left">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
-                  ĀNUENUE CLASSIC 2026
-                </h2>
-                <p className="text-lg md:text-xl font-semibold text-gray-700 mt-1">
-                  Hawai'i's Premier LGBTQ+ Softball Tournament
-                </p>
-              </div>
+            </div>
+
+            {/* Location Card */}
+            <div className="bg-white/95 backdrop-blur rounded-xl p-4 text-center shadow-md">
+              <div className="text-2xl mb-2">🌴</div>
+              <h3 className="font-bold text-gray-800 text-base mb-1">Patsy T. Mink Park</h3>
+              <p className="text-sm text-gray-600">O'ahu, Hawai'i</p>
+              <p className="text-xs text-gray-500 mt-2">Beautiful Island Setting</p>
+            </div>
+
+            {/* Open Tournament Card */}
+            <div className="bg-white/95 backdrop-blur rounded-xl p-4 text-center shadow-md">
+              <div className="text-2xl mb-2">🌍</div>
+              <h3 className="font-bold text-gray-800 text-base mb-1">Open Tournament</h3>
+              <p className="text-sm text-gray-600">All IPS Players Welcome</p>
+              <p className="text-xs text-gray-500 mt-2">International Pride Softball</p>
             </div>
           </div>
 
-          {/* Information Cards Section */}
-          <div className="px-6 pb-6 md:px-8 md:pb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-              
-              {/* Date Card */}
-              <div className="bg-white rounded-xl shadow-md p-4 border-t-4 border-purple-500 hover:shadow-lg transition-shadow">
-                <div className="text-center">
-                  <div className="text-3xl mb-2">📅</div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">March 27-29, 2026</h3>
-                  <p className="text-sm text-gray-600">Friday - Sunday</p>
-                  <p className="text-xs text-gray-500 mt-1">3 Days of Competition</p>
-                </div>
-              </div>
-
-              {/* Location Card */}
-              <div className="bg-white rounded-xl shadow-md p-4 border-t-4 border-pink-500 hover:shadow-lg transition-shadow">
-                <div className="text-center">
-                  <div className="text-3xl mb-2">🏝️</div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">Patsy T. Mink Park</h3>
-                  <p className="text-sm text-gray-600">O'ahu, Hawai'i</p>
-                  <p className="text-xs text-gray-500 mt-1">Beautiful Island Setting</p>
-                </div>
-              </div>
-
-              {/* Open To Card */}
-              <div className="bg-white rounded-xl shadow-md p-4 border-t-4 border-orange-500 hover:shadow-lg transition-shadow">
-                <div className="text-center">
-                  <div className="text-3xl mb-2">🌍</div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">Open Tournament</h3>
-                  <p className="text-sm text-gray-600">All IPS Players Welcome</p>
-                  <p className="text-xs text-gray-500 mt-1">International Pride Softball</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Official Tournament Badge */}
-            <div className="mt-6 text-center">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full px-6 py-2 border border-purple-200">
-                <span className="text-2xl">🏆</span>
-                <span className="text-sm md:text-base font-semibold text-gray-700">
-                  Official Aloha State Softball League Tournament
-                </span>
-              </div>
-            </div>
-
-            {/* Call to Action Section */}
-            <div className="mt-6 text-center">
-              <div className="relative inline-block">
-                {/* Animated Background Glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 rounded-full blur-lg opacity-75 animate-pulse"></div>
-                
-                {/* Button */}
-                <button className="relative bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                  <span className="flex items-center gap-2">
-                    <span>🎊</span>
-                    <span>Registration Opening Soon!</span>
-                    <span>🎊</span>
-                  </span>
-                </button>
-              </div>
-              
-              {/* Supporting Text */}
-              <p className="mt-4 text-sm text-gray-600 font-medium">
-                Get ready for three days of competitive softball, community, and celebration!
-              </p>
-            </div>
-
-            {/* Pride Flags Footer */}
-            <div className="mt-6 flex justify-center items-center gap-3">
-              <div className="flex gap-1 text-xl">
-                <span className="opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="LGBTQ+ Pride">🏳️‍🌈</span>
-                <span className="opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="Transgender Pride">🏳️‍⚧️</span>
-              </div>
-              <span className="text-gray-400">•</span>
-              <span className="text-sm font-semibold bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-clip-text text-transparent">
-                All Are Welcome
+          {/* Official Tournament Badge */}
+          <div className="flex justify-center mb-4">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full px-5 py-2.5 shadow-lg">
+              <span className="text-lg">🏆</span>
+              <span className="text-sm md:text-base font-semibold">
+                Official Aloha State Softball League Tournament
               </span>
-              <span className="text-gray-400">•</span>
-              <div className="flex gap-1 text-xl">
-                <span className="opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="Love">❤️</span>
-                <span className="opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="Softball">🥎</span>
-              </div>
             </div>
+          </div>
+
+          {/* Registration Button */}
+          <div className="flex justify-center mb-4">
+            <button className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold text-base md:text-lg px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <span>✨</span>
+              <span>Registration Opening Soon!</span>
+              <span>✨</span>
+            </button>
+          </div>
+
+          {/* Bottom Text */}
+          <div className="text-center mb-3">
+            <p className="text-gray-700 text-sm md:text-base">
+              Get ready for three days of competitive softball, community, and celebration!
+            </p>
+          </div>
+
+          {/* Bottom Icons */}
+          <div className="flex justify-center items-center gap-3 text-sm">
+            <span className="text-lg">🏳️‍🌈</span>
+            <span className="text-lg">📧</span>
+            <span className="text-gray-600">•</span>
+            <span className="font-semibold text-gray-700">All Are Welcome</span>
+            <span className="text-gray-600">•</span>
+            <span className="text-lg">❤️</span>
+            <span className="text-lg">🥎</span>
           </div>
         </div>
       </div>
