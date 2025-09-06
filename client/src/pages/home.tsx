@@ -60,7 +60,7 @@ export default function Home() {
                 <img src="https://static.wixstatic.com/media/df1e99_011ab5c76f8b4953aab67f6137aa9f9c~mv2.png" alt="International Pride Softball Logo" className="h-24 w-auto object-contain flex-shrink-0" />
                 <span>As proud members of <a href="http://ipridesoftball.org/" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-800 font-semibold underline">International Pride Softball</a>, we bring together players of all skill levels to enjoy exciting, competitive games in a supportive and fun environment.</span>
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-center sm:text-left">
                 Our community celebrates diversity, fosters friendship, and creates lasting memories on and off the field. 
                 From beginners to all-stars, everyone has a place in our 'ohana!
               </p>
