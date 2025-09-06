@@ -15,10 +15,9 @@ export default function Navigation() {
       const scrolled = window.scrollY > 20;
       setIsScrolled(scrolled);
       
-      // Only show hamburger menu after scrolling past the tournament banner
-      // Tournament banner is approximately 420px tall + some padding
-      const pastBanner = window.scrollY > 450;
-      setShowMobileHamburger(pastBanner);
+      // Show hamburger menu as soon as user starts scrolling on mobile
+      const hasScrolled = window.scrollY > 0;
+      setShowMobileHamburger(hasScrolled);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -279,7 +278,7 @@ export default function Navigation() {
             </div>
             
             {/* Mobile Action Buttons - Hidden when hamburger is shown */}
-            <div className={`lg:hidden flex-col w-full gap-y-4 mt-4 ${showMobileHamburger ? 'hidden' : 'flex'}`}>
+            <div className={`lg:hidden flex-col w-full gap-y-3 mt-2 ${showMobileHamburger ? 'hidden' : 'flex'}`}>
               {/* Mobile Pride Toggle */}
               <div className="flex items-center justify-center gap-x-3">
                 <span className="font-semibold pride-text-animated wave-text">Pride Mode</span>
