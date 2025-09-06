@@ -65,12 +65,12 @@ export default function Navigation() {
                   
                   {/* Mobile Menu Backdrop */}
                   <div 
-                    className={`fixed inset-0 z-40 bg-black transition-opacity duration-500 ease-in-out ${isMobileMoreOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}
+                    className={`fixed inset-0 z-40 bg-black transition-opacity ${isMobileMoreOpen ? 'opacity-50 duration-700 ease-out' : 'opacity-0 pointer-events-none duration-300 ease-in'}`}
                     onClick={() => setIsMobileMoreOpen(false)}
                   />
                   
                   {/* Full-Screen Mobile Menu */}
-                  <div className={`fixed inset-0 z-50 bg-white transform transition-all duration-400 ${isMobileMoreOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-12 opacity-0 scale-95'}`} style={{transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'}}>
+                  <div className={`fixed inset-0 z-50 bg-white transform transition-all ${isMobileMoreOpen ? 'translate-x-0 opacity-100 duration-500 ease-out' : 'translate-x-full opacity-0 duration-300 ease-in'}`}>
                     <div className="flex flex-col h-full pt-16 px-6">
                       {/* Close Button */}
                       <button 
