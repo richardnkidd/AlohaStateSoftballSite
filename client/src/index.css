@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,8 +14,21 @@
   }
 }
 
-/* Pride Mode Styling */
+/* Tournament Color Palette */
 :root {
+  /* Sunset-to-Ocean Colors */
+  --mango: #FFB457;
+  --guava: #FF6F91;
+  --plumeria: #FFD166;
+  --ocean: #2EC4B6;
+  --deep: #133C55;
+  --sand: #FFF7ED;
+  --ink: #0F172A;
+  --text: #1F2937;
+  --muted: #6B7280;
+  --accent: #FB6F92;
+  
+  /* Pride Mode Variables */
   --pride-gradient: linear-gradient(45deg, #e40476, #fe6b35, #fed800, #56c02b, #0f9cda, #732982);
   --pride-text-gradient: linear-gradient(45deg, #e40476, #fe6b35, #fed800, #56c02b, #0f9cda, #732982);
   --sparkle-delay: 0s;

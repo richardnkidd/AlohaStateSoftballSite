@@ -1,0 +1,79 @@
+Overall Style
+
+Sunset-to-ocean gradient background (subtle, not neon):
+
+:root{
+  --mango:#FFB457; --guava:#FF6F91; --plumeria:#FFD166;
+  --ocean:#2EC4B6; --deep:#133C55; --sand:#FFF7ED;
+  --ink:#0F172A; --text:#1F2937; --muted:#6B7280;
+  --accent:#FB6F92; /* small highlights only */
+}
+
+
+Add a faint film-grain/texture layer (CSS noise PNG or generated canvas) ~3–6% opacity to avoid the “plastic” AI sheen.
+
+Use Barlow Semi Condensed for headings and Inter for body (system fallback stack ok).
+
+Depth & Lighting
+
+Create a soft spotlight gradient behind the H1 (radial, 30–40% opacity).
+
+Use layered, realistic shadows (two-layer, low blur + wider ambient).
+
+Info chips: glassmorphism card treatment (translucent white, subtle gradient border, hover lift by 2–4px).
+
+Brand details
+
+Logo badge gets a gentle 3D bevel via inner shadow + specular highlight ring.
+
+Add a thin rainbow gradient border around the hero container (1–2px) using border-image or mask.
+
+CTA that feels premium (not “AI glow”)
+
+Pill button with tactile press states, gradient from --guava→--mango, no neon outer glow.
+
+Microinteraction: on hover, a confetti sparkle erupts for 600ms in the button bounds (JS canvas), disabled under prefers-reduced-motion.
+
+Add a subtle animated light sweep across the button text using background-clip:text (10–12s loop, very gentle).
+
+Authenticity cues
+
+Replace emojis with crisp inline SVG icons (calendar, palm, globe, trophy, heart/ball).
+
+Add a small “2025 Countdown” chip under the CTA (“Registration opens in XX days”), auto-updates via JS (target a date I can edit).
+
+Parallax depth: background gradient slowly shifts angle on scroll (1–2°), capped to avoid motion sickness.
+
+Layout
+
+Max-width wrapper 1200px, generous negative space.
+
+H1 48–64px on desktop, 32–40px on mobile.
+
+Cards in a 1×3 responsive grid (stack to 1× on narrow).
+
+Keep color contrast ≥ WCAG AA (check the chips and button text).
+
+Accessibility
+
+Semantic landmarks: <header>, <main>, <nav> for chips (if linkified).
+
+ARIA labels on icons; visible focus rings; tab order logical.
+
+prefers-reduced-motion: disable sweep/parallax/confetti, keep hover/focus states.
+
+Performance
+
+No heavy libraries.
+
+Any images ≤300KB total; lazy-load textures; inline SVG.
+
+Use CSS where possible; throttle any scroll listeners with requestAnimationFrame.
+
+Interactions to implement (vanilla JS)
+
+Confetti micro-burst on CTA click/hover (canvas particles, 600ms, 30–50 particles, colors sampled from palette).
+
+Countdown to a tournament date with days only.
+
+Parallax/angle drift of background gradient (translate/rotate values clamped; auto-disabled if motion reduced).
