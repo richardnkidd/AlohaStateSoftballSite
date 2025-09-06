@@ -1,0 +1,87 @@
+Tighten the lockup & contrast (make the headline do the heavy lifting)
+
+What: Keep the badge, but reduce its footprint ~20–30% and anchor it left of the H1 as a “seal.” Make ĀNUENUE CLASSIC the clear focal point and treat 2026 as a big, colorful subhead. Add a soft radial scrim behind the type so it’s never fighting the palm fronds.
+
+Why: Clear hierarchy + stronger type contrast = instant comprehension.
+
+How (CSS):
+
+.hero { position: relative; }
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background: radial-gradient(60% 50% at 50% 45%, rgba(255,255,255,.55) 0%, rgba(255,255,255,.0) 60%),
+              linear-gradient(to bottom, rgba(255,255,255,.15), rgba(255,255,255,0));
+  pointer-events:none;
+}
+h1 { font-size: clamp(42px, 6vw, 88px); font-weight: 800; letter-spacing: .01em; text-wrap: balance; }
+h1 .year { display:block; font-size: clamp(28px, 4vw, 56px); font-weight: 900; }
+
+
+Replace the 3 cards with a single “info pill bar” + deep links
+
+What: Collapse date • venue • format into one concise pill row directly under the headline. Each item links: Add to Calendar, View Map, IPS Rules. Keep the detailed cards as optional popovers/tooltip on hover.
+
+Why: Less vertical bulk pulls the primary CTA higher and improves first-glance scan.
+
+How (HTML/CSS):
+
+<ul class="info-pills">
+  <li>🗓️ Mar 27–29, 2026 <a href="#add-to-cal">Add to Calendar</a></li>
+  <li>📍 Patsy T. Mink Park <a href="#map">Map</a></li>
+  <li>🌍 Open Tournament <a href="#ips">IPS Rules</a></li>
+</ul>
+
+.info-pills{ display:flex; gap:.5rem; flex-wrap:wrap; }
+.info-pills li{ background: rgba(255,255,255,.75); backdrop-filter: blur(6px);
+  border-radius: 999px; padding:.55rem .9rem; font-weight:600; box-shadow: 0 4px 20px rgba(0,0,0,.06);}
+.info-pills a{ font-weight:700; text-decoration: underline; }
+
+
+Make the CTA unmistakable (and add a “micro-conversion”)
+
+What: Use a single, high-contrast primary button Register (Opens Soon) and a secondary text link Get Email Reminder that opens a 2-field modal (name + email). Optional: add a small, unobtrusive countdown chip beside the CTA when a date is set.
+
+Why: One decision, one action. The reminder captures intent before registration opens.
+
+How (JS/HTML):
+
+<button class="cta">Registration Opens Soon</button>
+<a class="cta-ghost" href="#remind-me">Get Email Reminder</a>
+<span id="countdown" aria-live="polite"></span>
+<script>
+/* if launchDate known: */
+const launchDate = new Date("2026-01-31T17:00:00Z");
+setInterval(()=> {
+  const t = launchDate - new Date();
+  if (t>0) document.getElementById('countdown').textContent =
+    `${Math.floor(t/86400000)}d ${Math.floor(t/3600000)%24}h ${Math.floor(t/60000)%60}m`;
+}, 1000);
+</script>
+
+
+Add subtle depth & motion, but keep it 60 fps
+
+What: Give the foreground palms a gentle parallax (1–2° tilt or 4–8px drift) and a very soft floating shimmer on the CTA focus ring. Keep animation under 200ms on interactions; no infinite heavy loops.
+
+Why: A touch of life makes the hero feel premium without hurting performance.
+
+How (CSS):
+
+.palms { transform: translateZ(0); will-change: transform; transition: transform .6s ease; }
+.hero:hover .palms { transform: translate3d(0,-4px,0) scale(1.01); }
+.cta:focus-visible{ box-shadow: 0 0 0 6px rgba(255,255,255,.9), 0 0 0 12px currentColor; transition: box-shadow .2s; }
+
+
+Ship it accessible & light
+
+What: Ensure WCAG 2.2 AA contrast (≥4.5:1) for all text on the gradient; convert the badge to optimized SVG; lazy-load background, and limit hero assets to ~200–250 KB total. Add meaningful alt text and proper heading order (H1 for event title).
+
+Why: Faster loads, better SEO, inclusive experience—without changing the visual vibe.
+
+How (checks):
+
+Use a color-contrast tool on headline, pills, and CTA over the lightest and darkest parts of the gradient.
+
+Export vector badge; if a bitmap is required, provide 2× and AVIF/WebP.
+
+loading="eager" only for the badge and headline fonts; background can be lazy with a tiny inline placeholder.
