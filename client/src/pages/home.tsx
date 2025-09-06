@@ -112,7 +112,7 @@ export default function Home() {
                 <a href="https://teamsideline.com/sites/aikaneohana/schedules" 
                    target="_blank" rel="noopener noreferrer"
                    className="pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300 inline-block">
-                  View Scores & Standings
+                  View Standings & Schedule
                 </a>
               </div>
             </div>
