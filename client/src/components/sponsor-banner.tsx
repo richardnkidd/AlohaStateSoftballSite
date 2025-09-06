@@ -22,12 +22,11 @@ export default function SponsorBanner() {
           <div className="text-center mb-6">
             <div className="flex justify-center mb-3">
               <div className="relative">
-                <div className="absolute inset-0 bg-white/50 rounded-full blur-2xl scale-110"></div>
+                <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
                 <img 
                   src={anuenueClassicLogo}
                   alt="Ānuenue Classic 2026 Logo" 
-                  className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-xl border-4 border-white/70 object-cover"
-                  style={{boxShadow: "0 0 30px rgba(255,255,255,0.6)"}}
+                  className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-md border-2 border-white/40 object-cover opacity-95"
                 />
               </div>
             </div>
@@ -38,13 +37,12 @@ export default function SponsorBanner() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                filter: "drop-shadow(0 3px 6px rgba(255,255,255,0.9))",
-                textShadow: "0 0 20px rgba(255,255,255,0.5)"
+                filter: "drop-shadow(0 2px 4px rgba(255,255,255,0.5))"
               }}>
                 ĀNUENUE CLASSIC 2026
               </span>
             </h2>
-            <p className="text-base md:text-lg font-semibold" style={{color: "rgba(55, 65, 81, 1)", textShadow: "0 2px 4px rgba(255,255,255,1), 0 0 15px rgba(255,255,255,0.7)"}}>
+            <p className="text-base md:text-lg font-medium" style={{color: "rgba(75, 85, 99, 0.9)", textShadow: "0 1px 2px rgba(255,255,255,0.8)"}}>
               Hawai'i's Premier LGBTQ+ Softball Tournament
             </p>
           </div>
