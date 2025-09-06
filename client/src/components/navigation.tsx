@@ -51,7 +51,7 @@ export default function Navigation() {
             {/* Mobile Quick Links / Hamburger Menu */}
             <div className="flex items-center lg:hidden">
               {showMobileHamburger ? (
-                <div className="relative">
+                <div className="relative transition-all duration-1000 ease-in-out opacity-100 transform scale-100">
                   <button 
                     type="button" 
                     onClick={() => setIsMobileMoreOpen(!isMobileMoreOpen)}
@@ -76,7 +76,7 @@ export default function Navigation() {
                   <div 
                     className={`fixed inset-y-0 right-0 w-full max-w-sm z-50 bg-white shadow-2xl transform ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'}`}
                     style={{
-                      transition: 'transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                      transition: 'transform 2000ms cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
                   >
                     <div className="flex flex-col h-full pt-16 px-6">
@@ -147,7 +147,7 @@ export default function Navigation() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 transition-all duration-1000 ease-in-out opacity-100 transform scale-100">
                   <Link href="/" className="nav-link text-gray-700 hover:text-teal-800 text-sm font-medium">
                     Home
                   </Link>
@@ -274,8 +274,8 @@ export default function Navigation() {
               </div>
             </div>
             
-            {/* Mobile Action Buttons - Hidden when hamburger is shown */}
-            <div className={`lg:hidden flex-col w-full gap-y-4 mt-4 ${showMobileHamburger ? 'hidden' : 'flex'}`}>
+            {/* Mobile Action Buttons - Fade when hamburger is shown */}
+            <div className={`lg:hidden flex-col w-full gap-y-4 mt-4 transition-all duration-1000 ease-in-out ${showMobileHamburger ? 'opacity-0 invisible scale-95 transform' : 'opacity-100 visible scale-100 transform flex'}`}>
               {/* Mobile Season 4 Photos Button */}
               <a href="https://ericzmartin.com/" 
                  target="_blank" rel="noopener noreferrer"
