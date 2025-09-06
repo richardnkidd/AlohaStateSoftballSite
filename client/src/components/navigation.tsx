@@ -101,13 +101,13 @@ export default function Navigation() {
                         </a>
                       </div>
                       
-                      {/* Free Agent Button */}
+                      {/* Season 4 Photos Button */}
                       <div className="mb-8">
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+                        <a href="https://ericzmartin.com/" 
                            target="_blank" rel="noopener noreferrer"
                            className="block w-full text-center free-agents-btn px-6 py-3 text-lg font-semibold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
                            onClick={() => setIsMobileMoreOpen(false)}>
-                          🏃‍♀️ Free Agent Signup
+                          📸 Season 4 Photos
                         </a>
                       </div>
                       
@@ -232,11 +232,11 @@ export default function Navigation() {
                 </div>
               </div>
               
-              {/* Desktop Free Agents Button */}
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+              {/* Desktop Season 4 Photos Button */}
+              <a href="https://ericzmartin.com/" 
                  target="_blank" rel="noopener noreferrer"
                  className="free-agents-btn relative inline-flex items-center px-4 py-2 ml-4 text-sm font-semibold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
-                <span className="relative z-10">🏃‍♀️ Free Agent Signup</span>
+                <span className="relative z-10">📸 Season 4 Photos</span>
               </a>
               
               <div className="flex items-center mt-4 lg:mt-0 lg:ml-4">
@@ -262,11 +262,11 @@ export default function Navigation() {
             
             {/* Mobile Action Buttons - Hidden when hamburger is shown */}
             <div className={`lg:hidden flex-col w-full gap-y-4 mt-4 ${showMobileHamburger ? 'hidden' : 'flex'}`}>
-              {/* Mobile Free Agents Button */}
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+              {/* Mobile Season 4 Photos Button */}
+              <a href="https://ericzmartin.com/" 
                  target="_blank" rel="noopener noreferrer"
                  className="free-agents-btn w-full text-center px-6 py-3 text-base font-semibold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
-                🏃‍♀️ Free Agent Signup
+                📸 Season 4 Photos
               </a>
               
               {/* Mobile Pride Toggle */}
