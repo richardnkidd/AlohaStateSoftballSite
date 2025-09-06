@@ -23,8 +23,8 @@ export default function Home() {
               <span className="text-4xl md:text-6xl ml-2">🥎</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 font-medium max-w-4xl mx-auto leading-relaxed">
-              Join O'ahu's LGBTQ+ softball league for <strong>Season 4</strong>, Summer 2025! 
-              Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you.
+              Join O'ahu's LGBTQ+ softball league! 
+              Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you. Our league plays every summer at Ala Wai Park in Honolulu.
             </p>
           </div>
           
