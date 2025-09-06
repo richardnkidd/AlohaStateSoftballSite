@@ -20,6 +20,15 @@
     <div id="scrollProgress" class="fixed top-2 left-0 h-1 bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-600 z-50">
       <div id="scrollSoftball" class="absolute -top-3 w-6 h-6 text-xl">🥎</div>
     </div>
+    <div id="softballPlayer" class="fixed top-8 left-8 z-50 opacity-0 transition-all duration-500" style="display: none;">
+      <span class="text-4xl">🧑‍🦱</span>
+    </div>
+    <audio id="hitSound" preload="auto">
+      <source src="data:audio/wav;base64,UklGRkQCAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YSACAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAA" type="audio/wav">
+    </audio>
+    <audio id="cheerSound" preload="auto">
+      <source src="data:audio/wav;base64,UklGRkQCAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YSACAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAA" type="audio/wav">
+    </audio>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->

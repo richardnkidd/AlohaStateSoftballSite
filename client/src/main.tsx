@@ -3,19 +3,102 @@ import confetti from "canvas-confetti";
 import App from "./App";
 import "./index.css";
 
-// Track celebration state
+// Track celebration state and player animation
 let celebrationFired = false;
 let ticking = false;
+let playerAnimationFired = false;
 
 // Scroll progress functionality
 function updateScrollProgress() {
   const scrollProgress = document.getElementById('scrollProgress');
   const scrollSoftball = document.getElementById('scrollSoftball');
+  const softballPlayer = document.getElementById('softballPlayer');
+  const hitSound = document.getElementById('hitSound') as HTMLAudioElement;
+  const cheerSound = document.getElementById('cheerSound') as HTMLAudioElement;
   
   if (scrollProgress && scrollSoftball) {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollPercent = (scrollTop / docHeight) * 100;
+    
+    // Show softball player when scrolling starts
+    if (scrollTop > 5 && !playerAnimationFired && softballPlayer) {
+      playerAnimationFired = true;
+      
+      // Show the player
+      softballPlayer.style.display = 'block';
+      setTimeout(() => {
+        softballPlayer.style.opacity = '1';
+        softballPlayer.style.transform = 'translateX(0)';
+      }, 10);
+      
+      // Animate player swinging
+      setTimeout(() => {
+        softballPlayer.innerHTML = '<span class="text-3xl animate-pulse">🏏</span>';
+        
+        // Play hit sound (using a click sound as placeholder)
+        try {
+          const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          oscillator.frequency.value = 800;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.1;
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.05);
+        } catch (e) {
+          console.log('Audio not available');
+        }
+        
+        // Animate the softball being hit
+        const softball = document.getElementById('scrollSoftball');
+        if (softball) {
+          softball.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          softball.style.transform = 'translateX(50px) translateY(-20px) rotate(360deg)';
+          setTimeout(() => {
+            softball.style.transition = 'all 0.2s ease-in';
+            softball.style.transform = 'translateX(0) translateY(0) rotate(0deg)';
+          }, 300);
+        }
+      }, 500);
+      
+      // Play cheer sound
+      setTimeout(() => {
+        try {
+          const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+          // Create a simple cheer sound using multiple oscillators
+          for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+              const oscillator = audioContext.createOscillator();
+              const gainNode = audioContext.createGain();
+              oscillator.connect(gainNode);
+              gainNode.connect(audioContext.destination);
+              oscillator.frequency.value = 400 + Math.random() * 400;
+              oscillator.type = 'sine';
+              gainNode.gain.value = 0.05;
+              oscillator.start(audioContext.currentTime);
+              oscillator.stop(audioContext.currentTime + 0.2);
+            }, i * 100);
+          }
+        } catch (e) {
+          console.log('Audio not available');
+        }
+      }, 800);
+      
+      // Hide player after animation
+      setTimeout(() => {
+        softballPlayer.style.opacity = '0';
+        softballPlayer.style.transform = 'translateX(-50px)';
+        setTimeout(() => {
+          softballPlayer.style.display = 'none';
+        }, 500);
+      }, 2000);
+    } else if (scrollTop < 5) {
+      // Reset animation when scrolled back to top
+      playerAnimationFired = false;
+    }
     
     // Update progress bar width with smooth transition
     scrollProgress.style.transition = 'width 0.1s ease-out';

@@ -12,6 +12,46 @@
   }
 }
 
+/* Softball player swing animation */
+@keyframes playerSwing {
+  0% {
+    transform: translateX(-50px) rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(0) rotate(-10deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(10px) rotate(45deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Softball hit animation */
+@keyframes softballHit {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(80px) translateY(-30px) rotate(720deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+#softballPlayer {
+  animation: playerSwing 0.5s ease-out forwards;
+}
+
+#softballPlayer.hitting {
+  animation: playerSwing 0.3s ease-out forwards;
+}
+
 /* Pride Mode Styling */
 :root {
   --pride-gradient: linear-gradient(45deg, #e40476, #fe6b35, #fed800, #56c02b, #0f9cda, #732982);
