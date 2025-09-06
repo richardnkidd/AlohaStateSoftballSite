@@ -30,10 +30,10 @@ export default function Home() {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+            <a href="https://ericzmartin.com/" 
                target="_blank" rel="noopener noreferrer"
                className="animated-cta-primary pride-gradient text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover-lift transition-all duration-300">
-              🏃‍♀️ Join as Free Agent
+              📸 Season 4 Photos
             </a>
             <a href="https://linktr.ee/alohastatesoftball" 
                target="_blank" rel="noopener noreferrer"
@@ -509,10 +509,10 @@ export default function Home() {
             Whether you're looking to play, volunteer, or support our community, there's a place for you in the Aloha State Softball League!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdISkV6h99FBj_FntGRyXtU3jdFYGPLjODAAykLbWLe-8RhvQ/viewform?usp=header" 
+            <a href="https://ericzmartin.com/" 
                target="_blank" rel="noopener noreferrer"
                className="bg-purple-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-purple-600 transition-all duration-300 hover-lift">
-              🏃‍♀️ Sign Up as Free Agent
+              📸 Season 4 Photos
             </a>
             <a href="https://linktr.ee/alohastatesoftball" 
                target="_blank" rel="noopener noreferrer"
