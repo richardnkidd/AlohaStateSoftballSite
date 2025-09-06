@@ -24,11 +24,11 @@ export default function SponsorBanner() {
           <div className="text-center mb-6">
             <div className="flex justify-center mb-3">
               <div className="relative">
-                <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
+                <div className="absolute inset-0 bg-white/50 rounded-full blur-2xl scale-110"></div>
                 <img 
                   src={anuenueClassicLogo}
                   alt="Ānuenue Classic 2026 Logo" 
-                  className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-md border-2 border-white/40 object-cover opacity-95"
+                  className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl border-4 border-white object-cover"
                 />
               </div>
             </div>
@@ -39,12 +39,12 @@ export default function SponsorBanner() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                filter: "drop-shadow(0 2px 4px rgba(255,255,255,0.5))"
+                filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3)) drop-shadow(0 2px 4px rgba(255,255,255,0.9))"
               }}>
                 ĀNUENUE CLASSIC 2026
               </span>
             </h2>
-            <p className="text-base md:text-lg font-medium" style={{color: "rgba(75, 85, 99, 0.9)", textShadow: "0 1px 2px rgba(255,255,255,0.8)"}}>
+            <p className="text-base md:text-lg font-bold" style={{color: "#374151", textShadow: "0 2px 4px rgba(255,255,255,0.9)"}}>
               Hawai'i's Premier LGBTQ+ Softball Tournament
             </p>
           </div>
@@ -83,12 +83,12 @@ export default function SponsorBanner() {
 
           {/* Official Tournament Badge */}
           <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-2 text-purple-700">
-              <span className="text-lg">🏆</span>
-              <span className="text-sm md:text-base font-semibold">
+            <div className="inline-flex items-center gap-1 md:gap-2 text-purple-700 whitespace-nowrap">
+              <span className="text-base md:text-lg">🏆</span>
+              <span className="text-xs md:text-base font-semibold">
                 Official Aloha State Softball League Tournament
               </span>
-              <span className="text-lg">🏆</span>
+              <span className="text-base md:text-lg">🏆</span>
             </div>
           </div>
 
