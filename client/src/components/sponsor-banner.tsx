@@ -29,7 +29,7 @@ export default function SponsorBanner() {
               <img 
                 src={anuenueClassicLogo}
                 alt="Ānuenue Classic 2026 Logo" 
-                className="w-20 h-20 md:w-24 md:h-24 rounded-full shadow-lg border-4 border-white object-cover"
+                className="w-40 h-40 md:w-48 md:h-48 rounded-full shadow-lg border-4 border-white object-cover"
               />
             </div>
             
@@ -40,7 +40,7 @@ export default function SponsorBanner() {
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text"
               }}>
-                ANUENUE CLASSIC 2026
+                ĀNUENUE CLASSIC 2026
               </span>
             </h2>
             <p className="text-gray-700 text-base md:text-lg font-medium">
@@ -82,17 +82,20 @@ export default function SponsorBanner() {
 
           {/* Official Tournament Badge */}
           <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full px-5 py-2.5 shadow-lg">
+            <div className="inline-flex items-center gap-2 text-purple-700">
               <span className="text-lg">🏆</span>
               <span className="text-sm md:text-base font-semibold">
                 Official Aloha State Softball League Tournament
               </span>
+              <span className="text-lg">🏆</span>
             </div>
           </div>
 
           {/* Registration Button */}
           <div className="flex justify-center mb-4">
-            <button className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold text-base md:text-lg px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            <button className="inline-flex items-center gap-2 text-white font-bold text-base md:text-lg px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300" style={{
+              background: "linear-gradient(90deg, #ec4899 0%, #f97316 50%, #eab308 100%)"
+            }}>
               <span>✨</span>
               <span>Registration Opening Soon!</span>
               <span>✨</span>
