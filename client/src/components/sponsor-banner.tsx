@@ -21,11 +21,14 @@ export default function SponsorBanner() {
           {/* Logo and Title Section */}
           <div className="text-center mb-6">
             <div className="flex justify-center mb-3">
-              <img 
-                src={anuenueClassicLogo}
-                alt="Ānuenue Classic 2026 Logo" 
-                className="w-40 h-40 md:w-48 md:h-48 rounded-full shadow-lg border-4 border-white object-cover"
-              />
+              <div className="relative">
+                <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
+                <img 
+                  src={anuenueClassicLogo}
+                  alt="Ānuenue Classic 2026 Logo" 
+                  className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-md border-2 border-white/40 object-cover opacity-95"
+                />
+              </div>
             </div>
             
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2">
@@ -33,12 +36,13 @@ export default function SponsorBanner() {
                 background: "linear-gradient(90deg, #9333ea 0%, #ec4899 50%, #f97316 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                backgroundClip: "text"
+                backgroundClip: "text",
+                filter: "drop-shadow(0 2px 4px rgba(255,255,255,0.5))"
               }}>
                 ĀNUENUE CLASSIC 2026
               </span>
             </h2>
-            <p className="text-gray-700 text-base md:text-lg font-medium">
+            <p className="text-base md:text-lg font-medium" style={{color: "rgba(75, 85, 99, 0.9)", textShadow: "0 1px 2px rgba(255,255,255,0.8)"}}>
               Hawai'i's Premier LGBTQ+ Softball Tournament
             </p>
           </div>
