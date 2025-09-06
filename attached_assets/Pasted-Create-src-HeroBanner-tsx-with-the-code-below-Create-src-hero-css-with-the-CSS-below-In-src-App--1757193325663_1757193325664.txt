@@ -1,0 +1,267 @@
+Create src/HeroBanner.tsx with the code below.
+
+Create src/hero.css with the CSS below.
+
+In src/App.tsx, render <HeroBanner /> at the top of the page.
+
+Make sure import "./hero.css"; exists (already included in the component).
+
+src/HeroBanner.tsx
+import React from "react";
+import "./hero.css";
+
+const REGISTRATION_OPEN = "2025-11-01T10:00:00-10:00"; // <-- change if needed
+
+function daysUntil(dateISO: string) {
+  const ms = new Date(dateISO).getTime() - Date.now();
+  return Math.max(0, Math.ceil(ms / (1000 * 60 * 60 * 24)));
+}
+
+export default function HeroBanner() {
+  const dLeft = daysUntil(REGISTRATION_OPEN);
+
+  return (
+    <header id="anuenue-hero" className="hero">
+      {/* film grain overlay */}
+      <span aria-hidden className="hero-noise" />
+
+      {/* top row: logo + title */}
+      <div className="hero-top">
+        <img
+          className="hero-logo"
+          src="/attached_assets/anuenue-2026-badge.png"
+          alt="Ānuenue Classic 2026 logo"
+        />
+        <div className="hero-title-wrap">
+          <h1 className="hero-title">ĀNUENUE CLASSIC 2026</h1>
+          <p className="hero-sub">Hawai‘i’s Premier LGBTQ+ Softball Tournament</p>
+          <span className="hero-spotlight" aria-hidden />
+        </div>
+      </div>
+
+      {/* info cards */}
+      <ul className="hero-cards">
+        <li className="card">
+          <span className="card-icon icon-sun" aria-hidden />
+          <h3 className="card-title">March 27–29, 2026</h3>
+          <p className="card-meta">Friday – Sunday • 3 Days of Competition</p>
+        </li>
+
+        <li className="card">
+          <span className="card-icon icon-reef" aria-hidden />
+          <h3 className="card-title">Patsy T. Mink Park</h3>
+          <p className="card-meta">Oʻahu, Hawaiʻi • Beautiful Island Setting</p>
+        </li>
+
+        <li className="card">
+          <span className="card-icon icon-sky" aria-hidden />
+          <h3 className="card-title">Open Tournament</h3>
+          <p className="card-meta">All IPS Players Welcome • International Pride Softball</p>
+        </li>
+      </ul>
+
+      {/* trust pill */}
+      <div className="trust">
+        <span className="i i-trophy" aria-hidden />
+        Official Aloha State Softball League Tournament
+      </div>
+
+      {/* CTA row */}
+      <div className="cta-row">
+        <button id="hero-cta" type="button" className="cta">
+          Registration Opening Soon!
+          <span className="cta-shine" aria-hidden />
+        </button>
+        <div className="countdown" role="status" aria-live="polite">
+          Registration opens in <strong>{dLeft}</strong> days
+        </div>
+      </div>
+
+      {/* footer line */}
+      <p className="hero-foot">
+        <span className="i i-heart" aria-hidden /> All Are Welcome • E Komo Mai{" "}
+        <span className="i i-drop" aria-hidden />
+      </p>
+
+      {/* decorative wave */}
+      <svg className="hero-wave" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden>
+        <path
+          d="M0,32 C240,74 420,-10 720,20 C1020,50 1200,12 1440,28 L1440,64 L0,64 Z"
+          fill="rgba(255,255,255,0.88)"
+        />
+      </svg>
+    </header>
+  );
+}
+
+src/hero.css
+/* =========================
+   EXACT COLOR PALETTE
+   (logo-safe, vibrant but tasteful)
+========================= */
+:root{
+  --navy:#0E1F36;     /* deep headline/navy to match badge */
+  --ink:#0F172A;      /* body text */
+  --sun:#FFC65A;      /* mango */
+  --coral:#FF7A59;    /* coral */
+  --reef:#2EC4B6;     /* aqua */
+  --sky:#6EC6FF;      /* sky blue */
+  --plumeria:#FFF4E6; /* warm sand */
+  --foam:#EAF7F5;     /* sea foam */
+  --foam-deep:#DDF3F1;
+  --card-border: rgba(14,31,54,0.10);
+  --shadow: rgba(9,30,66,0.12);
+}
+
+/* =========================
+   HERO WRAPPER
+========================= */
+.hero{
+  position:relative;
+  max-width: 1200px;
+  margin: 24px auto 32px;
+  padding: 28px 24px 40px;
+  border-radius: 28px;
+  overflow:hidden;
+  background:
+    radial-gradient(60% 60% at 70% 0%, rgba(255,255,255,.55), transparent 70%),
+    linear-gradient(160deg, var(--plumeria) 0%, var(--foam) 55%, var(--foam-deep) 100%);
+  border: 1px solid rgba(14,31,54,0.06);
+  box-shadow: 0 12px 40px rgba(14,31,54,0.08);
+}
+
+/* film grain to avoid AI-plastic feel */
+.hero-noise{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">\
+<filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>\
+<rect width="100%" height="100%" filter="url(%23n)" opacity="0.035"/></svg>');
+  mix-blend-mode:multiply;
+}
+
+/* top row */
+.hero-top{
+  display:grid; grid-template-columns: auto 1fr; gap:20px; align-items:center;
+}
+.hero-logo{
+  width:108px; height:108px; border-radius:50%;
+  box-shadow: 0 8px 28px rgba(0,0,0,.12);
+  outline:4px solid rgba(255,255,255,.85);
+}
+.hero-title-wrap{ position:relative; }
+.hero-title{
+  font-family: "Barlow Semi Condensed", system-ui, -apple-system, sans-serif;
+  font-weight: 900; letter-spacing: .02em;
+  color: var(--navy);
+  font-size: clamp(32px, 6vw, 64px);
+  margin: 0;
+}
+.hero-sub{
+  margin-top:6px; color: rgba(15,23,42,.82);
+  font-size: clamp(16px, 2.2vw, 19px);
+}
+/* subtle spotlight behind title */
+.hero-spotlight{
+  position:absolute; left:50%; top:-8px; width:min(68vw,820px); height:min(68vw,820px);
+  transform:translateX(-50%);
+  background: radial-gradient(closest-side, rgba(255,255,255,.65), transparent 65%);
+  pointer-events:none;
+}
+
+/* cards */
+.hero-cards{
+  display:grid; gap:16px; grid-template-columns: 1fr; margin: 20px 0 10px;
+}
+@media (min-width: 860px){
+  .hero-cards{ grid-template-columns: repeat(3, 1fr); }
+}
+.card{
+  position:relative; padding:18px 18px 16px; border-radius:20px;
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 26px var(--shadow), inset 0 1px 0 rgba(255,255,255,.88);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.card:hover{ transform: translateY(-3px); box-shadow: 0 12px 32px rgba(9,30,66,.16); }
+.card-title{
+  font: 700 17px/1.2 "Inter", system-ui; color: var(--ink); margin: 2px 0 4px;
+}
+.card-meta{ color:#4B5563; font: 500 14.5px/1.35 "Inter", system-ui; }
+
+/* card icons (inline CSS gradients, crisp & friendly) */
+.card-icon{ display:inline-block; width:42px; height:42px; border-radius:12px;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.85), 0 6px 14px rgba(0,0,0,.12);
+  margin-bottom: 10px;
+}
+.icon-sun{  background: linear-gradient(135deg, #FFD976, var(--sun)); }
+.icon-reef{ background: linear-gradient(135deg, #6FE2D4, var(--reef)); }
+.icon-sky{  background: linear-gradient(135deg, #B8E1FF, var(--sky));  }
+
+/* trust pill */
+.trust{
+  display:inline-flex; align-items:center; gap:8px;
+  margin: 14px auto 0; padding: 10px 14px; border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.82));
+  border: 1px solid var(--card-border);
+  box-shadow: 0 10px 24px rgba(9,30,66,.10), inset 0 1px 0 rgba(255,255,255,.9);
+  color: var(--ink);
+  font: 600 14.5px/1 "Inter", system-ui;
+  width: fit-content;
+}
+
+/* CTA row */
+.cta-row{
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  margin-top: 14px; flex-wrap: wrap;
+}
+.cta{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  min-width: 280px; padding: 14px 18px; border-radius:999px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(90deg, var(--coral), var(--sun));
+  color:#111827; font: 800 16px/1 "Inter", system-ui; letter-spacing:.02em;
+  box-shadow: 0 18px 36px rgba(255,122,89,.30);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.cta:hover{ transform: translateY(-2px); box-shadow: 0 22px 42px rgba(255,122,89,.36); }
+.cta:active{ transform: translateY(0); }
+.cta-shine{
+  position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  -webkit-mask: linear-gradient(110deg, transparent 0, rgba(0,0,0,.9) 35%, transparent 70%) 0/280% 100%;
+  background: linear-gradient(110deg, rgba(255,255,255,.65), rgba(255,255,255,0));
+  animation: shine 6s linear infinite;
+}
+@keyframes shine{ to{ -webkit-mask-position: 280% 0; mask-position: 280% 0; } }
+
+.countdown{
+  padding: 10px 14px; border-radius: 999px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid var(--card-border);
+  color:#334155; font: 600 14.5px/1 "Inter", system-ui;
+}
+
+/* footer line */
+.hero-foot{
+  margin: 14px 0 0; text-align:center; color: rgba(15,23,42,.78);
+  font: 500 14px/1.2 "Inter", system-ui; display:flex; gap:8px; align-items:center; justify-content:center;
+}
+
+/* tiny inline SVG-style icons */
+.i{ display:inline-block; width:16px; height:16px; background-repeat:no-repeat; background-size:100% 100%; }
+.i-trophy{ background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF7A59"><path d="M4 5h16v2a5 5 0 0 1-5 5h-1v2h3v2H7v-2h3v-2H9a5 5 0 0 1-5-5V5zM6 7a3 3 0 0 0 3 3h1V7H6zm11 0h-4v3h1a3 3 0 0 0 3-3z"/></svg>'); }
+.i-heart{ background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF6B6B"><path d="M12 21s-7-4.35-9.33-8A5.33 5.33 0 0 1 12 6.67 5.33 5.33 0 0 1 21.33 13C19 16.65 12 21 12 21z"/></svg>'); }
+.i-drop{ background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232EC4B6"><path d="M12 2s6 6.4 6 10.5A6 6 0 0 1 6 12.5C6 8.4 12 2 12 2z"/></svg>'); }
+
+/* decorative wave */
+.hero-wave{ position:absolute; left:0; bottom:-1px; width:100%; height:64px; }
+
+/* responsive */
+@media (max-width: 560px){
+  .hero{ padding: 22px 16px 28px; border-radius: 22px; }
+  .hero-logo{ width:84px; height:84px; }
+  .cta{ min-width: auto; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce){
+  .cta-shine{ animation:none; }
+}

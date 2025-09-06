@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PrideModeProvider } from "./hooks/use-pride-mode";
 import Navigation from "./components/navigation";
-import SponsorBanner from "./components/sponsor-banner";
+import HeroBanner from "./HeroBanner";
 import Footer from "./components/footer";
 import Home from "./pages/home";
 import Board from "./pages/board";
@@ -53,7 +53,7 @@ function App() {
           <div className="min-h-screen">
             <ScrollProgress />
             <Navigation />
-            <SponsorBanner />
+            <HeroBanner />
             <main>
               <Router />
             </main>
