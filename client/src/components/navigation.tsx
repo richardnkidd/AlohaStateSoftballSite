@@ -66,29 +66,45 @@ export default function Navigation() {
                     </svg>
                   </button>
                   
-                  {/* Mobile Menu Backdrop */}
-                  <div 
-                    className={`fixed inset-0 transition-all ${isMobileMoreOpen ? 'opacity-100 duration-700' : 'opacity-0 pointer-events-none duration-500'}`}
-                    onClick={() => setIsMobileMoreOpen(false)}
-                    style={{
-                      backgroundColor: isPrideMode && isMobileMoreOpen ? '#000000' : 'rgba(0, 0, 0, 0.5)',
-                      zIndex: 9998,
-                      transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                    }}
-                  />
+                  {/* Mobile Menu Backdrop - Pride Mode Opaque */}
+                  {isPrideMode && isMobileMoreOpen && (
+                    <div 
+                      className="fixed inset-0"
+                      onClick={() => setIsMobileMoreOpen(false)}
+                      style={{
+                        backgroundColor: '#000000',
+                        opacity: 1,
+                        zIndex: 99998
+                      }}
+                    />
+                  )}
+                  
+                  {/* Mobile Menu Backdrop - Normal Mode */}
+                  {!isPrideMode && (
+                    <div 
+                      className={`fixed inset-0 transition-all ${isMobileMoreOpen ? 'opacity-100 duration-700' : 'opacity-0 pointer-events-none duration-500'}`}
+                      onClick={() => setIsMobileMoreOpen(false)}
+                      style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 99998,
+                        transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                      }}
+                    />
+                  )}
                   
                   {/* Full-Screen Mobile Menu */}
                   <div 
-                    className={`fixed inset-y-0 right-0 w-full max-w-sm shadow-2xl transform ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'} ${isPrideMode ? 'mobile-menu-pride-mode' : ''}`}
+                    className={`fixed inset-y-0 right-0 w-full max-w-sm shadow-2xl transform ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'}`}
                     style={{
-                      backgroundColor: 'white',
+                      backgroundColor: '#ffffff',
                       opacity: 1,
-                      zIndex: 9999,
+                      zIndex: 99999,
                       transition: 'transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                      mixBlendMode: 'normal',
                       isolation: 'isolate'
                     }}
                   >
-                    <div className="flex flex-col h-full pt-16 px-6 bg-white mobile-menu-inner" style={{ backgroundColor: 'white', opacity: 1 }}>
+                    <div className="flex flex-col h-full pt-16 px-6" style={{ backgroundColor: '#ffffff', opacity: 1, mixBlendMode: 'normal' }}>
                       {/* Close Button */}
                       <button 
                         onClick={() => setIsMobileMoreOpen(false)}

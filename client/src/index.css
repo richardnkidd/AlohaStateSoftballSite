@@ -580,22 +580,32 @@ body.pride-mode {
   position: relative;
 }
 
-/* Pride Mode Mobile Menu - Force Opaque Background */
-body.pride-mode .mobile-menu-pride-mode {
+/* Pride Mode Mobile Menu - Complete Override */
+body.pride-mode .fixed[style*="z-index: 99999"] {
   background-color: white !important;
   background: white !important;
   opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform-style: flat !important;
+  isolation: isolate !important;
 }
 
-body.pride-mode .mobile-menu-inner {
-  background-color: white !important;
-  background: white !important;
+body.pride-mode .fixed[style*="z-index: 99999"] * {
+  background-color: inherit !important;
   opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
 }
 
-/* Ensure all children are also opaque */
-body.pride-mode .mobile-menu-pride-mode * {
+/* Pride Mode Backdrop - Complete Opaque */
+body.pride-mode .fixed[style*="z-index: 99998"] {
+  background-color: black !important;
   opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
 }
 
 .pride-mode .nav-link:nth-child(1) { animation-delay: 0s; }
