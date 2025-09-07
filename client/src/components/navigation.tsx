@@ -68,18 +68,21 @@ export default function Navigation() {
                   
                   {/* Mobile Menu Backdrop */}
                   <div 
-                    className={`fixed inset-0 z-40 transition-all ${isMobileMoreOpen ? 'opacity-100 duration-700' : 'opacity-0 pointer-events-none duration-500'}`}
+                    className={`fixed inset-0 transition-all ${isMobileMoreOpen ? 'opacity-100 duration-700' : 'opacity-0 pointer-events-none duration-500'}`}
                     onClick={() => setIsMobileMoreOpen(false)}
                     style={{
                       backgroundColor: isPrideMode ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.5)',
+                      zIndex: 9998,
                       transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     }}
                   />
                   
                   {/* Full-Screen Mobile Menu */}
                   <div 
-                    className={`fixed inset-y-0 right-0 w-full max-w-sm z-50 bg-white shadow-2xl transform ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                    className={`fixed inset-y-0 right-0 w-full max-w-sm shadow-2xl transform ${isMobileMoreOpen ? 'translate-x-0' : 'translate-x-full'}`}
                     style={{
+                      backgroundColor: '#ffffff',
+                      zIndex: 9999,
                       transition: 'transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     }}
                   >
