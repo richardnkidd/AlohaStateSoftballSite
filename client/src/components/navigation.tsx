@@ -68,9 +68,10 @@ export default function Navigation() {
                   
                   {/* Mobile Menu Backdrop */}
                   <div 
-                    className={`fixed inset-0 z-40 ${isPrideMode ? 'bg-black' : 'bg-black/50'} transition-all ${isMobileMoreOpen ? 'opacity-100 duration-700' : 'opacity-0 pointer-events-none duration-500'}`}
+                    className={`fixed inset-0 z-40 transition-all ${isMobileMoreOpen ? 'opacity-100 duration-700' : 'opacity-0 pointer-events-none duration-500'}`}
                     onClick={() => setIsMobileMoreOpen(false)}
                     style={{
+                      backgroundColor: isPrideMode ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.5)',
                       transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     }}
                   />
