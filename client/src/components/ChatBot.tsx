@@ -136,14 +136,14 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border-2 border-teal-500"
+          className="fixed bottom-6 right-6 z-50 transition-all duration-300 hover:scale-110"
           aria-label="Open chat assistant"
           data-testid="button-open-chat"
         >
           <img 
             src={chatbotLogo} 
             alt="Chat assistant" 
-            className="h-12 w-12 object-contain"
+            className="h-16 w-16 object-contain drop-shadow-lg"
           />
         </button>
       )}
