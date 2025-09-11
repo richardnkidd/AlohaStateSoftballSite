@@ -126,7 +126,7 @@ export async function getChatbotResponse(userMessage: string): Promise<string> {
         }
       ],
       // temperature parameter not supported with gpt-5, using default value of 1
-      max_completion_tokens: 500
+      max_completion_tokens: 1500
     });
 
     return response.choices[0].message.content || "I apologize, but I couldn't generate a response. Please try again.";

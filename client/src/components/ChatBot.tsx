@@ -120,8 +120,8 @@ export default function ChatBot() {
         setShowChatButton(true);
       }
 
-      // Show popup text after scrolling past 100px (desktop only)
-      if (!hasScrolled && !isOpen && !isMobile && window.scrollY > 100) {
+      // Show popup text after scrolling past 100px (both mobile and desktop)
+      if (!hasScrolled && !isOpen && window.scrollY > 100) {
         setHasScrolled(true);
         setShowPopup(true);
       }
