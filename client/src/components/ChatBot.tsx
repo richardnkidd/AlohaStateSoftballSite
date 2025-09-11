@@ -6,6 +6,58 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { apiRequest } from '@/lib/queryClient';
 
+// Custom Softball Chat Icon Component
+const SoftballChatIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Softball circle */}
+    <circle
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+    />
+    
+    {/* Softball stitching - top curve */}
+    <path
+      d="M 7 6 Q 12 8, 17 6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinecap="round"
+    />
+    
+    {/* Softball stitching - bottom curve */}
+    <path
+      d="M 7 18 Q 12 16, 17 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinecap="round"
+    />
+    
+    {/* Chat bubble in center */}
+    <rect
+      x="8"
+      y="9"
+      width="8"
+      height="6"
+      rx="1"
+      fill="currentColor"
+    />
+    <path
+      d="M 10 15 L 10 17 L 12 15"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 interface Message {
   id: string;
   text: string;
@@ -100,7 +152,7 @@ export default function ChatBot() {
           aria-label="Open chat assistant"
           data-testid="button-open-chat"
         >
-          <MessageCircle className="h-6 w-6" />
+          <SoftballChatIcon className="h-6 w-6" />
         </button>
       )}
 
@@ -110,7 +162,7 @@ export default function ChatBot() {
           {/* Header */}
           <div className="bg-gradient-to-r from-teal-500 to-blue-600 text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <MessageCircle className="h-5 w-5" />
+              <SoftballChatIcon className="h-5 w-5" />
               <div>
                 <h3 className="font-semibold">ASSL Assistant</h3>
                 <p className="text-xs opacity-90">Ask about rules & bylaws</p>
