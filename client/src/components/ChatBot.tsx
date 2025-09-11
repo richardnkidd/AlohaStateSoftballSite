@@ -18,6 +18,8 @@ export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showChatButton, setShowChatButton] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -93,10 +95,33 @@ export default function ChatBot() {
     }
   }, [isOpen]);
 
-  // Handle scroll event to show popup
+  // Detect if mobile and set initial visibility
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileDevice = window.innerWidth <= 768;
+      setIsMobile(isMobileDevice);
+      // On desktop, show button immediately. On mobile, hide initially
+      setShowChatButton(!isMobileDevice);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  // Handle scroll event to show popup and mobile chat button
   useEffect(() => {
     const handleScroll = () => {
-      if (!hasScrolled && !isOpen && window.scrollY > 100) {
+      // Show chat button on mobile after any scroll
+      if (isMobile && !showChatButton && window.scrollY > 10) {
+        setShowChatButton(true);
+      }
+
+      // Show popup text after scrolling past 100px (desktop only)
+      if (!hasScrolled && !isOpen && !isMobile && window.scrollY > 100) {
         setHasScrolled(true);
         setShowPopup(true);
       }
@@ -107,7 +132,7 @@ export default function ChatBot() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [hasScrolled, isOpen]);
+  }, [hasScrolled, isOpen, isMobile, showChatButton]);
 
   // Separate effect for hiding popup after timeout
   useEffect(() => {
@@ -133,7 +158,7 @@ export default function ChatBot() {
       )}
 
       {/* Chat Button */}
-      {!isOpen && (
+      {!isOpen && showChatButton && (
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 z-50 transition-all duration-300 hover:scale-110"
