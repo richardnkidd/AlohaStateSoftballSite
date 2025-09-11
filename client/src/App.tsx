@@ -7,6 +7,7 @@ import { PrideModeProvider } from "./hooks/use-pride-mode";
 import Navigation from "./components/navigation";
 import SponsorBanner from "./components/sponsor-banner";
 import Footer from "./components/footer";
+import ChatBot from "./components/ChatBot";
 import Home from "./pages/home";
 import Board from "./pages/board";
 import Ratings from "./pages/ratings";
@@ -58,6 +59,7 @@ function App() {
               <Router />
             </main>
             <Footer />
+            <ChatBot />
           </div>
           <Toaster />
         </PrideModeProvider>
