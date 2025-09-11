@@ -93,18 +93,20 @@ export default function ChatBot() {
   return (
     <>
       {/* Chat Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-        aria-label="Open chat assistant"
-        data-testid="button-open-chat"
-      >
-        <MessageCircle className="h-6 w-6" />
-      </button>
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          aria-label="Open chat assistant"
+          data-testid="button-open-chat"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </button>
+      )}
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-96 h-[600px] bg-white rounded-lg shadow-2xl flex flex-col border border-gray-200" data-testid="chat-window">
+        <div className="fixed bottom-6 right-6 z-[100] w-96 h-[600px] bg-white rounded-lg shadow-2xl flex flex-col border border-gray-200" data-testid="chat-window">
           {/* Header */}
           <div className="bg-gradient-to-r from-teal-500 to-blue-600 text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
