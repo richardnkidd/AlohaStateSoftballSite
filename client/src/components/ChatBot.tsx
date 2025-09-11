@@ -1,62 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { MessageCircle, Send, X, Loader2 } from 'lucide-react';
+import { Send, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { apiRequest } from '@/lib/queryClient';
-
-// Custom Softball Chat Icon Component
-const SoftballChatIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    {/* Softball circle */}
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
-    />
-    
-    {/* Softball stitching - top curve */}
-    <path
-      d="M 7 6 Q 12 8, 17 6"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      fill="none"
-      strokeLinecap="round"
-    />
-    
-    {/* Softball stitching - bottom curve */}
-    <path
-      d="M 7 18 Q 12 16, 17 18"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      fill="none"
-      strokeLinecap="round"
-    />
-    
-    {/* Chat bubble in center */}
-    <rect
-      x="8"
-      y="9"
-      width="8"
-      height="6"
-      rx="1"
-      fill="currentColor"
-    />
-    <path
-      d="M 10 15 L 10 17 L 12 15"
-      fill="currentColor"
-    />
-  </svg>
-);
+import chatbotLogo from '@/assets/chatbot-logo.png';
 
 interface Message {
   id: string;
@@ -67,6 +16,8 @@ interface Message {
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -142,17 +93,58 @@ export default function ChatBot() {
     }
   }, [isOpen]);
 
+  // Handle scroll event to show popup
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hasScrolled && !isOpen && window.scrollY > 100) {
+        setHasScrolled(true);
+        setShowPopup(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [hasScrolled, isOpen]);
+
+  // Separate effect for hiding popup after timeout
+  useEffect(() => {
+    if (showPopup) {
+      const timeout = setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+      
+      return () => clearTimeout(timeout);
+    }
+  }, [showPopup]);
+
   return (
     <>
+      {/* Popup Text */}
+      {showPopup && !isOpen && (
+        <div 
+          className="fixed bottom-24 right-6 z-50 bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300"
+          data-testid="popup-text"
+        >
+          <p className="text-sm font-medium">Have a question?</p>
+        </div>
+      )}
+
       {/* Chat Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border-2 border-teal-500"
           aria-label="Open chat assistant"
           data-testid="button-open-chat"
         >
-          <SoftballChatIcon className="h-6 w-6" />
+          <img 
+            src={chatbotLogo} 
+            alt="Chat assistant" 
+            className="h-12 w-12 object-contain"
+          />
         </button>
       )}
 
@@ -162,7 +154,11 @@ export default function ChatBot() {
           {/* Header */}
           <div className="bg-gradient-to-r from-teal-500 to-blue-600 text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <SoftballChatIcon className="h-5 w-5" />
+              <img 
+                src={chatbotLogo} 
+                alt="ASSL Assistant" 
+                className="h-8 w-8 object-contain bg-white rounded-full p-0.5"
+              />
               <div>
                 <h3 className="font-semibold">ASSL Assistant</h3>
                 <p className="text-xs opacity-90">Ask about rules & bylaws</p>
