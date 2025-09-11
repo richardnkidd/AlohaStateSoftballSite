@@ -95,6 +95,17 @@ The league uses the iPride Ratings System to ensure fairness, safety, and fun by
 === ANUENUE CLASSIC ===
 Our annual tournament is the Anuenue Classic, held March 27-29, 2026 at Patsy T. Mink Park in O'ahu, Hawai'i. It's the official Aloha State Softball League Tournament featuring 3 days of competition.
 
+=== PHOTO GALLERY ===
+League photos are available through Eric Z Martin Photography. Eric is our official photographer who captures all the best moments on and off the field with professional gameday photography. 
+
+**To view league photos:**
+• Visit Eric Z Martin's website at https://ericzmartin.com/
+• The website features galleries from recent games, tournaments, and special events
+• Professional quality photos are available for viewing and purchase
+
+**Season 4 Photos:**
+The website also has a dedicated "Season 4 Photos" button that links directly to photos from our most recent season.
+
 When answering questions:
 1. First check if the information is available in the website content above
 2. Then reference the relevant sections of the bylaws or rules if needed
