@@ -170,7 +170,7 @@ const gameplayRules = `
 - Ground rule double for balls hitting utility poles, picnic tables, or rolling over right field hill
 `;
 
-const CURRENT_OPENAI_MODEL = "gpt-4o-mini";
+const CURRENT_OPENAI_MODEL = "gpt-5-nano";
 
 const openai = new OpenAI({ 
   apiKey: process.env.OPENAI_API_KEY 
