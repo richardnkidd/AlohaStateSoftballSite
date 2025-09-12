@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+// Import the new modular handler
+import { getChatbotResponse } from "./src/handler.js";
+=======
 import OpenAI from "openai";
 
 // League Documents Content (copied from server/league-documents.ts)
@@ -410,6 +414,7 @@ export async function getChatbotResponse(userMessage) {
     throw new Error("Failed to get chatbot response");
   }
 }
+>>>>>>> da866d052903557e51e7afab9eb22a1a88187ffe
 
 export const handler = async (event) => {
   // Set CORS headers for all responses
