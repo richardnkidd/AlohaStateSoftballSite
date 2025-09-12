@@ -34,7 +34,7 @@ export default function ChatBot() {
 
   const sendMessageMutation = useMutation({
     mutationFn: async (message: string) => {
-      const response = await apiRequest('POST', '/api/chatbot', { message });
+      const response = await apiRequest('POST', '/.netlify/functions/chatbot', { message });
       const data = await response.json();
       return data;
     },
