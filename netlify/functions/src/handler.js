@@ -1,4 +1,4 @@
-// netlify/functions/src/handler.js (or wherever your function code lives)
+// netlify/functions/src/handler.js
 import OpenAI from "openai";
 import { baseSystemPrompt } from "./prompt.js";
 import { getRelevantSections } from "./retrieval.js";
@@ -12,19 +12,17 @@ export async function getChatbotResponse(userMessage) {
   try {
     const r = await openai.responses.create({
       model: CURRENT_OPENAI_MODEL,
-      input: `System:
-${baseSystemPrompt.trim()}
-
-User:
-Question:
+      // Use 'instructions' for system behavior + guardrails
+      instructions: baseSystemPrompt.trim(),
+      // Use 'input' for the user question + retrieved context
+      input: `Question:
 ${userMessage}
 
-CONTEXT:
+CONTEXT (relevant excerpts only):
 ${context}`,
-      // Determinism & verbosity
-      temperature: 0.2,
-      top_p: 1,
+      // Valid for Responses API with this model
       max_output_tokens: 800
+      // DO NOT include temperature/top_p/presence_penalty/frequency_penalty here
     });
 
     const answer =
@@ -34,14 +32,12 @@ ${context}`,
 
     return answer;
   } catch (err) {
-    // Log the real upstream error so you can see it in Netlify Function logs
     console.error(
       "OpenAI API error:",
       err.status ?? err.response?.status,
       err.message,
       err.response?.data
     );
-    // Re-throw so the HTTP wrapper can set a non-200 and the UI shows an error state
     throw err;
   }
 }
