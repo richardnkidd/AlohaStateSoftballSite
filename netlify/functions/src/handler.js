@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { baseSystemPrompt } from "./prompt.js";
 import { getRelevantSections } from "./retrieval.js";
 
-export const CURRENT_OPENAI_MODEL = "gpt-4o-mini";
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
