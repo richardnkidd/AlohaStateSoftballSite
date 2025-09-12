@@ -1,0 +1,191 @@
+Refactor the existing ASSL chatbot codebase to use a lightweight retrieval pattern and a slimmer system prompt. Make the following changes precisely:
+
+Goals
+
+Move league content out of the system prompt into a separate file and retrieve only relevant sections per user question.
+
+Remove all references to Division B from content and logic.
+
+Tighten determinism & verbosity settings for consistent, concise answers.
+
+Add this guardrail to the system prompt:
+
+“If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+
+Keep CURRENT_OPENAI_MODEL = "gpt-5-nano" and ensure the code uses the Chat Completions API compatibly.
+
+Implementation Tasks
+1) Create a content module
+
+Create src/league-content.ts exporting a list of titled sections. Extract all long strings currently embedded in the system prompt (bylaws, gameplay rules, board, sponsors, ratings, scorekeeping, tournament, links, etc.) into discrete sections. Remove any “Division B” references while you copy.
+
+// src/league-content.ts
+export type Section = {
+  id: string;        // slug-like id
+  title: string;     // human-readable title
+  text: string;      // full section text
+  tags?: string[];   // optional keywords
+};
+
+// Break content into logical chunks so we can fetch only what’s needed.
+// IMPORTANT: Remove all references to Division B in these texts.
+export const SECTIONS: Section[] = [
+  { id: "about", title: "About the League", text: /* from website copy, updated w/ no Division B */ "" },
+  { id: "board", title: "Board of Directors", text: "" },
+  { id: "bylaws", title: "Bylaws and Athletic Codes", text: "" },
+  { id: "rules", title: "Gameplay Rules", text: "" },
+  { id: "ratings", title: "Player Ratings System", text: "" }, // ensure no Division B
+  { id: "scorekeeping", title: "Scorekeeping Guide", text: "" },
+  { id: "field-rules", title: "Ala Wai Community Park Field #3 Ground Rules", text: "" },
+  { id: "tournament", title: "Anuenue Classic", text: "" },     // ensure no Division B
+  { id: "sponsors", title: "Sponsors", text: "" },
+  { id: "links", title: "External Links & Resources", text: "" },
+];
+
+
+Acceptance: All long content is removed from the old system prompt and lives in SECTIONS. No “Division B” remains.
+
+2) Add a tiny retrieval helper
+
+Create src/retrieval.ts with a simple keyword scorer to pick the most relevant sections per query (no embeddings needed).
+
+// src/retrieval.ts
+import { SECTIONS, Section } from "./league-content";
+
+export type RetrievalOptions = {
+  maxSections?: number;   // default 3
+  maxChars?: number;      // default 2500
+};
+
+export function getRelevantSections(
+  query: string,
+  options: RetrievalOptions = {}
+): string {
+  const { maxSections = 3, maxChars = 2500 } = options;
+  const q = query.toLowerCase();
+
+  // naive keyword scoring
+  const scored: Array<{ s: Section; score: number }> = SECTIONS.map((s) => {
+    const hay = (s.title + "\n" + s.text).toLowerCase();
+    // simple overlap score
+    const terms = q.split(/\W+/).filter(Boolean);
+    const score = terms.reduce((acc, t) => acc + (hay.includes(t) ? 1 : 0), 0)
+                 + (hay.includes(q) ? 3 : 0); // small boost for full phrase
+    return { s, score };
+  }).filter(x => x.score > 0);
+
+  const top = scored.sort((a,b) => b.score - a.score).slice(0, maxSections);
+  let out = top.map(({ s }) => `### ${s.title}\n${s.text}`).join("\n\n");
+
+  if (out.length > maxChars) {
+    out = out.slice(0, maxChars) + "\n…";
+  }
+  return out;
+}
+
+3) Slim, durable system prompt with guardrail
+
+Replace the current giant systemPrompt with a short behavior prompt. Keep style cues and add the guardrail verbatim.
+
+// src/prompt.ts
+export const baseSystemPrompt = `
+You are an intelligent assistant for the Aloha State Softball League (ASSL), Hawai‘i’s LGBTQ+ inclusive softball community.
+Be friendly, inclusive, and concise; use “Aloha” where natural.
+
+Use only the provided CONTEXT to answer questions about:
+- League rules and regulations, player eligibility and ratings (C, D, E only), game procedures, team composition, discipline,
+  board structure and governance, tournaments, field ground rules, scorekeeping, sponsors/partners, and official links.
+
+If information in the CONTEXT conflicts internally, prefer gameplay rules for on-field matters and bylaws for governance.
+
+Guardrail: If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.
+
+Cite the section titles you relied on (e.g., “(Gameplay Rules)”) when helpful. Keep answers succinct.
+`;
+
+4) Update the OpenAI call to use retrieval + determinism
+
+Modify the existing function (e.g., in src/handler.ts or your current file) to:
+
+Import getRelevantSections.
+
+Build a context string from top matches.
+
+Pass a short system prompt, a user message that includes both question and context.
+
+Set determinism & verbosity controls.
+
+Also keep CURRENT_OPENAI_MODEL = "gpt-5-nano" and ensure chat.completions.create is used.
+
+// src/handler.ts (or your existing file)
+import OpenAI from "openai";
+import { baseSystemPrompt } from "./prompt";
+import { getRelevantSections } from "./retrieval";
+
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+export async function getChatbotResponse(userMessage: string) {
+  const context = getRelevantSections(userMessage, { maxSections: 3, maxChars: 2500 });
+
+  const messages = [
+    { role: "system", content: baseSystemPrompt.trim() },
+    {
+      role: "user",
+      content:
+`Question:
+${userMessage}
+
+CONTEXT (relevant excerpts only):
+${context}`
+    }
+  ];
+
+  const resp = await openai.chat.completions.create({
+    model: CURRENT_OPENAI_MODEL,
+    messages,
+    // Determinism & verbosity tweaks
+    temperature: 0.2,
+    top_p: 1,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+    max_tokens: 800
+  });
+
+  return resp.choices?.[0]?.message?.content
+      ?? "Aloha — I couldn’t generate a response. Please try again.";
+}
+
+
+Acceptance: The assistant now sees only a short system prompt + a compact, per-question CONTEXT. Deterministic knobs are set. Model is "gpt-5-nano".
+
+5) Remove Division B everywhere
+
+While extracting content into SECTIONS, delete all “B Division” mentions (ratings, tournaments, definitions).
+
+Ensure the ratings section only describes C, D, E tiers and their thresholds.
+
+If any logic refers to “B,” remove or rewrite it.
+
+6) Keep your existing HTTP handler
+
+Keep your current CORS, OPTIONS handler, and POST parsing.
+
+Only replace the chatbot call path to use the new getChatbotResponse that performs retrieval.
+
+Final Acceptance Criteria
+
+System prompt is short, includes the guardrail exactly as quoted, and does not inline the league’s entire text.
+
+SECTIONS contains all league info and no Division B references.
+
+At runtime, only top 2–3 relevant sections (≤ ~2.5k chars) are injected per question.
+
+OpenAI call uses CURRENT_OPENAI_MODEL = "gpt-5-nano" and the Chat Completions API, with:
+
+temperature: 0.2, top_p: 1, presence_penalty: 0, frequency_penalty: 0, max_tokens: 800.
+
+Answers remain accurate and concise, and the bot defers or asks a clarifying question when rules aren’t specified.
+
+If the repo is TypeScript, ensure files are .ts and exports/imports compile. If JavaScript, use .js and adjust types accordingly.
