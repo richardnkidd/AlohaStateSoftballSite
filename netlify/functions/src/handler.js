@@ -11,9 +11,9 @@ export async function getChatbotResponse(userMessage) {
   const context = getRelevantSections(userMessage, { maxSections: 3, maxChars: 2500 });
 
   try {
-    const response = await openai.chat.completions.create({
+    const r = await openai.responses.create({
       model: CURRENT_OPENAI_MODEL,
-      messages: [
+      input: [
         { role: "system", content: baseSystemPrompt.trim() },
         { role: "user", content: `Question:\n${userMessage}\n\nCONTEXT:\n${context}` }
       ],
@@ -24,9 +24,13 @@ export async function getChatbotResponse(userMessage) {
       frequency_penalty: 0,
       max_tokens: 800
     });
-
-    return response.choices?.[0]?.message?.content ??
+    
+    const answer =
+      r.output_text ??
+      r.choices?.[0]?.message?.content ??
       "Aloha — I couldn't generate a response. Please try again.";
+    
+    return answer;
   } catch (error) {
     console.error("OpenAI API error:", error);
     return "Aloha — I'm having trouble connecting right now. Please try again later.";
