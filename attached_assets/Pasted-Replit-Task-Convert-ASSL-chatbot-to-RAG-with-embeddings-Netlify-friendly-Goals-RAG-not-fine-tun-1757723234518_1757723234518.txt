@@ -1,0 +1,289 @@
+Replit Task: Convert ASSL chatbot to RAG with embeddings (Netlify-friendly)
+Goals
+
+RAG, not fine-tuning: Build at deploy time a small JSON vector index from /content/*.md and use it at runtime for retrieval.
+
+Model & API: Use CURRENT_OPENAI_MODEL = "gpt-5-nano" with the Responses API (instructions, input, max_output_tokens). No temperature, top_p, or penalties.
+
+Division B: Remove all references to Division B at build time so it can’t leak.
+
+Guardrails & style: Include:
+
+“If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+Prefer gameplay rules for on-field; bylaws for governance. Keep answers concise (3–6 sentences).
+
+Netlify: Bundle the JSON index; Node 20 runtime; robust text extraction; graceful fallbacks.
+
+Make/modify files
+1) content/ (I’ll attach the .md files)
+content/about.md
+content/board.md
+content/bylaws.md
+content/rules.md
+content/ratings.md
+content/scorekeeping.md
+content/field-rules.md
+content/sponsors.md
+content/links.md
+
+2) scripts/build-embeddings.mjs
+
+Read all content/*.md, scrub “Division B”, chunk, embed, and write data/assl-embeddings.json.
+
+Use env EMBEDDING_MODEL (default text-embedding-3-small) and OPENAI_API_KEY.
+
+#!/usr/bin/env node
+import fs from "fs";
+import path from "path";
+import OpenAI from "openai";
+
+const CONTENT_DIR = "content";
+const OUT_PATH = "data/assl-embeddings.json";
+const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || "text-embedding-3-small";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+function scrubDivisionB(text) {
+  // Remove explicit "Division B" lines and labels
+  return text
+    .replace(/^.*\b(B Division|Division B)\b.*$/gmi, "")
+    .replace(/\b(B Division|Division B)\b/gi, "");
+}
+
+function chunk(md, { maxChars = 1800, overlap = 200 } = {}) {
+  const sections = md.split(/\n(?=#{1,6}\s)/g);
+  const chunks = [];
+  for (const sec of sections) {
+    if (sec.length <= maxChars) chunks.push(sec.trim());
+    else {
+      let i = 0;
+      while (i < sec.length) {
+        const end = i + maxChars;
+        chunks.push(sec.slice(i, end).trim());
+        i = end - overlap;
+      }
+    }
+  }
+  return chunks.filter(Boolean);
+}
+
+const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith(".md"));
+const docs = [];
+for (const file of files) {
+  const raw = fs.readFileSync(path.join(CONTENT_DIR, file), "utf8");
+  const cleaned = scrubDivisionB(raw);
+  chunk(cleaned).forEach((text, idx) => {
+    docs.push({
+      source: file,
+      id: `${file}:${idx}`,
+      title: path.basename(file, ".md"),
+      tags: [],
+      text,
+      version: new Date().toISOString().slice(0,10)
+    });
+  });
+}
+
+const BATCH = 64;
+const out = [];
+for (let i = 0; i < docs.length; i += BATCH) {
+  const batch = docs.slice(i, i + BATCH);
+  const emb = await openai.embeddings.create({
+    model: EMBEDDING_MODEL,
+    input: batch.map(d => d.text)
+  });
+  emb.data.forEach((e, j) => out.push({ ...batch[j], embedding: e.embedding }));
+  process.stdout.write(`Embedded ${Math.min(i + BATCH, docs.length)}/${docs.length}\r`);
+}
+
+fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
+fs.writeFileSync(OUT_PATH, JSON.stringify(out), "utf8");
+console.log(`\nWrote ${OUT_PATH} (${out.length} chunks).`);
+
+3) netlify/functions/src/retrieval-embeddings.js
+
+Load the JSON, embed the query, cosine-score, return top-k context.
+
+import fs from "fs";
+import path from "path";
+import OpenAI from "openai";
+
+const INDEX_PATH = path.join(process.cwd(), "data", "assl-embeddings.json");
+let INDEX = null;
+
+function loadIndex() {
+  if (!INDEX) INDEX = JSON.parse(fs.readFileSync(INDEX_PATH, "utf8"));
+  return INDEX;
+}
+function cosine(a,b){let d=0,na=0,nb=0;for(let i=0;i<a.length;i++){d+=a[i]*b[i];na+=a[i]*a[i];nb+=b[i]*b[i];}return d/(Math.sqrt(na)*Math.sqrt(nb)+1e-8);}
+
+export function createEmbeddingRetriever(openai, embeddingModel = process.env.EMBEDDING_MODEL || "text-embedding-3-small") {
+  const index = loadIndex();
+  return async function getRelevant(query, { k=3, charLimit=2500, minScore=0.7 } = {}) {
+    const q = await openai.embeddings.create({ model: embeddingModel, input: query });
+    const qv = q.data[0].embedding;
+    const scored = index.map(doc => ({ doc, score: cosine(qv, doc.embedding) }))
+                        .sort((a,b)=>b.score-a.score);
+    const picked = [];
+    let total = 0;
+    for (const {doc, score} of scored) {
+      if (picked.length >= k) break;
+      picked.push({ ...doc, score });
+      total += doc.text.length;
+      if (total > charLimit) break;
+      if (picked.length >= 1 && score < minScore) break;
+    }
+    const context = picked.map(p => `### ${p.title} (src: ${p.source})\n${p.text}`).join("\n\n");
+    return { context, matches: picked };
+  };
+}
+
+4) netlify/functions/src/prompt.js
+
+Short, durable behavior + guardrail + precedence + length control.
+
+export const baseSystemPrompt = `
+You are the assistant for the Aloha State Softball League (ASSL).
+Be friendly, inclusive, and concise; use “Aloha” naturally.
+
+Use only the provided CONTEXT to answer questions about league website content, gameplay rules, bylaws, board/governance, ratings (C/D/E only), scorekeeping, field rules, sponsors, and official links.
+
+If website copy and bylaws conflict: bylaws govern for governance; gameplay rules govern on-field matters.
+
+Guardrail: If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.
+
+Write answers in 3–6 sentences unless the user asks for more. There is no Division B in this league.
+`.trim();
+
+5) netlify/functions/src/handler.js
+
+Use Responses API with gpt-5-nano; no temperature/top_p; robust extraction; model question shortcut.
+
+import OpenAI from "openai";
+import { baseSystemPrompt } from "./prompt.js";
+import { createEmbeddingRetriever } from "./retrieval-embeddings.js";
+
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const getRelevant = createEmbeddingRetriever(openai);
+
+function extractText(r) {
+  if (typeof r?.output_text === "string" && r.output_text.trim()) return r.output_text.trim();
+  if (Array.isArray(r?.output)) {
+    const parts = [];
+    for (const it of r.output) {
+      if (it?.type === "output_text" && it.text) parts.push(it.text);
+      if (it?.type === "message" && Array.isArray(it.content)) {
+        for (const c of it.content) if ((c.type === "text" || c.type === "output_text") && c.text) parts.push(c.text);
+      }
+    }
+    const joined = parts.join("").trim();
+    if (joined) return joined;
+  }
+  const choiceText = r?.choices?.[0]?.message?.content;
+  if (choiceText?.trim()) return choiceText.trim();
+  return "";
+}
+function isModelQuestion(msg){return /\b(what|which)\b.*\bmodel\b|\bgpt\b.*\b(am|is)\b/i.test(msg);}
+
+export async function getChatbotResponse(userMessage) {
+  if (isModelQuestion(userMessage)) return `You’re chatting with ${CURRENT_OPENAI_MODEL}.`;
+
+  const { context } = await getRelevant(userMessage, { k: 3, charLimit: 2500, minScore: 0.70 });
+  if (!context || !context.trim()) {
+    return "Aloha — I don’t have that in my documents yet. If unsure or a rule isn’t specified, please ask a clarifying question or contact the Board via the website.";
+  }
+
+  const r = await openai.responses.create({
+    model: CURRENT_OPENAI_MODEL,
+    instructions: baseSystemPrompt,
+    input:
+`Question:
+${userMessage}
+
+CONTEXT (top matches):
+${context}`,
+    max_output_tokens: 800
+  });
+
+  const answer = extractText(r);
+  return answer || "Aloha — I couldn’t find that in the provided documents. If unsure or a rule isn’t specified, please contact the Board.";
+}
+
+6) Keep your existing HTTP wrapper (CORS, OPTIONS, POST)
+
+Just make sure it calls getChatbotResponse(message) and returns { response }.
+
+7) netlify.toml
+
+Ensure the JSON index is packaged with the function and Node 20 runtime.
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["data/assl-embeddings.json"]
+
+[build.environment]
+  AWS_LAMBDA_JS_RUNTIME = "nodejs20.x"
+  NODE_VERSION = "20"
+
+8) package.json updates
+
+Ensure OpenAI SDK v5, scripts, and Node engine.
+
+{
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "openai": "^5.20.1"
+  },
+  "scripts": {
+    "build:embeddings": "node scripts/build-embeddings.mjs",
+    "build": "npm run build:embeddings && <your-existing-build-command>"
+  }
+}
+
+Environment variables (Netlify)
+
+Set these in Build & Functions env:
+
+OPENAI_API_KEY = <your key>
+
+EMBEDDING_MODEL = text-embedding-3-small (optional; default used if missing)
+
+AWS_LAMBDA_JS_RUNTIME = nodejs20.x
+
+NODE_VERSION = 20
+
+Acceptance tests
+
+Build succeeds and writes data/assl-embeddings.json.
+
+Function query (model):
+
+curl -s -X POST "https://<site>.netlify.app/.netlify/functions/chatbot" \
+ -H "Content-Type: application/json" \
+ -d '{"message":"What GPT model am I speaking with?"}'
+
+
+→ Returns “You’re chatting with gpt-5-nano.”
+
+Rules question (retrieval):
+
+curl -s -X POST "https://<site>.netlify.app/.netlify/functions/chatbot" \
+ -H "Content-Type: application/json" \
+ -d '{"message":"What are the league rules on home runs?"}'
+
+
+→ Non-empty answer citing limits drawn from rules.md.
+
+Division B sanity: Search the built JSON (data/assl-embeddings.json) — no “Division B” present.
+
+Guardrail: Ask something not in docs → friendly fallback:
+“Aloha — I don’t have that in my documents yet…” with the guardrail text.
+
+Notes
+
+Do not send temperature, top_p, or penalties with gpt-5-nano. Only max_output_tokens.
+
+Keep answers concise via the system prompt constraints, not sampling knobs.
+
+When I update .md files, the build script re-embeds and redeploys—no fine-tuning needed.

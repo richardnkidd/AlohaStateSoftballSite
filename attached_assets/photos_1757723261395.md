@@ -1,0 +1,9 @@
+---
+id: photos
+title: Photo Gallery — Eric Z Martin
+tags: ["photos", "gallery", "eric z martin", "gameday", "action shots"]
+version: 2025-09-12
+---
+
+Eric Z Martin Photography hosts league galleries including action shots, team photos, and candid moments.  
+Visit **https://ericzmartin.com/** and look for the **Season 4 Photos** collection on the homepage or the gallery index.

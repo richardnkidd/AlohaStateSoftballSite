@@ -1,0 +1,12 @@
+---
+id: field-rules
+title: Ala Wai Community Park Field #3 — Ground Rules
+tags: ["ala wai", "ground rules", "park", "overthrows"]
+version: 2025-09-12
+---
+
+- Boundary lines extend from fence in front of benches.  
+- **Right field:** to running/bike path. **Left field:** to basketball courts.  
+- Fly balls caught beyond those lines are **outs**.  
+- Overthrows: **dead ball** + **one base**.  
+- Balls striking utility poles/picnic tables or rolling over the right‑field hill: **ground‑rule double**.

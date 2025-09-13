@@ -1,0 +1,16 @@
+---
+id: scorekeeping
+title: Scorekeeping Guide (Slow‑Pitch)
+tags: ["scorekeeping", "notation", "positions", "errors", "courtesy runner"]
+version: 2025-09-12
+---
+
+**You need:** scorebook or notebook, pencil, team lineups.
+
+**Positions (1–10):** 1‑P, 2‑C, 3‑1B, 4‑2B, 5‑3B, 6‑SS, 7‑LF, 8‑CF, 9‑RF, 10‑Rover (if used).
+
+**Notations:** 1B/2B/3B/HR, BB, K (ꓘ for looking), F7/F8/F9, 6‑3, E5, FC, DP, SAC, HBP, WP, PB.
+
+**Slow‑pitch details:** start 1‑and‑1; one foul after 2 strikes = K; no stealing/leading off; mat/plate defines strikes; 6–12 ft arc; track courtesy runners and defensive swaps; note mercy rule if invoked.
+
+**Error details (iPride‑style):** E6(T) throwing error by SS; E4(F) fielding error by 2B; E7(M) misplay by LF.
