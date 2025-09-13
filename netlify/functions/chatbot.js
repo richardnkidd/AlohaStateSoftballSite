@@ -1,5 +1,5 @@
-// Import the new modular handler
-import { getChatbotResponse } from "./src/handler.js";
+// Import the embedding-based handler
+import { getChatbotResponse } from "./src/handler-embeddings.js";
 
 export const handler = async (event) => {
   const headers = {
