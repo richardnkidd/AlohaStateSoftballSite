@@ -22,7 +22,7 @@ The **Anuenue Classic** is ASSL's annual invitational tournament in Oʻahu, Hawa
 - Bats: **USA Softball Approved Bat List** and **ASSL‑provided bats only** on field.
 
 ## Registration & Updates
-- **Registration link:** will be posted on **LinkTree** and the website's tournament page.  
+- **Registration link:** will be posted on the website when available.  
 - Watch **https://linktr.ee/alohastatesoftball** and league socials (Instagram/Facebook) for the official registration announcement, fees, and deadlines.
 
 ## Visitor Notes
