@@ -11,7 +11,10 @@ const SYNONYMS = {
   "membership": ["join", "register", "sign up", "how to join"],
   "softball": ["assl", "league", "aloha state"],
   "rules": ["gameplay", "regulations", "how to play"],
-  "bylaws": ["constitution", "governance", "policies"]
+  "bylaws": ["constitution", "governance", "policies"],
+  "tournament": ["anuenue", "anuenue classic", "competition", "march", "2026", "dates", "when"],
+  "anuenue": ["tournament", "anuenue classic", "march", "2026"],
+  "dates": ["when", "schedule", "calendar", "march", "tournament"]
 };
 
 function expandQuery(q) {
@@ -49,6 +52,12 @@ export function getRelevantSections(query, options = {}) {
   if (!scored.length && /\b(contact|email|board|commissioner)\b/i.test(query)) {
     const board = SECTIONS.find(sec => sec.id === "board");
     if (board) scored.push({ s: board, score: 1 });
+  }
+  
+  // Fallback for tournament questions
+  if (!scored.length && /\b(tournament|anuenue|classic|march)\b/i.test(query)) {
+    const tournament = SECTIONS.find(sec => sec.id === "tournament" || /anuenue/i.test(sec.title));
+    if (tournament) scored.push({ s: tournament, score: 1 });
   }
 
   const top = scored.sort((a, b) => b.score - a.score).slice(0, maxSections);
