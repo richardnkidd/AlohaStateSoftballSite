@@ -1,0 +1,262 @@
+Replit Task — Final Fixes for ASSL Chatbot (Netlify)
+Goals
+
+No more blank responses. Always return a non-empty answer or a helpful guardrail.
+
+Use only the Markdown-derived content for answers (tournament dates included).
+
+Keep CURRENT_OPENAI_MODEL = "gpt-5-nano" and call the Responses API correctly: use instructions, input, max_output_tokens only (no temperature/top_p/penalties).
+
+Add intent routing for tournament/home runs.
+
+Guardrail: “If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+
+Remove/ignore Division B.
+
+What’s currently live (repo pointers)
+
+The Netlify function entry imports ./src/handler.js right now. 
+
+chatbot
+
+The active handler.js still extracts text in a fragile way (can yield empty strings). Replace with robust extraction. 
+
+handler
+
+Your generated league-content.js already includes the Anuenue Classic dates (Mar 27–29, 2026) — retrieval just needs to surface it. 
+
+league-content
+
+If you’d rather switch to the hybrid handler (embeddings + keyword fallback), you already have handler-hybrid.js in the repo; you can point the function entry to that instead. 
+
+handler-hybrid
+
+Edits
+1) Make the function use the robust extractor and guardrails
+
+File: netlify/functions/src/handler.js
+Replace the file contents with:
+
+// netlify/functions/src/handler.js
+import OpenAI from "openai";
+import { baseSystemPrompt } from "./prompt.js";
+import { getRelevantSections } from "./retrieval.js";
+
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+function extractText(r) {
+  if (typeof r?.output_text === "string" && r.output_text.trim()) return r.output_text.trim();
+  if (Array.isArray(r?.output)) {
+    const parts = [];
+    for (const it of r.output) {
+      if (it?.type === "output_text" && it.text) parts.push(it.text);
+      if (it?.type === "message" && Array.isArray(it.content)) {
+        for (const c of it.content) if ((c.type === "text" || c.type === "output_text") && c.text) parts.push(c.text);
+      }
+    }
+    const joined = parts.join("").trim();
+    if (joined) return joined;
+  }
+  const choiceText = r?.choices?.[0]?.message?.content;
+  if (typeof choiceText === "string" && choiceText.trim()) return choiceText.trim();
+  return "";
+}
+
+function isModelQuestion(msg) {
+  return /\b(what|which)\b.*\bmodel\b|\bgpt\b.*\b(am|is)\b/i.test(msg);
+}
+
+export async function getChatbotResponse(userMessage) {
+  if (isModelQuestion(userMessage)) {
+    return `You're chatting with ${CURRENT_OPENAI_MODEL}.`;
+  }
+
+  // Retrieve relevant context from generated sections (includes tournament dates).
+  const context = getRelevantSections(userMessage, { maxSections: 3, maxChars: 2500 });
+
+  // If retrieval found nothing, follow the guardrail immediately
+  if (!context || !context.trim()) {
+    return "Aloha — I don’t have that in my documents yet. If unsure or a rule isn’t specified, please ask a clarifying question or contact the Board via the website.";
+  }
+
+  // Ask the model using Responses API (gpt-5-nano): instructions + input + max_output_tokens only
+  const r = await openai.responses.create({
+    model: CURRENT_OPENAI_MODEL,
+    instructions: baseSystemPrompt.trim(),
+    input: `Question:
+${userMessage}
+
+CONTEXT (relevant excerpts only):
+${context}`,
+    max_output_tokens: 800
+  });
+
+  const answer = extractText(r).trim();
+  return answer || "Aloha — I couldn’t find that in the provided documents. If unsure or a rule isn’t specified, please contact the Board.";
+}
+
+
+This robust extractText stops “blank response” scenarios by walking all possible Response shapes before conceding. (Reference implementation in your repo notes.) 
+
+Pasted-1-Make-sure-SECTIONS-act…
+
+2) Keep the function entry as-is (or switch to hybrid)
+
+Keep: netlify/functions/chatbot.js importing ./src/handler.js (after the fix above) 
+
+chatbot
+
+Optional (more robust): switch to ./src/handler-hybrid.js (embeddings + keyword fallback) by changing the import in netlify/functions/chatbot.js to:
+
+import { getChatbotResponse } from "./src/handler-hybrid.js";
+
+
+(The hybrid handler is already committed.) 
+
+handler-hybrid
+
+3) Retrieval: intent routing & synonyms (so “tournament dates” and “home runs” always hit)
+
+File: netlify/functions/src/retrieval.js
+Ensure it contains tournament forcing and HR synonyms. If needed, patch per this sketch (you already have a similar version in the repo notes):
+
+import { SECTIONS } from "./league-content.js";
+
+const SYNONYMS = {
+  "home run": ["home runs", "homer", "hr", "dinger", "over the fence"],
+  "tiebreaker": ["international tiebreaker", "extra innings", "one-pitch"]
+};
+
+function expandQuery(q) {
+  const base = (q || "").toLowerCase();
+  const extras = [];
+  for (const [k, vals] of Object.entries(SYNONYMS)) {
+    if (base.includes(k) || vals.some(v => base.includes(v))) extras.push(k, ...vals);
+  }
+  return Array.from(new Set([base, ...extras]));
+}
+
+export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } = {}) {
+  const q = (query || "");
+  const terms = expandQuery(q);
+
+  // Force-include Tournament for tournament-like asks
+  const force = [];
+  if (/(tournament|anuenue|classic|event|date|dates|when)/i.test(q)) {
+    const t = SECTIONS.find(s => s.id === "tournament");
+    if (t) force.push(t);
+  }
+
+  const scored = SECTIONS.map(s => {
+    const hay = `${s.title}\n${s.text}\n${(s.tags || []).join(" ")}`.toLowerCase();
+    let score = 0;
+    for (const t of terms) if (t && hay.includes(t)) score += 2;
+    if (q && hay.includes(q.toLowerCase())) score += 3;
+    // tag boost
+    const tags = (s.tags || []).map(x => x.toLowerCase());
+    for (const t of terms) if (tags.includes(t)) score += 1;
+    return { s, score };
+  });
+
+  const forcedIds = new Set(force.map(x => x.id));
+  const rest = scored
+    .filter(x => !forcedIds.has(x.s.id))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(x => x.s);
+
+  const top = [...force, ...rest].slice(0, maxSections);
+  let out = top.map(s => `### ${s.title}\n${s.text}`).join("\n\n");
+  if (out.length > maxChars) out = out.slice(0, maxChars) + "\n…";
+  return out;
+}
+
+
+(The repo guidance already suggests these tweaks; ensure they’re applied.) 
+
+Pasted-Task-Optimize-ASSL-chatb…
+
+Pasted-1-Make-sure-SECTIONS-act…
+
+4) System prompt: short, with guardrail & no Division B
+
+File: netlify/functions/src/prompt.js
+Keep it slim and durable (you already have this pattern in your repo notes):
+
+export const baseSystemPrompt = `
+You are the assistant for the Aloha State Softball League (ASSL).
+Be friendly, inclusive, and concise; use “Aloha” naturally.
+
+Use only the provided CONTEXT to answer questions about league website content, gameplay rules, bylaws, board/governance, ratings (C/D/E only), scorekeeping, field rules, sponsors, and official links.
+
+If website copy and bylaws conflict: bylaws govern for governance; gameplay rules govern on-field matters.
+Do not mention Division B (league fields C/D/E). Cite section titles in prose when helpful.
+
+Guardrail: If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.
+`.trim();
+
+
+(Template mirrors the accepted pattern in your repo notes.) 
+
+Pasted-Task-Optimize-ASSL-chatb…
+
+Pasted-Replit-Task-Convert-ASSL…
+
+5) Confirm tournament content exists in the generated sections
+
+Your generated league-content.js already includes the Anuenue Classic dates; keep it. 
+
+league-content
+
+
+If you later switch to embeddings, ensure the JSON index includes tournament.md or the dates will vanish from retrieval. (For embeddings flow and packaging, see notes below.) 
+
+Pasted-Replit-Task-Convert-ASSL…
+
+Netlify config & deps sanity
+
+Function entry: netlify/functions/chatbot.js — keep wrapper; it calls getChatbotResponse(message) and returns { response }. 
+
+chatbot
+
+OpenAI SDK v5 and Node 20 in package.json and Netlify env as already documented in your notes. 
+
+Pasted-Replit-Task-Convert-ASSL…
+
+If you adopt the embeddings retriever, add to netlify.toml:
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["data/assl-embeddings.json"]
+
+[build.environment]
+  AWS_LAMBDA_JS_RUNTIME = "nodejs20.x"
+  NODE_VERSION = "20"
+
+
+And build the JSON index during build. 
+
+Pasted-Replit-Task-Convert-ASSL…
+
+Quick acceptance tests
+# 1) Model
+curl -s -X POST "https://<your-site>.netlify.app/.netlify/functions/chatbot" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"What GPT model am I speaking with?"}'
+
+# Expect: “You’re chatting with gpt-5-nano.”
+
+# 2) Tournament dates
+curl -s -X POST "https://<your-site>.netlify.app/.netlify/functions/chatbot" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"When is the Anuenue Classic tournament?"}'
+
+# Expect a non-empty answer mentioning March 27–29, 2026 (from league-content/tournament section).
+
+# 3) Home run rules
+curl -s -X POST "https://<your-site>.netlify.app/.netlify/functions/chatbot" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"What are the home run limits?"}'
+
+# Expect: C: 1; D: 0; E: 0 (or equivalent summary) pulled from rules.
