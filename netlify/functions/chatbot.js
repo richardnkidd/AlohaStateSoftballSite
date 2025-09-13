@@ -1,5 +1,5 @@
-// Import the hybrid handler with fallback
-import { getChatbotResponse } from "./src/handler-hybrid.js";
+// Import the optimized handler with intent routing
+import { getChatbotResponse } from "./src/handler.js";
 
 export const handler = async (event) => {
   const headers = {

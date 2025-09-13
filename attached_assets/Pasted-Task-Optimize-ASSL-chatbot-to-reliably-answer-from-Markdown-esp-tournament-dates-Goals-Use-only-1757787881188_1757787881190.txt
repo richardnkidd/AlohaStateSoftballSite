@@ -1,0 +1,176 @@
+Task: Optimize ASSL chatbot to reliably answer from Markdown (esp. tournament dates)
+Goals
+
+Use only the Markdown content in /content/*.md (and generated netlify/functions/src/league-content.js) as the bot’s knowledge source.
+
+Always retrieve the right chunks for intent like “tournament dates,” “home runs,” “time limit,” etc.
+
+Keep CURRENT_OPENAI_MODEL = "gpt-5-nano" and call the Responses API correctly (no unsupported params).
+
+Add guardrail: “If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+
+Remove any dead/legacy prompts that still inline content (some old files still mention Division B and duplicate text).
+
+Evidence from repo (why it failed)
+
+The repo does include content/tournament.md (and generated league-content.js) with the dates March 27–29, 2026. The bot should surface that. 
+
+tournament
+
+We also generate a tournament section inside netlify/functions/src/league-content.js from MD. Ensure the server actually uses this artifact for retrieval, not an old prompt. 
+
+league-content
+
+There are old prompt files (server/openai-service.ts) that still inline big blocks of text, including “B, C, D, E” and tournament copy. These can overshadow RAG or confuse the bot. Delete/disable them in the runtime path. 
+
+openai-service
+
+ 
+
+openai-service
+
+Implementation Steps
+1) Retrieval: boost tags + fuzzy intent mapping
+
+Update netlify/functions/src/retrieval.js (or equivalent) to:
+
+Normalize query → lowercase, strip punctuation, collapse whitespace.
+
+Score sections by title + text + tags (tags get +2 each match).
+
+Add a cheap intent router for common asks:
+
+If query contains any of: tournament|anuenue|classic|event|dates|when, force-include section with id: "tournament" at rank 1 (if present).
+
+If query contains home run|HR|over the fence, include id: "rules" or id: "rules-faq".
+
+Keep maxSections: 3, maxChars: 2500.
+
+Patch sketch (JS):
+
+// netlify/functions/src/retrieval.js
+import { SECTIONS } from "./league-content.js";
+
+export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } = {}) {
+  const q = (query || "").toLowerCase();
+  const terms = q.split(/\W+/).filter(Boolean);
+
+  const force = [];
+  if (/(tournament|anuenue|classic|event|date|dates|when)/i.test(q)) {
+    const t = SECTIONS.find(s => s.id === "tournament");
+    if (t) force.push(t);
+  }
+  if (/(home\s*run|hr|over[-\s]*the[-\s]*fence)/i.test(q)) {
+    const rfaq = SECTIONS.find(s => s.id === "rules-faq");
+    const r = SECTIONS.find(s => s.id === "rules");
+    for (const x of [rfaq, r]) if (x && !force.includes(x)) force.push(x);
+  }
+
+  const scored = SECTIONS.map(s => {
+    const hay = `${s.title}\n${s.text}\n${(s.tags||[]).join(" ")}`.toLowerCase();
+    let score = 0;
+    for (const t of terms) {
+      if (!t) continue;
+      if (hay.includes(t)) score += 1;
+    }
+    // tag matches get bonus
+    const tags = (s.tags || []).map(x => x.toLowerCase());
+    for (const t of terms) if (tags.includes(t)) score += 2;
+
+    // exact phrase light boost
+    if (q && hay.includes(q)) score += 3;
+    return { s, score };
+  });
+
+  // Dedup + prioritize forced sections
+  const forcedIds = new Set(force.map(x => x.id));
+  const rest = scored
+    .filter(x => !forcedIds.has(x.s.id))
+    .filter(x => x.score > 0)
+    .sort((a,b) => b.score - a.score)
+    .map(x => x.s);
+
+  const top = [...force, ...rest].slice(0, maxSections);
+  let out = top.map(s => `### ${s.title}\n${s.text}`).join("\n\n");
+  if (out.length > maxChars) out = out.slice(0, maxChars) + "\n…";
+  return out;
+}
+
+2) Ensure the server path uses retrieval + the generated league-content.js
+
+In your function (e.g., netlify/functions/src/handler.js), make sure you import:
+
+import { baseSystemPrompt } from "./prompt.js";
+import { getRelevantSections } from "./retrieval.js";
+
+
+and do not import or call any legacy openai-service.ts that inlines content (remove or comment out old exports/usages).
+
+3) Use the Responses API correctly for gpt-5-nano
+
+With gpt-5-nano do not send unsupported params (e.g., temperature, modalities).
+
+Use instructions for system, input for user+context, and max_output_tokens.
+
+Patch sketch (JS):
+
+// netlify/functions/src/handler.js
+import OpenAI from "openai";
+import { baseSystemPrompt } from "./prompt.js";
+import { getRelevantSections } from "./retrieval.js";
+
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+export async function getChatbotResponse(userMessage) {
+  const context = getRelevantSections(userMessage, { maxSections: 3, maxChars: 2500 });
+
+  const r = await openai.responses.create({
+    model: CURRENT_OPENAI_MODEL,
+    instructions: baseSystemPrompt.trim(),
+    input: `Question:\n${userMessage}\n\nCONTEXT:\n${context}`,
+    max_output_tokens: 800
+  });
+
+  return (
+    r.output_text ??
+    r.output?.[0]?.content?.[0]?.text ??
+    "Aloha — I couldn't generate a response. Please try again."
+  );
+}
+
+4) Slim, durable system prompt
+
+Keep it short. Include the guardrail verbatim. No inline league text.
+
+// netlify/functions/src/prompt.js
+export const baseSystemPrompt = `
+You are the ASSL assistant for Hawai‘i’s LGBTQ+ inclusive softball community.
+Be friendly, inclusive, and concise; use “Aloha” naturally.
+
+- Answer using only the provided CONTEXT and your general formatting ability.
+- If policy or rules conflict, prefer: gameplay rules > website copy; bylaws > website copy (governance).
+- Do not mention Division B (league fields C/D/E).
+- Cite section titles in prose when helpful (e.g., “See Gameplay Rules — Home Run Limits.”)
+
+Guardrail: “If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+`.trim();
+
+5) Clean up legacy content to prevent conflicts
+
+Remove or isolate any server files that still embed website text (e.g., server/openai-service.ts) so they don’t compete with the new path. They include outdated division references and duplicate tournament copy. 
+
+openai-service
+
+Only keep the generated netlify/functions/src/league-content.js as the source of truth for content (produced from /content/*.md). The tournament dates appear there. 
+
+league-content
+
+6) Add a tiny debug hook (helps QA)
+
+Log the top section IDs when process.env.DEBUG_CONTENT === "1":
+
+if (process.env.DEBUG_CONTENT === "1") {
+  console.log("[RAG] Selected sections for query:", userMessage);
+  console.log(context.slice(0, 300)); // sample
+}
