@@ -3,8 +3,9 @@
 This is a React-based web application for the Aloha State Softball League, Hawaii's premier LGBTQ+ inclusive softball community. The application provides information about the league's board of directors, player rating guides, scorekeeping tutorials, and general league information. It features a modern, responsive design with pride-themed styling options and emphasizes inclusivity and community engagement.
 
 ## Key Features
-- **Intelligent Chatbot**: AI-powered assistant using OpenAI GPT-5 with comprehensive knowledge of all website content, league rules, bylaws, and resources
+- **Intelligent Chatbot**: AI-powered assistant using OpenAI gpt-5-nano model with comprehensive knowledge of all website content, league rules, bylaws, and resources
 - **Complete Website Coverage**: Chatbot can answer questions about sponsors, photo galleries, player ratings, scorekeeping, board members, tournament details, and all external resources
+- **Tournament Registration**: Registration link will be posted on the website when available (no external LinkTree references)
 
 # User Preferences
 

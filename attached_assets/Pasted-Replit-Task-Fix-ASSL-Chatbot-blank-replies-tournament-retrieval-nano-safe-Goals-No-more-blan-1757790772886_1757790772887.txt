@@ -1,0 +1,229 @@
+Replit Task: Fix ASSL Chatbot (blank replies + tournament retrieval + nano-safe)
+Goals
+
+No more blank replies — robust response text extraction.
+
+Tournament dates always found — retrieval boost for tournament.md.
+
+Use latest Markdown — rebuild league-content.js from /content/*.md on each deploy.
+
+Model-safe — CURRENT_OPENAI_MODEL = "gpt-5-nano" using the Responses API (no temperature, top_p, penalties, or modalities).
+
+Guardrail — “If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+
+Changes to make
+1) Prompt (system)
+
+File: netlify/functions/src/prompt.js
+
+export const baseSystemPrompt = `
+You are the ASSL assistant for Hawai‘i’s LGBTQ+ inclusive softball community.
+Be friendly, inclusive, and concise; use “Aloha” naturally.
+
+- Answer using only the provided CONTEXT.
+- If policy or rules conflict, prefer: gameplay rules > website copy (on-field); bylaws > website copy (governance).
+- Do not mention Division B (league fields C/D/E).
+- When helpful, mention which section you used (e.g., “(Gameplay Rules — Home Run Limits)”).
+
+Guardrail: “If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+`.trim();
+
+2) Retrieval with tournament routing
+
+File: netlify/functions/src/retrieval.js
+
+import { SECTIONS } from "./league-content.js";
+
+function norm(s) { return (s || "").toLowerCase(); }
+
+export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } = {}) {
+  const q = norm(query);
+  const terms = q.split(/\W+/).filter(Boolean);
+
+  // Intent router: make sure tournament is surfaced
+  const force = [];
+  if (/(tournament|anuenue|classic|event|date|dates|when)/i.test(q)) {
+    const t = SECTIONS.find(s => s.id === "tournament" || /tournament/i.test(s.title));
+    if (t) force.push(t);
+  }
+  if (/(home\s*run|hr|over[-\s]*the[-\s]*fence)/i.test(q)) {
+    const rfaq = SECTIONS.find(s => s.id === "rules-faq");
+    const r = SECTIONS.find(s => s.id === "rules");
+    for (const x of [rfaq, r]) if (x && !force.includes(x)) force.push(x);
+  }
+
+  const scored = SECTIONS.map(s => {
+    const hay = norm(`${s.title}\n${s.text}\n${(s.tags || []).join(" ")}`);
+    let score = 0;
+    for (const t of terms) if (t && hay.includes(t)) score += 1;
+    const tags = (s.tags || []).map(norm);
+    for (const t of terms) if (tags.includes(t)) score += 2;  // tag boost
+    if (q && hay.includes(q)) score += 3;                     // phrase boost
+    return { s, score };
+  });
+
+  const forcedIds = new Set(force.map(x => x.id));
+  const rest = scored
+    .filter(x => !forcedIds.has(x.s.id))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(x => x.s);
+
+  const top = [...force, ...rest].slice(0, maxSections);
+
+  let out = top.map(s => `### ${s.title}\n${s.text}`).join("\n\n");
+  if (out.length > maxChars) out = out.slice(0, maxChars) + "\n…";
+  return out;
+}
+
+3) Handler: nano-safe Responses API + robust extractor
+
+File: netlify/functions/src/handler.js
+
+import OpenAI from "openai";
+import { baseSystemPrompt } from "./prompt.js";
+import { getRelevantSections } from "./retrieval.js";
+
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+function extractText(r) {
+  // Prefer r.output_text; fallback through array/json shapes; ignore empty strings
+  if (typeof r?.output_text === "string" && r.output_text.trim()) return r.output_text.trim();
+  if (Array.isArray(r?.output)) {
+    const parts = [];
+    for (const item of r.output) {
+      if (item?.type === "output_text" && item.text) parts.push(item.text);
+      if (item?.type === "message" && Array.isArray(item.content)) {
+        for (const c of item.content) {
+          if ((c.type === "text" || c.type === "output_text") && c.text) parts.push(c.text);
+        }
+      }
+    }
+    const joined = parts.join("").trim();
+    if (joined) return joined;
+  }
+  const choice = r?.choices?.[0]?.message?.content;
+  if (typeof choice === "string" && choice.trim()) return choice.trim();
+  return "";
+}
+
+function isModelQuestion(msg) {
+  return /\b(what|which)\b.*\bmodel\b|\bgpt\b.*\b(am|is)\b/i.test(msg || "");
+}
+
+export async function getChatbotResponse(userMessage) {
+  if (isModelQuestion(userMessage)) return `You’re chatting with ${CURRENT_OPENAI_MODEL}.`;
+
+  const context = getRelevantSections(userMessage, { maxSections: 3, maxChars: 2500 });
+  if (!context || !context.trim()) {
+    return "Aloha — I don’t have that in my documents yet. If unsure or a rule isn’t specified, please ask a clarifying question or contact the Board via the website.";
+  }
+
+  const r = await openai.responses.create({
+    model: CURRENT_OPENAI_MODEL,
+    instructions: baseSystemPrompt,
+    input: `Question:\n${userMessage}\n\nCONTEXT:\n${context}`,
+    max_output_tokens: 800
+  });
+
+  const answer = extractText(r);
+  return answer || "Aloha — I couldn’t find that in the provided documents. If unsure or a rule isn’t specified, please contact the Board.";
+}
+
+4) Rebuild content from Markdown on every deploy
+
+Add: scripts/build-content.mjs — turn /content/*.md into netlify/functions/src/league-content.js (so edits to tournament.md are live).
+
+#!/usr/bin/env node
+import fs from "fs";
+import path from "path";
+
+const CONTENT_DIR = "content";
+const OUT = "netlify/functions/src/league-content.js";
+
+function readFrontmatterAndBody(md) {
+  // naive frontmatter reader: expects '---' JSON-like fields or simple keys
+  const m = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!m) return [{}, md.trim()];
+  const head = Object.fromEntries(
+    m[1].split("\n").map(line => {
+      const [k, ...rest] = line.split(":");
+      const v = rest.join(":").trim();
+      try { return [k.trim(), JSON.parse(v)]; } catch { return [k.trim(), v]; }
+    })
+  );
+  return [head, m[2].trim()];
+}
+
+const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith(".md"));
+const sections = [];
+
+for (const file of files) {
+  const raw = fs.readFileSync(path.join(CONTENT_DIR, file), "utf8");
+  const [fm, body] = readFrontmatterAndBody(raw);
+  const id = (fm.id || path.basename(file, ".md")).toLowerCase();
+  const title = fm.title || path.basename(file, ".md");
+  const tags = Array.isArray(fm.tags) ? fm.tags : [];
+  // Strip any references to Division B just in case
+  const text = body.replace(/\b(B Division|Division B)\b/gi, "").trim();
+  sections.push({ id, title, tags, text });
+}
+
+const banner = `// AUTO-GENERATED from /content/*.md — do not edit by hand\n`;
+const js = `${banner}export const SECTIONS = ${JSON.stringify(sections, null, 2)};\n`;
+fs.mkdirSync(path.dirname(OUT), { recursive: true });
+fs.writeFileSync(OUT, js, "utf8");
+console.log(`Wrote ${OUT} with ${sections.length} sections.`);
+
+
+Update package.json scripts:
+
+{
+  "scripts": {
+    "build:content": "node scripts/build-content.mjs",
+    "build": "npm run build:content && <your-existing-build-command>"
+  }
+}
+
+
+This guarantees that editing content/tournament.md regenerates league-content.js so the Lambda sees the new dates.
+
+5) (If you use an embeddings JSON instead)
+
+If your retriever uses a JSON index (e.g., data/assl-embeddings.json), ensure:
+
+netlify.toml includes:
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["data/assl-embeddings.json"]
+
+
+Your build script rebuilds that JSON after any Markdown change.
+
+6) Environment & deps
+
+OpenAI SDK v5 (or newer 5.x):
+
+"dependencies": { "openai": "^5.20.1" }
+
+
+Node 20 in Netlify settings (or netlify.toml env).
+
+OPENAI_API_KEY set for both Build & Functions.
+
+Quick test checklist (acceptance)
+
+Ask: “What are the tournament dates?”
+→ Bot replies with “March 27–29, 2026” (from tournament.md) and references Tournament/Anuenue section.
+
+Ask: “What are the home run limits?”
+→ “C: 1; D/E: 0” (from rules).
+
+Ask: “What GPT model am I speaking with?”
+→ “You’re chatting with gpt-5-nano.”
+
+Ask something not in docs → guardrail message (clarify or Board page).
+
+No blank replies even if model returns empty strings (extractor covers it).
