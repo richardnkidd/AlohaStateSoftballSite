@@ -23,7 +23,11 @@ The **Anuenue Classic** is ASSL's annual invitational tournament in Oʻahu, Hawa
 
 ## Registration & Updates
 - **Registration link:** will be posted on the website when available.  
+<<<<<<< HEAD
+- Watch league socials (Instagram/Facebook) for the official registration announcement, fees, and deadlines.
+=======
 - Watch **https://linktr.ee/alohastatesoftball** and league socials (Instagram/Facebook) for the official registration announcement, fees, and deadlines.
+>>>>>>> 68db459746dfb43d7279ac729e95fdb221a4453b
 
 ## Visitor Notes
 - Lodging fills early around Waikīkī and nearby areas; book in advance.  
