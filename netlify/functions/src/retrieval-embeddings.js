@@ -1,18 +1,40 @@
 import fs from "fs";
 import path from "path";
 import OpenAI from "openai";
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const INDEX_PATH = path.join(__dirname, "..", "..", "..", "data", "assl-embeddings.json");
+// In Netlify Functions, the embeddings file will be bundled at the root level
+const INDEX_PATH = path.join(process.cwd(), "data", "assl-embeddings.json");
 let INDEX = null;
 
 function loadIndex() {
   if (!INDEX) {
     try {
-      INDEX = JSON.parse(fs.readFileSync(INDEX_PATH, "utf8"));
+      // Try multiple possible paths for the embeddings file
+      const paths = [
+        path.join(process.cwd(), "data", "assl-embeddings.json"),
+        path.join("data", "assl-embeddings.json"),
+        "./data/assl-embeddings.json",
+        "assl-embeddings.json"
+      ];
+      
+      for (const tryPath of paths) {
+        try {
+          if (fs.existsSync(tryPath)) {
+            INDEX = JSON.parse(fs.readFileSync(tryPath, "utf8"));
+            console.log(`Loaded embeddings from ${tryPath}`);
+            break;
+          }
+        } catch (e) {
+          // Try next path
+        }
+      }
+      
+      if (!INDEX) {
+        console.error(`Failed to load embeddings index from any of the tried paths`);
+        INDEX = [];
+      }
     } catch (err) {
-      console.error(`Failed to load embeddings index from ${INDEX_PATH}:`, err);
+      console.error(`Failed to load embeddings index:`, err);
       INDEX = [];
     }
   }

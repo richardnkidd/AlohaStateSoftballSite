@@ -1,5 +1,5 @@
-// Import the embedding-based handler
-import { getChatbotResponse } from "./src/handler-embeddings.js";
+// Import the hybrid handler with fallback
+import { getChatbotResponse } from "./src/handler-hybrid.js";
 
 export const handler = async (event) => {
   const headers = {
