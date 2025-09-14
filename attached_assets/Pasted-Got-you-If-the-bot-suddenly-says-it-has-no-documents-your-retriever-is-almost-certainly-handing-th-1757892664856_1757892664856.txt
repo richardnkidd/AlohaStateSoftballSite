@@ -1,0 +1,266 @@
+Got you. If the bot suddenly says it has no documents, your retriever is almost certainly handing the model an empty context—usually because the generated league-content.js ended up empty, wasn’t rebuilt, or your MD front-matter parse broke after your last commit.
+
+Here’s a final, copy-paste Replit task that fixes all of that in one go:
+
+⸻
+
+Replit Task — Make ASSL Chatbot reliable again (no blank replies, always reads latest MD)
+
+Objectives
+	•	Rebuild league-content.js from /content/*.md every deploy (robust front-matter fallback).
+	•	Never return blank replies (strong extractor + fallback).
+	•	Retrieval always returns something useful (force tournament, HR; fallback to core sections if no hits).
+	•	Model-safe: gpt-5-nano via Responses API (instructions, input, max_output_tokens only).
+	•	Guardrail: “If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.”
+
+⸻
+
+1) Robust content builder (handles missing/bad front-matter)
+
+Add: scripts/build-content.mjs
+
+#!/usr/bin/env node
+import fs from "fs";
+import path from "path";
+
+const CONTENT_DIR = "content";
+const OUT = "netlify/functions/src/league-content.js";
+
+function parseFrontmatter(md) {
+  // Accepts three cases: YAML-ish between ---; JSON-ish; or none at all.
+  const m = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!m) return [{}, md.trim()];
+  const headRaw = m[1].trim();
+  const body = (m[2] || "").trim();
+  const obj = {};
+  for (const line of headRaw.split("\n")) {
+    const i = line.indexOf(":");
+    if (i === -1) continue;
+    const k = line.slice(0, i).trim();
+    let v = line.slice(i + 1).trim();
+    // try JSON first
+    try { v = JSON.parse(v); } catch { /* keep as string */ }
+    obj[k] = v;
+  }
+  return [obj, body];
+}
+
+function firstHeadingOrFile(body, file) {
+  const h1 = body.match(/^#\s+(.+)$/m);
+  return h1 ? h1[1].trim() : path.basename(file, ".md");
+}
+
+const files = fs.existsSync(CONTENT_DIR)
+  ? fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith(".md"))
+  : [];
+
+const sections = [];
+for (const file of files) {
+  const raw = fs.readFileSync(path.join(CONTENT_DIR, file), "utf8");
+  const [fm, body] = parseFrontmatter(raw);
+  const id = (fm.id || path.basename(file, ".md")).toLowerCase();
+  const title = fm.title || firstHeadingOrFile(body, file);
+  const tags = Array.isArray(fm.tags) ? fm.tags : [];
+  const text = (body || "").replace(/\b(B Division|Division B)\b/gi, "").trim();
+  if (!text) continue; // skip empty docs
+  sections.push({ id, title, tags, text });
+}
+
+if (sections.length === 0) {
+  console.error("[build-content] ERROR: No sections generated from /content. Check front-matter and file paths.");
+  process.exit(1);
+}
+
+const banner = `// AUTO-GENERATED from /content/*.md — do not edit by hand\n`;
+const js = `${banner}export const SECTIONS = ${JSON.stringify(sections, null, 2)};\n`;
+
+fs.mkdirSync(path.dirname(OUT), { recursive: true });
+fs.writeFileSync(OUT, js, "utf8");
+console.log(`[build-content] Wrote ${OUT} with ${sections.length} sections.`);
+
+package.json
+
+{
+  "scripts": {
+    "build:content": "node scripts/build-content.mjs",
+    "build": "npm run build:content && <your-existing-build-command>"
+  }
+}
+
+This fails the build if zero sections are produced—so you never ship an empty retriever again.
+
+⸻
+
+2) Retrieval: force tournament/home-run; fallback to core sections if zero matches
+
+Edit: netlify/functions/src/retrieval.js
+
+import { SECTIONS } from "./league-content.js";
+
+const CORE_IDS = ["rules-faq", "rules", "tournament", "about"];
+
+function norm(s) { return (s || "").toLowerCase(); }
+function tokens(s) { return norm(s).split(/\W+/).filter(Boolean); }
+
+export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } = {}) {
+  const q = norm(query);
+  const terms = tokens(q);
+
+  // Force includes
+  const force = [];
+  if (/(tournament|anuenue|classic|event|date|dates|when)/i.test(q)) {
+    const t = SECTIONS.find(s => s.id === "tournament");
+    if (t) force.push(t);
+  }
+  if (/(home\s*run|hr|over[-\s]*the[-\s]*fence)/i.test(q)) {
+    for (const id of ["rules-faq", "rules"]) {
+      const sec = SECTIONS.find(s => s.id === id);
+      if (sec && !force.includes(sec)) force.push(sec);
+    }
+  }
+
+  const scored = SECTIONS.map(s => {
+    const hay = `${s.title}\n${s.text}\n${(s.tags||[]).join(" ")}`.toLowerCase();
+    let score = 0;
+    for (const t of terms) if (t && hay.includes(t)) score += 2; // word hit
+    if (q && hay.includes(q)) score += 3;                        // phrase hit
+    const tagset = new Set((s.tags||[]).map(norm));
+    for (const t of terms) if (tagset.has(t)) score += 1;        // tag bonus
+    return { s, score };
+  });
+
+  const forcedIds = new Set(force.map(x => x.id));
+  let rest = scored
+    .filter(x => !forcedIds.has(x.s.id))
+    .filter(x => x.score > 0)
+    .sort((a,b) => b.score - a.score)
+    .map(x => x.s);
+
+  // Fallback: if we still have nothing, include core sections so the bot can answer basics
+  if (force.length === 0 && rest.length === 0) {
+    rest = CORE_IDS.map(id => SECTIONS.find(s => s.id === id)).filter(Boolean);
+  }
+
+  const top = [...force, ...rest].slice(0, maxSections);
+  let out = top.map(s => `### ${s.title}\n${s.text}`).join("\n\n");
+  if (out.length > maxChars) out = out.slice(0, maxChars) + "\n…";
+  return out;
+}
+
+
+⸻
+
+3) Handler: nano-safe call + bulletproof extractor + clear guardrail
+
+Edit: netlify/functions/src/handler.js
+
+import OpenAI from "openai";
+import { baseSystemPrompt } from "./prompt.js";
+import { getRelevantSections } from "./retrieval.js";
+
+export const CURRENT_OPENAI_MODEL = "gpt-5-nano";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+function extractText(r) {
+  if (typeof r?.output_text === "string" && r.output_text.trim()) return r.output_text.trim();
+  if (Array.isArray(r?.output)) {
+    const parts = [];
+    for (const it of r.output) {
+      if (it?.type === "output_text" && it.text) parts.push(it.text);
+      if (it?.type === "message" && Array.isArray(it.content)) {
+        for (const c of it.content) {
+          if ((c.type === "text" || c.type === "output_text") && c.text) parts.push(c.text);
+        }
+      }
+    }
+    const joined = parts.join("").trim();
+    if (joined) return joined;
+  }
+  const choice = r?.choices?.[0]?.message?.content;
+  return (typeof choice === "string" && choice.trim()) ? choice.trim() : "";
+}
+
+function isModelQuestion(msg) {
+  return /\b(what|which)\b.*\bmodel\b|\bgpt\b.*\b(am|is)\b/i.test(msg || "");
+}
+
+export async function getChatbotResponse(userMessage) {
+  if (isModelQuestion(userMessage)) return `You're chatting with ${CURRENT_OPENAI_MODEL}.`;
+
+  const context = getRelevantSections(userMessage, { maxSections: 3, maxChars: 2500 });
+  if (!context || !context.trim()) {
+    return "Aloha — I don’t have that in my documents yet. If unsure or a rule isn’t specified, please ask a clarifying question or contact the Board via the website.";
+  }
+
+  const r = await openai.responses.create({
+    model: CURRENT_OPENAI_MODEL,
+    instructions: baseSystemPrompt.trim(),
+    input: `Question:\n${userMessage}\n\nCONTEXT:\n${context}`,
+    max_output_tokens: 800
+  });
+
+  const answer = extractText(r).trim();
+  return answer || "Aloha — I couldn’t find that in the provided documents. If unsure or a rule isn’t specified, please contact the Board.";
+}
+
+
+⸻
+
+4) Slim, durable system prompt (keep guardrail)
+
+Edit: netlify/functions/src/prompt.js
+
+export const baseSystemPrompt = `
+You are the assistant for the Aloha State Softball League (ASSL).
+Be friendly, inclusive, and concise; use “Aloha” naturally.
+
+Use only the provided CONTEXT to answer questions about website content, gameplay rules, bylaws, board/governance, ratings (C/D/E only), scorekeeping, field rules, sponsors, links, and tournament info.
+
+If website copy and bylaws conflict: bylaws govern for governance; gameplay rules govern on-field matters.
+Do not mention Division B. When helpful, reference the section used (e.g., “Gameplay Rules — Home Run Limits”).
+
+Guardrail: If unsure or a rule isn’t specified, ask a clarifying question or direct users to the Board contact page.
+`.trim();
+
+
+⸻
+
+5) Netlify build step (ensures new MD → new JS every deploy)
+	•	Make sure your build runs:
+
+npm run build:content
+
+before bundling your functions.
+
+	•	If you bundle additional data files, include them in netlify.toml:
+
+[functions]
+  node_bundler = "esbuild"
+
+
+
+⸻
+
+6) Quick smoke tests
+
+# model check
+POST /.netlify/functions/chatbot  { "message": "What model am I speaking with?" }
+# → "You're chatting with gpt-5-nano."
+
+# tournament dates
+POST /.netlify/functions/chatbot  { "message": "When is the Anuenue Classic tournament?" }
+# → should include “March 27–29, 2026” (from tournament.md)
+
+# home run limits
+POST /.netlify/functions/chatbot  { "message": "What are the home run rules?" }
+# → “C: 1; D/E: 0”
+
+
+⸻
+
+Why this fixes your current symptom
+	•	If your last commit broke front-matter (very common), the new builder still parses and won’t ship an empty SECTIONS silently.
+	•	Retriever now forces tournament/rules when queries hint at them and falls back to core sections if scoring is zero—so the model always gets something useful.
+	•	Handler’s extractor covers all Response shapes and never treats empty strings as success, eliminating blank replies.
+
+Drop this into your repo, run the Replit task, and you should be back to clean answers.
