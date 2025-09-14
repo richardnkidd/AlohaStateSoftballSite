@@ -5,10 +5,11 @@ tags: ["tournament", "anuenue classic", "oahu", "march 2026", "registration", "d
 version: 2025-09-12
 ---
 
-The **Anuenue Classic** is ASSL's annual invitational tournament in Oʻahu, Hawaiʻi.
+The **Anuenue Classic** is ASSL's annual invitational tournament held the last weekend of March every year in Oʻahu, Hawaiʻi.
 
 ## Key Details
-- **Dates:** **March 27–29, 2026** (Fri–Sun).  
+- **When:** Last weekend of March every year
+- **2026 Dates:** **March 27–29, 2026** (Fri–Sun).  
 - **Venue:** Patsy T. Mink Park, Oʻahu, Hawaiʻi.  
 - **Divisions:** **C, D, E** (final brackets announced near event date).  
 - **Format:** Multi‑day play with opening ceremony and closing awards; social events and pau hana gatherings throughout the weekend.

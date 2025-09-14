@@ -57,6 +57,18 @@ export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } 
     for (const sec of [rfaq, rules]) if (sec && !force.includes(sec)) force.push(sec);
   }
 
+  // Sign up / join routing - PRIORITY
+  if (/(sign\s*up|signup|join|register|registration|how\s+to\s+join|new\s+player|beginner|start\s+playing)/i.test(q)) {
+    const about = SECTIONS.find(s => s.id === "about");
+    if (about && !force.includes(about)) force.push(about);
+  }
+
+  // Season/summer routing
+  if (/(season|summer|when.*start|may|june|july|august)/i.test(q)) {
+    const about = SECTIONS.find(s => s.id === "about");
+    if (about && !force.includes(about)) force.push(about);
+  }
+
   // Location, photos, schedule, ratings, contact
   const intents = [
     { re: /(field|fields|where|location|ala\s*wai|crane)/i, id: "locations" },
