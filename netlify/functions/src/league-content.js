@@ -49,6 +49,21 @@ export const SECTIONS = [
     "text": "- Boundary lines extend from fence in front of benches.  \n- **Right field:** to running/bike path. **Left field:** to basketball courts.  \n- Fly balls caught beyond those lines are **outs**.  \n- Overthrows: **dead ball** + **one base**.  \n- Balls striking utility poles/picnic tables or rolling over the right‑field hill: **ground‑rule double**."
   },
   {
+    "id": "joining",
+    "title": "How to Sign Up (Joining the League)",
+    "tags": [
+      "join",
+      "sign up",
+      "signup",
+      "register",
+      "registration",
+      "free agent",
+      "get started",
+      "new player"
+    ],
+    "text": "**Quick steps to join:**\n1) Go to our **Linktree** → open the current **Season Registration** on TeamSideline.  \n2) Create or log in to your **TeamSideline** account.  \n3) Choose your **division (C/D/E)**, complete the **player registration**, and submit payment.  \n4) **No team yet?** Register as a **Free Agent** and we'll help with placement.  \n5) Watch your email and TeamSideline for schedule updates.\n\n**Season timing:** We play **every Summer** in Honolulu (Ala Wai Park).  \n**Tournament timing:** Our annual **Anuenue Classic** is the **last weekend in March** (see *Tournament* for exact dates).\n\n> Need help? Contact the Board (see **Official Links**)."
+  },
+  {
     "id": "links",
     "title": "Official Links & Socials",
     "tags": [
@@ -149,6 +164,19 @@ export const SECTIONS = [
     "text": "**You need:** scorebook or notebook, pencil, team lineups.\n\n**Positions (1–10):** 1‑P, 2‑C, 3‑1B, 4‑2B, 5‑3B, 6‑SS, 7‑LF, 8‑CF, 9‑RF, 10‑Rover (if used).\n\n**Notations:** 1B/2B/3B/HR, BB, K (ꓘ for looking), F7/F8/F9, 6‑3, E5, FC, DP, SAC, HBP, WP, PB.\n\n**Slow‑pitch details:** start 1‑and‑1; one foul after 2 strikes = K; no stealing/leading off; mat/plate defines strikes; 6–12 ft arc; track courtesy runners and defensive swaps; note mercy rule if invoked.\n\n**Error details (iPride‑style):** E6(T) throwing error by SS; E4(F) fielding error by 2B; E7(M) misplay by LF."
   },
   {
+    "id": "season",
+    "title": "Season Timing & What to Expect",
+    "tags": [
+      "season",
+      "schedule",
+      "next season",
+      "summer",
+      "calendar",
+      "when do we play"
+    ],
+    "text": "**Season cadence:** The ASSL season runs **every Summer** in Honolulu.\n\n**Next season:** **Season 4 — Summer 2025**.  \nTypical game window is **June–August** (final schedule posts on **TeamSideline**).\n\n**Where to check schedules & standings:**  \n- **TeamSideline:** https://teamsideline.com/sites/aikaneohana/schedules  \n- **All links:** Linktree (see **Official Links**)"
+  },
+  {
     "id": "sponsors",
     "title": "Sponsors & Friends of the League",
     "tags": [
@@ -162,15 +190,16 @@ export const SECTIONS = [
   },
   {
     "id": "tournament",
-    "title": "Anuenue Classic — Annual Tournament",
+    "title": "Anuenue Classic — Tournament Info",
     "tags": [
       "tournament",
       "anuenue classic",
+      "next tournament",
+      "dates",
       "march",
-      "event",
       "registration",
       "oahu"
     ],
-    "text": "The **Anuenue Classic** is ASSL's annual invitational tournament in Oʻahu, Hawaiʻi.\n\n- **Cadence:** Held **every year** on the **last weekend in March**.  \n- **Divisions:** C, D, E (final brackets announced closer to the event).  \n- **Rules snapshot:** USA Softball rules with ASSL/iPride adaptations. See *Gameplay Rules* for HR limits, time limits, and tiebreaker.  \n- **Registration:** Posted on our Linktree and socials when live.\n\n> Note: Add the exact dates, entry fee, and captain's meeting details when the tournament announcement is published."
+    "text": "The **Anuenue Classic** is ASSL's annual invitational tournament in Oʻahu, Hawaiʻi.\n\n- **Annual cadence:** **Last weekend in March** each year.  \n- **Next tournament (exact dates):** **March 27–29, 2026**.  \n- **Divisions:** C, D, E (final brackets posted with the schedule).  \n- **Rules snapshot:** USA Softball rules with ASSL/iPride adaptations (see *Gameplay Rules* for HR limits, time limit, extra innings).  \n- **Registration & details:** Posted on **Linktree** and socials when live (entry fee, captain's meeting, game minimum, awards).\n\n> Save the dates above. When the announcement is live, we'll add the registration link and meeting time here."
   }
 ];

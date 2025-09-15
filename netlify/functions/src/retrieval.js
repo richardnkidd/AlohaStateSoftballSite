@@ -46,11 +46,6 @@ export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } 
   // Intent: force-include certain sections
   const force = [];
 
-  // Tournament routing
-  if (/(tournament|anuenue|classic|event|date|dates|when|registration)/i.test(q)) {
-    const t = SECTIONS.find(s => s.id === "tournament");
-    if (t) force.push(t);
-  }
 
   // Home run / rules routing
   if (/(home\s*run|hr|over[-\s]*the[-\s]*fence)/i.test(q)) {
@@ -60,15 +55,27 @@ export function getRelevantSections(query, { maxSections = 3, maxChars = 2500 } 
   }
 
   // Sign up / join routing - PRIORITY
-  if (/(sign\s*up|signup|join|register|registration|how\s+to\s+join|new\s+player|beginner|start\s+playing)/i.test(q)) {
+  if (/(sign\s*up|signup|join|register|registration|how\s+to\s+join|new\s+player|beginner|start\s+playing|free\s*agent|get\s*started)/i.test(q)) {
+    const joining = SECTIONS.find(s => s.id === "joining");
     const about = SECTIONS.find(s => s.id === "about");
+    if (joining && !force.includes(joining)) force.push(joining);
     if (about && !force.includes(about)) force.push(about);
   }
 
-  // Season/summer routing
-  if (/(season|summer|when.*start|may|june|july|august)/i.test(q)) {
-    const about = SECTIONS.find(s => s.id === "about");
-    if (about && !force.includes(about)) force.push(about);
+  // Season routing - specific questions about next season or schedule
+  if (/(next\s+season|season|summer|schedule|calendar|when.*play|june|july|august)/i.test(q)) {
+    const season = SECTIONS.find(s => s.id === "season");
+    const links = SECTIONS.find(s => s.id === "links");
+    if (season && !force.includes(season)) force.push(season);
+    if (links && !force.includes(links)) force.push(links);
+  }
+
+  // Tournament routing - enhanced for "next tournament" queries
+  if (/(next\s+tournament|tournament|anuenue|classic|march|dates)/i.test(q)) {
+    const tournament = SECTIONS.find(s => s.id === "tournament");
+    const links = SECTIONS.find(s => s.id === "links");
+    if (tournament && !force.includes(tournament)) force.push(tournament);
+    if (links && !force.includes(links)) force.push(links);
   }
 
   // Location, photos, schedule, ratings, contact
