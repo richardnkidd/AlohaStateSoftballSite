@@ -15,7 +15,9 @@ const SYNONYMS = {
   "uniforms": ["jersey", "shirt", "numbers", "dress code"],
   "bats": ["bat list", "approved bats", "equipment"],
   "contact": ["board", "email", "director", "commissioner"],
-  "tournament": ["anuenue", "classic", "event", "dates", "when", "registration"]
+  "tournament": ["anuenue", "classic", "event", "dates", "when", "registration"],
+  "instagram": ["ig", "insta", "social media", "socials"],
+  "linktree": ["all links", "link tree", "links page"]
 };
 
 function expandQuery(q) {

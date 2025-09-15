@@ -1,30 +1,19 @@
 ---
 id: about
 title: About the Aloha State Softball League (ASSL)
-tags: ["about", "mission", "inclusive", "honolulu", "ala wai", "ipride", "tournament"]
-version: 2025-09-12
+tags: ["about","mission","inclusive","honolulu","ala wai","ipride","summer","join"]
+version: 2025-09-14
 ---
 
-**Tagline:** Join Oʻahu's LGBTQ+ softball league! Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you.
+🥎  **Aloha State Softball League**  🌺
 
-**Motto:** Whether you're looking to play, volunteer, or support our community, there's a place for you in the Aloha State Softball League!
+Join O'ahu's LGBTQ+ softball league! Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you.
 
-## How to Sign Up
-- **League Seasons:** Summer seasons run from May through August every year
-- **Registration:** Opens in April for the summer season
-- **How to Join:** Watch our Instagram/Facebook for registration announcements or check the website in April
-- **New Players:** Welcome! No experience necessary - we have divisions for all skill levels (C, D, E)
-- **Tryouts/Scrimmages:** Held in late April/early May for player ratings and team placement
-- **Contact:** Email the Board through the website for more information about joining
+As proud members of International Pride Softball, we bring together players of all skill levels to enjoy exciting, competitive games in a supportive and fun environment.
 
-**Location:** Ala Wai Community Park, Honolulu, Hawaiʻi.
+Please visit our **Linktree** for all our links and more!
 
-**Affiliation:** Proudly affiliated with International Pride Softball (iPride).
+**Season cadence:** We play **every Summer** in Honolulu (Ala Wai Community Park).  
+**Tournament cadence:** The league's annual tournament is held the **last weekend in March**.
 
-**Website features:** Pride Mode toggle, photo galleries, Season 4 events calendar, live scores/standings via TeamSideline.
-
-**Annual Tournament:** The **Anuenue Classic** is held the last weekend of March every year (March 27–29, 2026) in Oʻahu. See **tournament.md** for details (dates, divisions, venue, registration).
-
-**Values:** Inclusive, community‑first, non‑discriminatory. See *Non‑Discrimination Policy* in the bylaws for the full statement.
-
-**Photos:** Eric Z Martin hosts league galleries — visit **https://ericzmartin.com/** (see **Season 4 Photos**).
+> Tip: For schedules and standings, see TeamSideline (link in **Official Links**).

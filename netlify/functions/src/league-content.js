@@ -10,9 +10,10 @@ export const SECTIONS = [
       "honolulu",
       "ala wai",
       "ipride",
-      "tournament"
+      "summer",
+      "join"
     ],
-    "text": "**Tagline:** Join Oʻahu's LGBTQ+ softball league! Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you.\n\n**Motto:** Whether you're looking to play, volunteer, or support our community, there's a place for you in the Aloha State Softball League!\n\n## How to Sign Up\n- **League Seasons:** Summer seasons run from May through August every year\n- **Registration:** Opens in April for the summer season\n- **How to Join:** Watch our Instagram/Facebook for registration announcements or check the website in April\n- **New Players:** Welcome! No experience necessary - we have divisions for all skill levels (C, D, E)\n- **Tryouts/Scrimmages:** Held in late April/early May for player ratings and team placement\n- **Contact:** Email the Board through the website for more information about joining\n\n**Location:** Ala Wai Community Park, Honolulu, Hawaiʻi.\n\n**Affiliation:** Proudly affiliated with International Pride Softball (iPride).\n\n**Website features:** Pride Mode toggle, photo galleries, Season 4 events calendar, live scores/standings via TeamSideline.\n\n**Annual Tournament:** The **Anuenue Classic** is held the last weekend of March every year (March 27–29, 2026) in Oʻahu. See **tournament.md** for details (dates, divisions, venue, registration).\n\n**Values:** Inclusive, community‑first, non‑discriminatory. See *Non‑Discrimination Policy* in the bylaws for the full statement.\n\n**Photos:** Eric Z Martin hosts league galleries — visit **https://ericzmartin.com/** (see **Season 4 Photos**)."
+    "text": "🥎  **Aloha State Softball League**  🌺\n\nJoin O'ahu's LGBTQ+ softball league! Whether you're picking up a glove for the first time or you're a seasoned pro, our inclusive community is ready to welcome you.\n\nAs proud members of International Pride Softball, we bring together players of all skill levels to enjoy exciting, competitive games in a supportive and fun environment.\n\nPlease visit our **Linktree** for all our links and more!\n\n**Season cadence:** We play **every Summer** in Honolulu (Ala Wai Community Park).  \n**Tournament cadence:** The league's annual tournament is held the **last weekend in March**.\n\n> Tip: For schedules and standings, see TeamSideline (link in **Official Links**)."
   },
   {
     "id": "board",
@@ -49,18 +50,22 @@ export const SECTIONS = [
   },
   {
     "id": "links",
-    "title": "Official Links & Resources",
+    "title": "Official Links & Socials",
     "tags": [
       "links",
       "instagram",
+      "ig",
+      "insta",
       "facebook",
       "teamsideline",
-      "ipride",
+      "scores",
+      "standings",
       "photos",
+      "gallery",
       "linktree",
-      "tournament"
+      "website"
     ],
-    "text": "- **LinkTree (All Links & future tournament registration):** https://linktr.ee/alohastatesoftball  \n- **Instagram:** https://www.instagram.com/alohastatesoftballleague  \n- **Facebook:** https://www.facebook.com/profile.php?id=61562725435340  \n- **TeamSideline (Scores/Standings):** https://teamsideline.com/sites/aikaneohana/schedules  \n- **iPride (Affiliation):** http://ipridesoftball.org/  \n- **Photos — Eric Z Martin:** https://ericzmartin.com/  \n- **2025 Bylaws (Google Doc):** https://docs.google.com/document/d/1WVXGL7WZdNofOlHXv-ZwTB6xWIgGlyIvQmrkd3qVT44/edit?usp=sharing  \n- **2025 Gameplay Rules (Google Doc):** https://docs.google.com/document/d/1_xuo1yCFGg8UXqA6PR-imTX50Zg0jvBTya6zu_9bNUc/edit?usp=sharing  \n- **Tournament Info:** see **tournament.md** and the homepage banner for the Anuenue Classic."
+    "text": "- **Website:** https://alohastatesoftball.com\n- **LinkTree (All Links):** https://linktr.ee/alohastatesoftball\n- **Instagram:** https://www.instagram.com/alohastatesoftballleague\n- **Facebook:** https://www.facebook.com/profile.php?id=61562725435340\n- **TeamSideline (Scores/Standings/Schedule):** https://teamsideline.com/sites/aikaneohana/schedules\n- **Photo Gallery — Eric Z Martin:** https://ericzmartin.com/"
   },
   {
     "id": "locations",
@@ -75,15 +80,16 @@ export const SECTIONS = [
   },
   {
     "id": "photos",
-    "title": "Photo Gallery — Eric Z Martin",
+    "title": "Photo Gallery & Brand Images",
     "tags": [
       "photos",
       "gallery",
       "eric z martin",
-      "gameday",
-      "action shots"
+      "images",
+      "logo",
+      "media"
     ],
-    "text": "Eric Z Martin Photography hosts league galleries including action shots, team photos, and candid moments.  \nVisit **https://ericzmartin.com/** and look for the **Season 4 Photos** collection on the homepage or the gallery index."
+    "text": "**Official Photo Galleries:** https://ericzmartin.com/"
   },
   {
     "id": "ratings",
@@ -144,27 +150,27 @@ export const SECTIONS = [
   },
   {
     "id": "sponsors",
-    "title": "League Sponsors & Partners",
+    "title": "Sponsors & Friends of the League",
     "tags": [
       "sponsors",
       "partners",
-      "community"
+      "friends",
+      "community",
+      "logos"
     ],
-    "text": "_Thank you to our sponsors for supporting inclusive softball in Hawaiʻi._\n(See **links.md** for official links.)\n\n- Bank of Hawaiʻi — largest independent bank in Hawaiʻi.  \n- Tapas Waikīkī — LGBTQ+ bar & restaurant; league socials.  \n- Bacchus Waikīkī — LGBTQ+ bar with daily specials.  \n- Hula's Bar & Lei Stand — iconic open‑air gay bar.  \n- The O Team (Compass) — real‑estate team serving our community.  \n- Kaimana Beach Hotel — boutique beachfront hotel.  \n- Scarlet Honolulu — nightclub & entertainment.  \n- Kelli with an Eye Photography — league photography partner.  \n- Future of Cool — lifestyle brand/creative partner.  \n- Whipped & Whisked — local bakery for events.  \n- Wang Chung's — restaurant & bar supporter."
+    "text": "We're grateful to the sponsors who support inclusive softball in Hawaiʻi.\n\n## Sponsors\n- **Bank of Hawai'i**  \n  Logo: https://static.wixstatic.com/media/df1e99_b39ff2b25c5b492591872cf7fb1b34ee~mv2.png  \n  Site: https://www.boh.com/\n\n- **Tapas Waikiki**  \n  Logo: https://static.wixstatic.com/media/df1e99_15421420fa1848a8a1ba6509e9bb80ef~mv2.png  \n  Site: https://www.hawaiigaybar.com/\n\n- **Bacchus Waikiki**  \n  Logo: https://static.wixstatic.com/media/df1e99_c44094fb039e4250ab4c770d4063fc77~mv2.png\n\n- **Hula's Bar & Lei Stand**  \n  Logo: https://static.wixstatic.com/media/df1e99_df8e26ec547d49d48546138fe541f8ef~mv2.png  \n  Site: https://hulas.com/\n\n- **The O Team**  \n  Logo: https://static.wixstatic.com/media/df1e99_b7555d6dc77c439f9cb4e7718bcd7148~mv2.png  \n  Site: https://oteamhawaii.com/\n\n- **Kaimana Beach Hotel**  \n  Logo: https://static.wixstatic.com/media/df1e99_5f8cc36fa139496b9d35798aa4279ab9~mv2.png  \n  Site: https://www.kaimana.com/\n\n- **Scarlet Honolulu**  \n  Logo: https://static.wixstatic.com/media/df1e99_d0a44f9755154669a51d7b884a01b91d~mv2.png  \n  Site: https://www.scarlethonolulu.com/\n\n- **Kelli with an Eye Photography**  \n  Logo: https://static.wixstatic.com/media/df1e99_168ba11d5a514d338ece56115d5fe243~mv2.png  \n  Site: https://www.kelliwithaneyephotography.com/\n\n- **Eric Z Martin Photography**  \n  Logo: https://static.wixstatic.com/media/df1e99_5890ac34dd0c48e9bf7d1b059fe1d5c9~mv2.png  \n  Site: https://ericzmartin.com/\n\n- **Future of Cool**  \n  Logo: https://static.wixstatic.com/media/df1e99_85f53ed5f46246deb395e8e0f96e22f2~mv2.png  \n  Site: https://www.futureofcool.co/\n\n- **Whipped & Whisked**  \n  Logo: https://static.wixstatic.com/media/df1e99_eef8042349bb45a5924462578d99c658~mv2.png  \n  Site: https://www.instagram.com/whippednwhiskedhawaii/\n\n- **Wang Chung's**  \n  Logo: https://static.wixstatic.com/media/df1e99_6fc56a91f0554b928bcf944fdf4d08b5~mv2.png  \n  Site: https://www.wangchungs.com/\n\n- **Team Mimosa**  \n  Logo: https://static.wixstatic.com/media/df1e99_56ea612f4d554ad2b98f6b7687725051~mv2.png\n\n- **Hawai'i Lemon Law**  \n  Logo: https://static.wixstatic.com/media/df1e99_949a605d460e4f0e96855ac5f51d59ed~mv2.png  \n  Site: https://www.mylemon.com/hawaii-lemon-law/\n\n## Friends of the League\n- **Timmy T's**  \n  Logo: https://static.wixstatic.com/media/df1e99_4c82c574e05d4b47a11be7f74d8f280b~mv2.png  \n  Site: https://www.timmytsgourmetgrinders.com/\n\n- **Chronic Tacos**  \n  Logo: https://static.wixstatic.com/media/df1e99_1c2bab03b11a4594b14d2b206f90b728~mv2.png  \n  Site: https://www.chronictacos.com/"
   },
   {
     "id": "tournament",
-    "title": "Anuenue Classic — Tournament Info (2026 Preview)",
+    "title": "Anuenue Classic — Annual Tournament",
     "tags": [
       "tournament",
       "anuenue classic",
-      "oahu",
-      "march 2026",
+      "march",
+      "event",
       "registration",
-      "divisions",
-      "schedule",
-      "venue"
+      "oahu"
     ],
-    "text": "The **Anuenue Classic** is ASSL's annual invitational tournament held the last weekend of March every year in Oʻahu, Hawaiʻi.\n\n## Key Details\n- **When:** Last weekend of March every year\n- **2026 Dates:** **March 27–29, 2026** (Fri–Sun).  \n- **Venue:** Patsy T. Mink Park, Oʻahu, Hawaiʻi.  \n- **Divisions:** **C, D, E** (final brackets announced near event date).  \n- **Format:** Multi‑day play with opening ceremony and closing awards; social events and pau hana gatherings throughout the weekend.\n\n## Rules Snapshot\n- USA Softball rules with ASSL/iPride adaptations.  \n- **Home run limits:** C: 1; D: 0; E: 0.  \n- **Time limit:** No new inning after **50:00** (Championships may vary by schedule).  \n- **International Tiebreaker:** last batter from previous inning starts on **2B**.  \n- Uniforms: like‑colored jerseys with visible numbers; no metal cleats.  \n- Bats: **USA Softball Approved Bat List** and **ASSL‑provided bats only** on field.\n\n## Registration & Updates\n- **Registration link:** will be posted on the website when available.  \n- Watch league socials (Instagram/Facebook) for the official registration announcement, fees, and deadlines.\n\n## Visitor Notes\n- Lodging fills early around Waikīkī and nearby areas; book in advance.  \n- Expect on‑site check‑in and captain's meeting details in pre‑event emails.\n\n**Questions?** If unsure or a rule isn't specified, ask a clarifying question or contact the Board via the website."
+    "text": "The **Anuenue Classic** is ASSL's annual invitational tournament in Oʻahu, Hawaiʻi.\n\n- **Cadence:** Held **every year** on the **last weekend in March**.  \n- **Divisions:** C, D, E (final brackets announced closer to the event).  \n- **Rules snapshot:** USA Softball rules with ASSL/iPride adaptations. See *Gameplay Rules* for HR limits, time limits, and tiebreaker.  \n- **Registration:** Posted on our Linktree and socials when live.\n\n> Note: Add the exact dates, entry fee, and captain's meeting details when the tournament announcement is published."
   }
 ];

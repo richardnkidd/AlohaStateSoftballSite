@@ -1,0 +1,160 @@
+Replit Task — Update ASSL Markdown Content (Intro, Links, Photos, Sponsors, Tournament cadence)
+Goals
+	•	Add the new website intro and image links.
+	•	Ensure official links (Linktree, Instagram, Facebook, TeamSideline, photo gallery) are present and easy to retrieve (tags + synonyms).
+	•	Capture sponsor logos + URLs and “Friends of the League.”
+	•	State season cadence (every Summer) and tournament cadence (annual, last weekend in March).
+	•	Keep content short, tagged, Division B–free, and friendly for gpt-5-nano RAG.
+Files to create/update
+Paste the exact contents below into the files under /content/. Keep front-matter headers. Then run your normal build (e.g., npm run build:content) so league-content.js regenerates.
+
+/content/about.md
+
+---
+id: about
+title: About the Aloha State Softball League (ASSL)
+tags: ["about","mission","inclusive","honolulu","ala wai","ipride","summer","join"]
+version: 2025-09-14
+---
+
+🥎  **Aloha State Softball League**  🌺
+
+Join O‘ahu’s LGBTQ+ softball league! Whether you’re picking up a glove for the first time or you’re a seasoned pro, our inclusive community is ready to welcome you.
+
+As proud members of International Pride Softball, we bring together players of all skill levels to enjoy exciting, competitive games in a supportive and fun environment.
+
+Please visit our **Linktree** for all our links and more!
+
+**Season cadence:** We play **every Summer** in Honolulu (Ala Wai Community Park).  
+**Tournament cadence:** The league’s annual tournament is held the **last weekend in March**.
+
+> Tip: For schedules and standings, see TeamSideline (link in **Official Links**).
+
+
+/content/photos.md
+
+---
+id: photos
+title: Photo Gallery & Brand Images
+tags: ["photos","gallery","eric z martin","images","logo","media"]
+version: 2025-09-14
+---
+
+**Official Photo Galleries:** https://ericzmartin.com/
+
+
+
+/content/links.md
+
+---
+id: links
+title: Official Links & Socials
+tags: ["links","instagram","ig","insta","facebook","teamsideline","scores","standings","photos","gallery","linktree","website"]
+version: 2025-09-14
+---
+
+- **Website:** https://alohastatesoftball.com
+- **LinkTree (All Links):** https://linktr.ee/alohastatesoftball
+- **Instagram:** https://www.instagram.com/alohastatesoftballleague
+- **Facebook:** https://www.facebook.com/profile.php?id=61562725435340
+- **TeamSideline (Scores/Standings/Schedule):** https://teamsideline.com/sites/aikaneohana/schedules
+- **Photo Gallery — Eric Z Martin:** https://ericzmartin.com/
+
+/content/sponsors.md
+
+---
+id: sponsors
+title: Sponsors & Friends of the League
+tags: ["sponsors","partners","friends","community","logos"]
+version: 2025-09-14
+---
+
+We’re grateful to the sponsors who support inclusive softball in Hawaiʻi.
+
+## Sponsors
+- **Bank of Hawai‘i**  
+  Logo: https://static.wixstatic.com/media/df1e99_b39ff2b25c5b492591872cf7fb1b34ee~mv2.png  
+  Site: https://www.boh.com/
+
+- **Tapas Waikiki**  
+  Logo: https://static.wixstatic.com/media/df1e99_15421420fa1848a8a1ba6509e9bb80ef~mv2.png  
+  Site: https://www.hawaiigaybar.com/
+
+- **Bacchus Waikiki**  
+  Logo: https://static.wixstatic.com/media/df1e99_c44094fb039e4250ab4c770d4063fc77~mv2.png
+
+- **Hula’s Bar & Lei Stand**  
+  Logo: https://static.wixstatic.com/media/df1e99_df8e26ec547d49d48546138fe541f8ef~mv2.png  
+  Site: https://hulas.com/
+
+- **The O Team**  
+  Logo: https://static.wixstatic.com/media/df1e99_b7555d6dc77c439f9cb4e7718bcd7148~mv2.png  
+  Site: https://oteamhawaii.com/
+
+- **Kaimana Beach Hotel**  
+  Logo: https://static.wixstatic.com/media/df1e99_5f8cc36fa139496b9d35798aa4279ab9~mv2.png  
+  Site: https://www.kaimana.com/
+
+- **Scarlet Honolulu**  
+  Logo: https://static.wixstatic.com/media/df1e99_d0a44f9755154669a51d7b884a01b91d~mv2.png  
+  Site: https://www.scarlethonolulu.com/
+
+- **Kelli with an Eye Photography**  
+  Logo: https://static.wixstatic.com/media/df1e99_168ba11d5a514d338ece56115d5fe243~mv2.png  
+  Site: https://www.kelliwithaneyephotography.com/
+
+- **Eric Z Martin Photography**  
+  Logo: https://static.wixstatic.com/media/df1e99_5890ac34dd0c48e9bf7d1b059fe1d5c9~mv2.png  
+  Site: https://ericzmartin.com/
+
+- **Future of Cool**  
+  Logo: https://static.wixstatic.com/media/df1e99_85f53ed5f46246deb395e8e0f96e22f2~mv2.png  
+  Site: https://www.futureofcool.co/
+
+- **Whipped & Whisked**  
+  Logo: https://static.wixstatic.com/media/df1e99_eef8042349bb45a5924462578d99c658~mv2.png  
+  Site: https://www.instagram.com/whippednwhiskedhawaii/
+
+- **Wang Chung’s**  
+  Logo: https://static.wixstatic.com/media/df1e99_6fc56a91f0554b928bcf944fdf4d08b5~mv2.png  
+  Site: https://www.wangchungs.com/
+
+- **Team Mimosa**  
+  Logo: https://static.wixstatic.com/media/df1e99_56ea612f4d554ad2b98f6b7687725051~mv2.png
+
+- **Hawai‘i Lemon Law**  
+  Logo: https://static.wixstatic.com/media/df1e99_949a605d460e4f0e96855ac5f51d59ed~mv2.png  
+  Site: https://www.mylemon.com/hawaii-lemon-law/
+
+## Friends of the League
+- **Timmy T’s**  
+  Logo: https://static.wixstatic.com/media/df1e99_4c82c574e05d4b47a11be7f74d8f280b~mv2.png  
+  Site: https://www.timmytsgourmetgrinders.com/
+
+- **Chronic Tacos**  
+  Logo: https://static.wixstatic.com/media/df1e99_1c2bab03b11a4594b14d2b206f90b728~mv2.png  
+  Site: https://www.chronictacos.com/
+
+/content/tournament.md
+
+---
+id: tournament
+title: Anuenue Classic — Annual Tournament
+tags: ["tournament","anuenue classic","march","event","registration","oahu"]
+version: 2025-09-14
+---
+
+The **Anuenue Classic** is ASSL’s annual invitational tournament in Oʻahu, Hawaiʻi.
+
+- **Cadence:** Held **every year** on the **last weekend in March**.  
+- **Divisions:** C, D, E (final brackets announced closer to the event).  
+- **Rules snapshot:** USA Softball rules with ASSL/iPride adaptations. See *Gameplay Rules* for HR limits, time limits, and tiebreaker.  
+- **Registration:** Posted on our Linktree and socials when live.
+
+> Note: Add the exact dates, entry fee, and captain’s meeting details when the tournament announcement is published.
+
+After updating files
+	•	Run your build so league-content.js regenerates:
+	◦	npm run build:content
+	•	Keep your retrieval synonyms including "instagram", "ig", "insta" so the bot reliably finds the Instagram link in links.md.
+	•	Ensure your retriever fallback (rules-faq, rules, tournament, about, links, ratings, board) remains enabled so vague questions still get context.

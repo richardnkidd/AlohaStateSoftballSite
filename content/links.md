@@ -1,16 +1,13 @@
 ---
 id: links
-title: Official Links & Resources
-tags: ["links", "instagram", "facebook", "teamsideline", "ipride", "photos", "linktree", "tournament"]
-version: 2025-09-12
+title: Official Links & Socials
+tags: ["links","instagram","ig","insta","facebook","teamsideline","scores","standings","photos","gallery","linktree","website"]
+version: 2025-09-14
 ---
 
-- **LinkTree (All Links & future tournament registration):** https://linktr.ee/alohastatesoftball  
-- **Instagram:** https://www.instagram.com/alohastatesoftballleague  
-- **Facebook:** https://www.facebook.com/profile.php?id=61562725435340  
-- **TeamSideline (Scores/Standings):** https://teamsideline.com/sites/aikaneohana/schedules  
-- **iPride (Affiliation):** http://ipridesoftball.org/  
-- **Photos — Eric Z Martin:** https://ericzmartin.com/  
-- **2025 Bylaws (Google Doc):** https://docs.google.com/document/d/1WVXGL7WZdNofOlHXv-ZwTB6xWIgGlyIvQmrkd3qVT44/edit?usp=sharing  
-- **2025 Gameplay Rules (Google Doc):** https://docs.google.com/document/d/1_xuo1yCFGg8UXqA6PR-imTX50Zg0jvBTya6zu_9bNUc/edit?usp=sharing  
-- **Tournament Info:** see **tournament.md** and the homepage banner for the Anuenue Classic.
+- **Website:** https://alohastatesoftball.com
+- **LinkTree (All Links):** https://linktr.ee/alohastatesoftball
+- **Instagram:** https://www.instagram.com/alohastatesoftballleague
+- **Facebook:** https://www.facebook.com/profile.php?id=61562725435340
+- **TeamSideline (Scores/Standings/Schedule):** https://teamsideline.com/sites/aikaneohana/schedules
+- **Photo Gallery — Eric Z Martin:** https://ericzmartin.com/
